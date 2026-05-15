@@ -9,27 +9,43 @@ namespace FreelanceExchange
     {
         private string connectionString;
         private string currentRole;
+        private int currentUserId;
 
-        public MainForm(string connStr, string role)
+        public MainForm(string connStr, string role, int userId)
         {
             InitializeComponent();
 
             connectionString = connStr;
+
             currentRole = role;
 
-            lblRole.Text = "Роль: " + currentRole;
+            currentUserId = userId;
 
-            ConfigureAccess();
-
+            lblRole.Text = $"Роль: {role} | ID: {userId}";
         }
 
+        // Загрузка таблиц БД
+        private void LoadTables()
+        {
+            cmbTables.Items.Clear();
+
+            cmbTables.Items.Add("users");
+            cmbTables.Items.Add("vacancies");
+            cmbTables.Items.Add("responses");
+            cmbTables.Items.Add("news");
+            cmbTables.Items.Add("feedback");
+            cmbTables.Items.Add("tags");
+
+            cmbTables.SelectedIndex = 0;
+        }
+
+        // Разграничение доступа
         private void ConfigureAccess()
         {
-            // Ограничение интерфейса
-
             if (currentRole == "Фрилансер")
             {
                 btnAdd.Enabled = false;
+                btnEdit.Enabled = false;
                 btnDelete.Enabled = false;
             }
 
@@ -39,12 +55,8 @@ namespace FreelanceExchange
             }
         }
 
-        private void btnLoad_Click(object sender, EventArgs e)
-        {
-            LoadVacancies();
-        }
-
-        private void LoadVacancies()
+        // Загрузка данных
+        private void btnLoadData_Click(object sender, EventArgs e)
         {
             try
             {
@@ -53,69 +65,18 @@ namespace FreelanceExchange
                 {
                     connection.Open();
 
-                    string sql =
-                        "SELECT id, title, budget, deadline " +
-                        "FROM vacancies";
+                    string table = cmbTables.Text;
+
+                    string sql = $"SELECT * FROM {table}";
 
                     NpgsqlDataAdapter adapter =
                         new NpgsqlDataAdapter(sql, connection);
 
-                    DataTable table = new DataTable();
+                    DataTable dataTable = new DataTable();
 
-                    adapter.Fill(table);
+                    adapter.Fill(dataTable);
 
-                    dgvVacancies.DataSource = table;
-                }
-            }
-
-            catch (Exception ex)
-            {
-                MessageBox.Show(
-                    ex.Message,
-                    "Ошибка",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
-            }
-        }
-
-        private void btnAdd_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                using (NpgsqlConnection connection =
-                       new NpgsqlConnection(connectionString))
-                {
-                    connection.Open();
-
-                    string sql =
-                        "INSERT INTO vacancies " +
-                        "(title, description, budget, deadline, author_id) " +
-                        "VALUES " +
-                        "(@title, @description, @budget, @deadline, @author)";
-
-                    NpgsqlCommand command =
-                        new NpgsqlCommand(sql, connection);
-
-                    command.Parameters.AddWithValue("@title",
-                        "Новая вакансия");
-
-                    command.Parameters.AddWithValue("@description",
-                        "Описание вакансии");
-
-                    command.Parameters.AddWithValue("@budget",
-                        50000);
-
-                    command.Parameters.AddWithValue("@deadline",
-                        DateTime.Now.AddDays(10));
-
-                    command.Parameters.AddWithValue("@author",
-                        1);
-
-                    command.ExecuteNonQuery();
-
-                    MessageBox.Show("Вакансия добавлена");
-
-                    LoadVacancies();
+                    dgvData.DataSource = dataTable;
                 }
             }
 
@@ -125,13 +86,69 @@ namespace FreelanceExchange
             }
         }
 
+        // Добавление записи
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            string table = cmbTables.Text;
+
+            try
+            {
+                using (NpgsqlConnection connection =
+                       new NpgsqlConnection(connectionString))
+                {
+                    connection.Open();
+
+                    string sql = "";
+
+                    if (table == "vacancies")
+                    {
+                        sql =
+                            "INSERT INTO vacancies " +
+                            "(title, description, budget, deadline, author_id) " +
+                            "VALUES " +
+                            "('Новая вакансия', 'Описание', 10000, NOW(), 1)";
+                    }
+
+                    else if (table == "tags")
+                    {
+                        sql =
+                            "INSERT INTO tags(name) VALUES('Новый тег')";
+                    }
+
+                    else
+                    {
+                        MessageBox.Show(
+                            "Добавление для таблицы не реализовано");
+                        return;
+                    }
+
+                    NpgsqlCommand command =
+                        new NpgsqlCommand(sql, connection);
+
+                    command.ExecuteNonQuery();
+
+                    MessageBox.Show("Запись добавлена");
+
+                    btnLoadData.PerformClick();
+                }
+            }
+
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        // Удаление записи
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            if (dgvVacancies.CurrentRow == null)
+            if (dgvData.CurrentRow == null)
                 return;
 
+            string table = cmbTables.Text;
+
             int id = Convert.ToInt32(
-                dgvVacancies.CurrentRow.Cells["id"].Value);
+                dgvData.CurrentRow.Cells["id"].Value);
 
             try
             {
@@ -141,7 +158,7 @@ namespace FreelanceExchange
                     connection.Open();
 
                     string sql =
-                        "DELETE FROM vacancies WHERE id=@id";
+                        $"DELETE FROM {table} WHERE id=@id";
 
                     NpgsqlCommand command =
                         new NpgsqlCommand(sql, connection);
@@ -152,7 +169,7 @@ namespace FreelanceExchange
 
                     MessageBox.Show("Удалено");
 
-                    LoadVacancies();
+                    btnLoadData.PerformClick();
                 }
             }
 
@@ -162,9 +179,66 @@ namespace FreelanceExchange
             }
         }
 
-        private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
+        // Изменение записи
+        private void btnEdit_Click(object sender, EventArgs e)
         {
+            if (dgvData.CurrentRow == null)
+                return;
 
+            string table = cmbTables.Text;
+
+            int id = Convert.ToInt32(
+                dgvData.CurrentRow.Cells["id"].Value);
+
+            try
+            {
+                using (NpgsqlConnection connection =
+                       new NpgsqlConnection(connectionString))
+                {
+                    connection.Open();
+
+                    string sql = "";
+
+                    if (table == "vacancies")
+                    {
+                        sql =
+                            "UPDATE vacancies " +
+                            "SET title='Изменено' " +
+                            "WHERE id=@id";
+                    }
+
+                    else if (table == "tags")
+                    {
+                        sql =
+                            "UPDATE tags " +
+                            "SET name='Изменённый тег' " +
+                            "WHERE id=@id";
+                    }
+
+                    else
+                    {
+                        MessageBox.Show(
+                            "Изменение для таблицы не реализовано");
+                        return;
+                    }
+
+                    NpgsqlCommand command =
+                        new NpgsqlCommand(sql, connection);
+
+                    command.Parameters.AddWithValue("@id", id);
+
+                    command.ExecuteNonQuery();
+
+                    MessageBox.Show("Изменено");
+
+                    btnLoadData.PerformClick();
+                }
+            }
+
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }
