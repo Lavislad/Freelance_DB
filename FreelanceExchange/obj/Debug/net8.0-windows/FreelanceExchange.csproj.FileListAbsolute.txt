@@ -23,3 +23,4 @@ F:\Колледж\ТРЗБД\Курсач\FreelanceExchange\FreelanceExchange\ob
 F:\Колледж\ТРЗБД\Курсач\FreelanceExchange\FreelanceExchange\obj\Debug\net8.0-windows\FreelanceExchange.pdb
 F:\Колледж\ТРЗБД\Курсач\FreelanceExchange\FreelanceExchange\obj\Debug\net8.0-windows\FreelanceExchange.genruntimeconfig.cache
 F:\Колледж\ТРЗБД\Курсач\FreelanceExchange\FreelanceExchange\obj\Debug\net8.0-windows\ref\FreelanceExchange.dll
+F:\Колледж\ТРЗБД\Курсач\FreelanceExchange\FreelanceExchange\obj\Debug\net8.0-windows\FreelanceExchange.MainForm.resources

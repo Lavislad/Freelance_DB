@@ -52,7 +52,10 @@ namespace FreelanceExchange
                 {
                     connection.Open();
 
-                    MessageBox.Show("Подключение успешно!");
+                    MainForm form = new MainForm(connectionString, cmbRole.Text);
+                    this.Hide();
+                    form.ShowDialog();
+                    this.Close();
                 }
             }
             catch (Exception ex)
