@@ -1,3 +1,5 @@
 .vs/
 postgres_data/
 *.log
+bin/
+obj/

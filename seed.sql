@@ -16,6 +16,32 @@
 -- COMMENT ON DATABASE postgres
 --     IS 'default administrative connection database';
 
+CREATE ROLE admin_role LOGIN PASSWORD 'admin123';
+CREATE ROLE customer_role LOGIN PASSWORD 'customer123';
+CREATE ROLE freelancer_role LOGIN PASSWORD 'free123';
+
+
+GRANT ALL PRIVILEGES
+ON ALL TABLES IN SCHEMA public
+TO admin_role;
+
+
+GRANT SELECT, INSERT, UPDATE, DELETE
+ON vacancies
+TO customer_role;
+
+GRANT SELECT
+ON responses
+TO customer_role;
+
+
+GRANT SELECT, INSERT, UPDATE, DELETE
+ON responses
+TO freelancer_role;
+
+GRANT SELECT, INSERT, UPDATE, DELETE
+ON feedbacks
+TO freelancer_role;
 
 INSERT INTO roles (name) VALUES
 ('Администратор'),
@@ -32,6 +58,15 @@ INSERT INTO users (
     role,
     role_id
 ) VALUES
+(
+    'Админ',
+    '',
+    'postgres',
+    '1',
+    '',
+    'Администратор',
+    1
+),
 (
     'Иван',
     'Петров',
