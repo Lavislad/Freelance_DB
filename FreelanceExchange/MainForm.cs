@@ -13,10 +13,7 @@ namespace FreelanceExchange
 
         private DataTable currentTable;
 
-        public MainForm(
-            string connStr,
-            string role,
-            int userId)
+        public MainForm(string connStr, string role, int userId)
         {
             InitializeComponent();
 
@@ -24,8 +21,7 @@ namespace FreelanceExchange
             currentRole = role;
             currentUserId = userId;
 
-            lblRole.Text =
-                $"Роль: {role} | ID: {userId}";
+            lblRole.Text = $"Роль: {role} | ID: {userId}";
 
             LoadTables();
 
@@ -86,8 +82,7 @@ namespace FreelanceExchange
         {
             try
             {
-                using (NpgsqlConnection connection =
-                       new NpgsqlConnection(connectionString))
+                using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
                 {
                     connection.Open();
 
@@ -136,18 +131,14 @@ namespace FreelanceExchange
                         }
                     }
 
-                    NpgsqlCommand command =
-                        new NpgsqlCommand(sql, connection);
+                    NpgsqlCommand command = new NpgsqlCommand(sql, connection);
 
                     if (currentRole != "Администратор")
                     {
-                        command.Parameters.AddWithValue(
-                            "@id",
-                            currentUserId);
+                        command.Parameters.AddWithValue("@id", currentUserId);
                     }
 
-                    NpgsqlDataAdapter adapter =
-                        new NpgsqlDataAdapter(command);
+                    NpgsqlDataAdapter adapter = new NpgsqlDataAdapter(command);
 
                     currentTable = new DataTable();
 
@@ -170,8 +161,7 @@ namespace FreelanceExchange
 
             try
             {
-                using (NpgsqlConnection connection =
-                       new NpgsqlConnection(connectionString))
+                using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
                 {
                     connection.Open();
 
@@ -224,19 +214,14 @@ namespace FreelanceExchange
                     // Админ
                     else
                     {
-                        MessageBox.Show(
-                            "Добавление для администратора " +
-                            "лучше делать напрямую через таблицу");
+                        MessageBox.Show("Добавление для администратора лучше делать напрямую через таблицу");
 
                         return;
                     }
 
-                    NpgsqlCommand command =
-                        new NpgsqlCommand(sql, connection);
+                    NpgsqlCommand command = new NpgsqlCommand(sql, connection);
 
-                    command.Parameters.AddWithValue(
-                        "@userId",
-                        currentUserId);
+                    command.Parameters.AddWithValue("@userId", currentUserId);
 
                     command.ExecuteNonQuery();
 
@@ -260,13 +245,11 @@ namespace FreelanceExchange
 
             string table = cmbTables.Text;
 
-            int id = Convert.ToInt32(
-                dgvData.CurrentRow.Cells["id"].Value);
+            int id = Convert.ToInt32(dgvData.CurrentRow.Cells["id"].Value);
 
             try
             {
-                using (NpgsqlConnection connection =
-                       new NpgsqlConnection(connectionString))
+                using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
                 {
                     connection.Open();
 
@@ -319,16 +302,13 @@ namespace FreelanceExchange
                         }
                     }
 
-                    NpgsqlCommand command =
-                        new NpgsqlCommand(sql, connection);
+                    NpgsqlCommand command = new NpgsqlCommand(sql, connection);
 
                     command.Parameters.AddWithValue("@id", id);
 
                     if (currentRole != "Администратор")
                     {
-                        command.Parameters.AddWithValue(
-                            "@userId",
-                            currentUserId);
+                        command.Parameters.AddWithValue("@userId", currentUserId);
                     }
 
                     command.ExecuteNonQuery();
@@ -350,8 +330,7 @@ namespace FreelanceExchange
         {
             try
             {
-                using (NpgsqlConnection connection =
-                       new NpgsqlConnection(connectionString))
+                using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
                 {
                     connection.Open();
 
@@ -363,8 +342,7 @@ namespace FreelanceExchange
                             continue;
 
                         int id =
-                            Convert.ToInt32(
-                                row.Cells["id"].Value);
+                            Convert.ToInt32(row.Cells["id"].Value);
 
                         // vacancies
                         if (table == "vacancies")
@@ -382,31 +360,19 @@ namespace FreelanceExchange
                                     " AND author_id=@userId";
                             }
 
-                            NpgsqlCommand command =
-                                new NpgsqlCommand(sql, connection);
+                            NpgsqlCommand command = new NpgsqlCommand(sql, connection);
 
-                            command.Parameters.AddWithValue(
-                                "@title",
-                                row.Cells["title"].Value);
+                            command.Parameters.AddWithValue("@title", row.Cells["title"].Value);
 
-                            command.Parameters.AddWithValue(
-                                "@description",
-                                row.Cells["description"].Value);
+                            command.Parameters.AddWithValue("@description", row.Cells["description"].Value);
 
-                            command.Parameters.AddWithValue(
-                                "@budget",
-                                Convert.ToDecimal(
-                                    row.Cells["budget"].Value));
+                            command.Parameters.AddWithValue("@budget", Convert.ToDecimal(row.Cells["budget"].Value));
 
-                            command.Parameters.AddWithValue(
-                                "@id",
-                                id);
+                            command.Parameters.AddWithValue("@id", id);
 
                             if (currentRole == "Заказчик")
                             {
-                                command.Parameters.AddWithValue(
-                                    "@userId",
-                                    currentUserId);
+                                command.Parameters.AddWithValue("@userId", currentUserId);
                             }
 
                             command.ExecuteNonQuery();
@@ -427,26 +393,17 @@ namespace FreelanceExchange
                                     " AND user_id=@userId";
                             }
 
-                            NpgsqlCommand command =
-                                new NpgsqlCommand(sql, connection);
+                            NpgsqlCommand command = new NpgsqlCommand(sql, connection);
 
-                            command.Parameters.AddWithValue(
-                                "@title",
-                                row.Cells["title"].Value);
+                            command.Parameters.AddWithValue("@title", row.Cells["title"].Value);
 
-                            command.Parameters.AddWithValue(
-                                "@message",
-                                row.Cells["message"].Value);
+                            command.Parameters.AddWithValue("@message", row.Cells["message"].Value);
 
-                            command.Parameters.AddWithValue(
-                                "@id",
-                                id);
+                            command.Parameters.AddWithValue("@id", id);
 
                             if (currentRole != "Администратор")
                             {
-                                command.Parameters.AddWithValue(
-                                    "@userId",
-                                    currentUserId);
+                                command.Parameters.AddWithValue("@userId", currentUserId);
                             }
 
                             command.ExecuteNonQuery();
@@ -466,22 +423,15 @@ namespace FreelanceExchange
                                     " AND user_id=@userId";
                             }
 
-                            NpgsqlCommand command =
-                                new NpgsqlCommand(sql, connection);
+                            NpgsqlCommand command = new NpgsqlCommand(sql, connection);
 
-                            command.Parameters.AddWithValue(
-                                "@message",
-                                row.Cells["message"].Value);
+                            command.Parameters.AddWithValue("@message", row.Cells["message"].Value);
 
-                            command.Parameters.AddWithValue(
-                                "@id",
-                                id);
+                            command.Parameters.AddWithValue("@id", id);
 
                             if (currentRole == "Фрилансер")
                             {
-                                command.Parameters.AddWithValue(
-                                    "@userId",
-                                    currentUserId);
+                                command.Parameters.AddWithValue("@userId", currentUserId);
                             }
 
                             command.ExecuteNonQuery();
