@@ -59,6 +59,15 @@ INSERT INTO users (
     role_id
 ) VALUES
 (
+    '',
+    '',
+    'postgres',
+    '1',
+    '',
+    'Администратор',
+    1
+),
+(
     'Иван',
     'Петров',
     'ivan.petrov@mail.ru',
