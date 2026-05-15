@@ -59,7 +59,7 @@ INSERT INTO users (
     role_id
 ) VALUES
 (
-    '',
+    'Админ',
     '',
     'postgres',
     '1',

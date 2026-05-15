@@ -21,12 +21,11 @@ namespace FreelanceExchange
                 "Port=5432;" +
                 "Database=freelance_db;" +
                 "Username=postgres;" +
-                "Password=12345";
+                "Password=1";
 
             try
             {
-                using (NpgsqlConnection connection =
-                       new NpgsqlConnection(adminConnection))
+                using (NpgsqlConnection connection = new NpgsqlConnection(adminConnection))
                 {
                     connection.Open();
 
@@ -36,27 +35,19 @@ namespace FreelanceExchange
                         "WHERE email=@email " +
                         "AND password=@password";
 
-                    NpgsqlCommand command =
-                        new NpgsqlCommand(sql, connection);
+                    NpgsqlCommand command = new NpgsqlCommand(sql, connection);
 
-                    command.Parameters.AddWithValue(
-                        "@email",
-                        txtLogin.Text);
+                    command.Parameters.AddWithValue("@email", txtLogin.Text);
 
-                    command.Parameters.AddWithValue(
-                        "@password",
-                        txtPassword.Text);
+                    command.Parameters.AddWithValue("@password", txtPassword.Text);
 
-                    NpgsqlDataReader reader =
-                        command.ExecuteReader();
+                    NpgsqlDataReader reader = command.ExecuteReader();
 
                     if (reader.Read())
                     {
-                        currentUserId =
-                            Convert.ToInt32(reader["id"]);
+                        currentUserId = Convert.ToInt32(reader["id"]);
 
-                        currentUserRole =
-                            reader["role"].ToString();
+                        currentUserRole = reader["role"].ToString();
 
                         string connectionString = "";
 
@@ -93,18 +84,14 @@ namespace FreelanceExchange
                         }
 
                         MainForm form = new MainForm(connectionString, currentUserRole, currentUserId);
-
                         this.Hide();
-
                         form.ShowDialog();
-
                         this.Close();
                     }
 
                     else
                     {
-                        MessageBox.Show(
-                            "Неверный логин или пароль");
+                        MessageBox.Show("Неверный логин или пароль");
                     }
                 }
             }
