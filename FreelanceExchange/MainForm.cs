@@ -169,6 +169,9 @@ namespace FreelanceExchange
             if (dgvData.CurrentRow == null)
                 return;
 
+            if (dgvData.CurrentRow.IsNewRow)
+                return;
+
             string table = cmbTables.Text;
 
             int id = Convert.ToInt32(dgvData.CurrentRow.Cells["id"].Value);
@@ -315,7 +318,7 @@ namespace FreelanceExchange
 
                 command.Parameters.AddWithValue("@budget", Convert.ToDecimal(row["budget"]));
 
-                command.Parameters.AddWithValue("@deadline", Convert.ToDateTime(row["deadline"]));
+                command.Parameters.AddWithValue("@deadline", DateTime.Parse(row["deadline"].ToString()));
 
                 command.Parameters.AddWithValue("@userId", currentUserId);
             }
@@ -543,6 +546,10 @@ namespace FreelanceExchange
             if (dgvData.Columns.Contains("creation_date"))
             {
                 dgvData.Columns["creation_date"].ReadOnly = true;
+            }
+            if (dgvData.Columns.Contains("author_id"))
+            {
+                dgvData.Columns["author_id"].ReadOnly = true;
             }
         }
 
