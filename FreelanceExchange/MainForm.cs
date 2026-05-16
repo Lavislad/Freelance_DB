@@ -468,6 +468,7 @@ namespace FreelanceExchange
             catch (Exception ex)
             {
                 MessageBox.Show($"Ошибка при добавлении записи: {ex.Message}");
+                return false;
             }
 
             return true;
@@ -575,29 +576,20 @@ namespace FreelanceExchange
 
                     if (currentRole != "Администратор")
                     {
-                        sql +=
-                            " AND user_id=@userId";
+                        sql += " AND user_id=@userId";
                     }
 
                     command = new NpgsqlCommand(sql, connection);
 
-                    command.Parameters.AddWithValue(
-                        "@title",
-                        row["title"]);
+                    command.Parameters.AddWithValue("@title", row["title"]);
 
-                    command.Parameters.AddWithValue(
-                        "@message",
-                        row["message"]);
+                    command.Parameters.AddWithValue("@message", row["message"]);
 
-                    command.Parameters.AddWithValue(
-                        "@id",
-                        id);
+                    command.Parameters.AddWithValue("@id", id);
 
                     if (currentRole != "Администратор")
                     {
-                        command.Parameters.AddWithValue(
-                            "@userId",
-                            currentUserId);
+                        command.Parameters.AddWithValue("@userId", currentUserId);
                     }
                 }
 
@@ -606,30 +598,26 @@ namespace FreelanceExchange
                 {
                     sql =
                         "UPDATE responses " +
-                        "SET message=@message " +
+                        "SET vacancy_id=@vacancy_id, " +
+                        "message=@message " +
                         "WHERE id=@id";
 
                     if (currentRole == "Фрилансер")
                     {
-                        sql +=
-                            " AND user_id=@userId";
+                        sql += " AND user_id=@userId";
                     }
 
                     command = new NpgsqlCommand(sql, connection);
 
-                    command.Parameters.AddWithValue(
-                        "@message",
-                        row["message"]);
+                    command.Parameters.AddWithValue("@vacancy_id", row["vacancy_id"]);
 
-                    command.Parameters.AddWithValue(
-                        "@id",
-                        id);
+                    command.Parameters.AddWithValue("@message", row["message"]);
+
+                    command.Parameters.AddWithValue("@id", id);
 
                     if (currentRole == "Фрилансер")
                     {
-                        command.Parameters.AddWithValue(
-                            "@userId",
-                            currentUserId);
+                        command.Parameters.AddWithValue("@userId", currentUserId);
                     }
                 }
 
@@ -643,6 +631,7 @@ namespace FreelanceExchange
             catch (Exception ex)
             {
                 MessageBox.Show($"Ошибка при обновлении записи: {ex.Message}");
+                return false;
             }
 
             return true;
