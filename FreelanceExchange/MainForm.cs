@@ -169,8 +169,26 @@ namespace FreelanceExchange
             if (dgvData.CurrentRow == null)
                 return;
 
-            if (dgvData.CurrentRow.IsNewRow)
+            bool rowIsEmpty = false;
+            for (int i = 0; i < dgvData.ColumnCount; i++)
+            {
+                if (string.IsNullOrEmpty(dgvData.CurrentRow.Cells[i].Value?.ToString()))
+                {
+                    rowIsEmpty = true;
+                    break;
+                }
+            }
+            if (rowIsEmpty)
+            {
+                dgvData.Rows.Remove(dgvData.CurrentRow);
                 return;
+            }
+
+            if (MessageBox.Show("Вы уверены, что хотите удалить эту запись?", "Подтверждение удаления", MessageBoxButtons.YesNo) == DialogResult.No)
+            {
+                return;
+            }
+
 
             string table = cmbTables.Text;
 
@@ -241,8 +259,6 @@ namespace FreelanceExchange
                     }
 
                     command.ExecuteNonQuery();
-
-                    MessageBox.Show("Удалено");
 
                     LoadData();
                 }
