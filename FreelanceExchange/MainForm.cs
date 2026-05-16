@@ -621,6 +621,27 @@ namespace FreelanceExchange
                     }
                 }
 
+                // NEWS
+                else if (table == "news")
+                {
+                    sql =
+                        "UPDATE news " +
+                        "SET title=@title, " +
+                        "anons=@anons, " +
+                        "content=@content " +
+                        "WHERE id=@id";
+
+                    command = new NpgsqlCommand(sql, connection);
+
+                    command.Parameters.AddWithValue("@title", row["title"]);
+
+                    command.Parameters.AddWithValue("@anons", row["anons"]);
+
+                    command.Parameters.AddWithValue("@content", row["content"]);
+
+                    command.Parameters.AddWithValue("@id", id);
+                }
+
                 else
                 {
                     return false;
