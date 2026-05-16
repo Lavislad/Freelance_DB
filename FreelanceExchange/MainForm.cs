@@ -23,8 +23,6 @@ namespace FreelanceExchange
 
             lblRole.Text = $"Роль: {role} | ID: {userId}";
 
-            //cmbTables.SelectedItem = "users";
-
             LoadTables();
 
             ConfigureAccess();
@@ -403,9 +401,9 @@ namespace FreelanceExchange
                 {
                     sql =
                         "INSERT INTO feedbacks " +
-                        "(title, message, user_id) " +
+                        "(title, message, author_id) " +
                         "VALUES " +
-                        "(@title, @message, @userId)";
+                        "(@title, @message, @author_id)";
 
                     command = new NpgsqlCommand(sql, connection);
 
@@ -413,7 +411,7 @@ namespace FreelanceExchange
 
                     command.Parameters.AddWithValue("@message", row["message"]);
 
-                    command.Parameters.AddWithValue("@userId", currentUserId);
+                    command.Parameters.AddWithValue("@author_id", currentUserId);
                 }
 
                 // RESPONSES
