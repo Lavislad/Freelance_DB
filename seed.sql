@@ -29,10 +29,17 @@ GRANT SELECT, INSERT, UPDATE, DELETE
 ON vacancies, feedbacks
 TO customer_role;
 
+GRANT SELECT, UPDATE
+ON users
+TO customer_role;
+
 GRANT SELECT, INSERT, UPDATE, DELETE
 ON responses, feedbacks
 TO freelancer_role;
 
+GRANT SELECT, UPDATE
+ON users
+TO freelancer_role;
 
 GRANT USAGE, SELECT
 ON ALL SEQUENCES IN SCHEMA public

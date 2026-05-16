@@ -116,6 +116,13 @@ namespace FreelanceExchange
                                 "SELECT * FROM feedbacks " +
                                 "WHERE author_id=@id";
                         }
+
+                        else if (table == "users")
+                        {
+                            sql =
+                                "SELECT * FROM users " +
+                                "WHERE id=@id";
+                        }
                     }
 
                     NpgsqlCommand command = new NpgsqlCommand(sql, connection);
@@ -457,7 +464,7 @@ namespace FreelanceExchange
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Ошибка при добавлении записи: {ex.Message}");
+                MessageBox.Show($"Ошибка при добавлении записи\n{ex.Message}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
 
