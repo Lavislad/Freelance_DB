@@ -99,6 +99,7 @@
             btnLogout.TabIndex = 7;
             btnLogout.Text = "Выход";
             btnLogout.UseVisualStyleBackColor = true;
+            btnLogout.Click += btnLogout_Click;
             // 
             // MainForm
             // 

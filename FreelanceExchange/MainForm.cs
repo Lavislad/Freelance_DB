@@ -475,5 +475,17 @@ namespace FreelanceExchange
                     break;
             }
         }
+
+        private void btnLogout_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("Вы уверены, что хотите выйти из системы?", "Выйти из системы?", MessageBoxButtons.YesNo);
+            if (result == DialogResult.Yes)
+            {
+                LoginForm form = new LoginForm();
+                this.Hide();
+                form.ShowDialog();
+                this.Close();
+            }
+        }
     }
 }
