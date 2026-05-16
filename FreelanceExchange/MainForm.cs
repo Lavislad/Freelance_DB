@@ -642,6 +642,21 @@ namespace FreelanceExchange
                     command.Parameters.AddWithValue("@id", id);
                 }
 
+                // TAGS
+                else if (table == "tags")
+                {
+                    sql =
+                        "UPDATE tags " +
+                        "SET name=@name " +
+                        "WHERE id=@id";
+
+                    command = new NpgsqlCommand(sql, connection);
+
+                    command.Parameters.AddWithValue("@name", row["name"]);
+
+                    command.Parameters.AddWithValue("@id", id);
+                }
+
                 else
                 {
                     return false;
