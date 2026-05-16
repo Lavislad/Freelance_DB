@@ -23,6 +23,8 @@ namespace FreelanceExchange
 
             lblRole.Text = $"Роль: {role} | ID: {userId}";
 
+            //cmbTables.SelectedItem = "users";
+
             LoadTables();
 
             ConfigureAccess();
@@ -585,37 +587,37 @@ namespace FreelanceExchange
             switch (table)
             {
                 case "users":
+                    LoadData();
                     dgvData.Columns["id"].ReadOnly = true;
                     dgvData.Columns["registration_date"].ReadOnly = true;
-                    LoadData();
                     break;
                 case "vacancies":
+                    LoadData();
                     dgvData.Columns["id"].ReadOnly = true;
                     dgvData.Columns["publication_date"].ReadOnly = true;
                     dgvData.Columns["author_id"].ReadOnly = true;
-                    LoadData();
                     break;
                 case "feedbacks":
+                    LoadData();
                     dgvData.Columns["id"].ReadOnly = true;
                     dgvData.Columns["send_date"].ReadOnly = true;
                     dgvData.Columns["author_id"].ReadOnly = true;
-                    LoadData();
                     break;
                 case "responses":
+                    LoadData();
                     dgvData.Columns["id"].ReadOnly = true;
                     dgvData.Columns["user_id"].ReadOnly = true;
                     dgvData.Columns["created_at"].ReadOnly = true;
-                    LoadData();
                     break;
                 case "news":
+                    LoadData();
                     dgvData.Columns["id"].ReadOnly = true;
                     dgvData.Columns["creation_date"].ReadOnly = true;
                     dgvData.Columns["author_id"].ReadOnly = true;
-                    LoadData();
                     break;
                 case "tags":
-                    dgvData.Columns["id"].ReadOnly = true;
                     LoadData();
+                    dgvData.Columns["id"].ReadOnly = true;
                     break;
             }
         }
