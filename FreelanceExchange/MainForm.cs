@@ -169,16 +169,7 @@ namespace FreelanceExchange
             if (dgvData.CurrentRow == null)
                 return;
 
-            bool rowIsEmpty = false;
-            for (int i = 0; i < dgvData.ColumnCount; i++)
-            {
-                if (string.IsNullOrEmpty(dgvData.CurrentRow.Cells[i].Value?.ToString()))
-                {
-                    rowIsEmpty = true;
-                    break;
-                }
-            }
-            if (rowIsEmpty)
+            if (string.IsNullOrEmpty(dgvData.CurrentRow.Cells["id"].Value.ToString()))
             {
                 dgvData.Rows.Remove(dgvData.CurrentRow);
                 return;
