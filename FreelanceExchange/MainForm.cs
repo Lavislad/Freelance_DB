@@ -446,6 +446,26 @@ namespace FreelanceExchange
                     command.Parameters.AddWithValue("@name", row["name"]);
                 }
 
+                // NEWS
+                else if (table == "news")
+                {
+                    sql =
+                        "INSERT INTO news " +
+                        "(title, anons, content, author_id) " +
+                        "VALUES " +
+                        "(@title, @anons, @content, @author_id)";
+
+                    command = new NpgsqlCommand(sql, connection);
+
+                    command.Parameters.AddWithValue("@title", row["title"]);
+
+                    command.Parameters.AddWithValue("@anons", row["anons"]);
+
+                    command.Parameters.AddWithValue("@content", row["content"]);
+
+                    command.Parameters.AddWithValue("@author_id", currentUserId);
+                }
+
                 else
                 {
                     return false;
