@@ -275,8 +275,7 @@ namespace FreelanceExchange
         {
             try
             {
-                using (NpgsqlConnection connection =
-                       new NpgsqlConnection(connectionString))
+                using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
                 {
                     connection.Open();
 
@@ -287,7 +286,8 @@ namespace FreelanceExchange
                         // ДОБАВЛЕНИЕ
                         if (row.RowState == DataRowState.Added)
                         {
-                            SaveNewRow(connection, table, row);
+                            if (!SaveNewRow(connection, table, row))
+                                return;
                         }
 
                         // ИЗМЕНЕНИЕ
@@ -299,8 +299,6 @@ namespace FreelanceExchange
 
                     currentTable.AcceptChanges();
 
-                    MessageBox.Show("Изменения сохранены");
-
                     LoadData();
                 }
             }
@@ -311,120 +309,176 @@ namespace FreelanceExchange
             }
         }
 
-        private void SaveNewRow(NpgsqlConnection connection, string table, DataRow row)
+        private bool SaveNewRow(NpgsqlConnection connection, string table, DataRow row)
         {
-            string sql = "";
-
-            NpgsqlCommand command;
-
-            // USERS
-            if (table == "users")
+            try
             {
-                sql =
-                    "INSERT INTO users " +
-                    "(name, surname, email, password, profile_description, role) " +
-                    "VALUES " +
-                    "(@name, @surname, @email, @password, @profile_description, @role, @role_id)";
+                string sql = "";
 
-                command = new NpgsqlCommand(sql, connection);
+                NpgsqlCommand command;
 
-                command.Parameters.AddWithValue("@name", row["name"]);
-
-                command.Parameters.AddWithValue("@surname", row["surname"]);
-
-                command.Parameters.AddWithValue("@email", row["email"]);
-
-                command.Parameters.AddWithValue("@password", row["password"]);
-
-                command.Parameters.AddWithValue("@profile_description", row["profile_description"]);
-                
-                command.Parameters.AddWithValue("@role", row["role"]);
-
-                int role_id;
-                string role = row["role"].ToString();
-                switch (role)
+                // USERS
+                if (table == "users")
                 {
-                    case "Администратор":
-                        role_id = 1;
-                        break;
-                    case "Заказчик":
-                        role_id = 2;
-                        break;
-                    case "Фрилансер":
-                        role_id = 3;
-                        break;
-                    default:
-                        MessageBox.Show("Неккорктно указана роль пользователя!", "Предупреждение", MessageBoxButtons.OK);
-                        return;
+                    sql =
+                        "INSERT INTO users " +
+                        "(name, surname, email, password, profile_description, role, role_id) " +
+                        "VALUES " +
+                        "(@name, @surname, @email, @password, @profile_description, @role, @role_id)";
+
+                    command = new NpgsqlCommand(sql, connection);
+
+                    command.Parameters.AddWithValue("@name", row["name"]);
+
+                    command.Parameters.AddWithValue("@surname", row["surname"]);
+
+                    command.Parameters.AddWithValue("@email", row["email"]);
+
+                    command.Parameters.AddWithValue("@password", row["password"]);
+
+                    command.Parameters.AddWithValue("@profile_description", row["profile_description"]);
+
+                    string role = row["role"].ToString();
+                    if (role != "Администратор" && role != "Заказчик" && role != "Фрилансер")
+                    {
+                        MessageBox.Show("Недопустимое значение для role. Допустимые значения:\nАдминистратор,\nЗаказчик,\nФрилансер.", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        return false;
+                    }
+
+                    command.Parameters.AddWithValue("@role", row["role"]);
+
+                    int role_id = int.Parse(row["role_id"].ToString());
+                    if (role_id < 1 || role_id > 3)
+                    {
+                        MessageBox.Show("Недопустимое значение для role_id. Допустимые значения:\n1 (Администратор),\n2 (Заказчик),\n3 (Фрилансер).", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        return false;
+                    }
+
+                    command.Parameters.AddWithValue("@role_id", role_id);
                 }
 
-                command.Parameters.AddWithValue("@role_id", role_id);
-            }
+                // VACANCIES
+                else if (table == "vacancies")
+                {
+                    sql =
+                        "INSERT INTO vacancies " +
+                        "(title, description, budget, deadline, author_id) " +
+                        "VALUES " +
+                        "(@title, @description, @budget, @deadline, @userId)";
 
-            // VACANCIES
-            if (table == "vacancies")
+                    command = new NpgsqlCommand(sql, connection);
+
+                    command.Parameters.AddWithValue("@title", row["title"]);
+
+                    command.Parameters.AddWithValue("@description", row["description"]);
+
+                    command.Parameters.AddWithValue("@budget", Convert.ToDecimal(row["budget"]));
+
+                    command.Parameters.AddWithValue("@deadline", DateTime.Parse(row["deadline"].ToString()));
+
+                    command.Parameters.AddWithValue("@userId", currentUserId);
+                }
+
+                else if (table == "responses")
+                {
+                    sql =
+                        "INSERT INTO responses " +
+                        "(vacancy_id, user_id, message) " +
+                        "VALUES " +
+                        "(@vacancy_id, @user_id, @message)";
+
+                    command = new NpgsqlCommand(sql, connection);
+
+                    command.Parameters.AddWithValue("@vacancy_id", Convert.ToInt32(row["vacancy_id"]));
+
+                    command.Parameters.AddWithValue("@user_id", currentUserId);
+
+                    command.Parameters.AddWithValue("@message", row["message"]);
+                }
+
+                // FEEDBACKS
+                else if (table == "feedbacks")
+                {
+                    sql =
+                        "INSERT INTO feedbacks " +
+                        "(title, message, author_id) " +
+                        "VALUES " +
+                        "(@title, @message, @author_id)";
+
+                    command = new NpgsqlCommand(sql, connection);
+
+                    command.Parameters.AddWithValue("@title", row["title"]);
+
+                    command.Parameters.AddWithValue("@message", row["message"]);
+
+                    command.Parameters.AddWithValue("@author_id", currentUserId);
+                }
+
+                // RESPONSES
+                else if (table == "responses")
+                {
+                    sql =
+                        "INSERT INTO responses " +
+                        "(message, vacancy_id, user_id) " +
+                        "VALUES " +
+                        "(@message, @vacancyId, @userId)";
+
+                    command = new NpgsqlCommand(sql, connection);
+
+                    command.Parameters.AddWithValue("@message", row["message"]);
+
+                    command.Parameters.AddWithValue("@vacancyId", Convert.ToInt32(row["vacancy_id"]));
+
+                    command.Parameters.AddWithValue("@userId", currentUserId);
+                }
+
+                // TAGS
+                else if (table == "tags")
+                {
+                    sql =
+                        "INSERT INTO tags " +
+                        "(name) " +
+                        "VALUES " +
+                        "(@name)";
+
+                    command = new NpgsqlCommand(sql, connection);
+
+                    command.Parameters.AddWithValue("@name", row["name"]);
+                }
+
+                // NEWS
+                else if (table == "news")
+                {
+                    sql =
+                        "INSERT INTO news " +
+                        "(title, anons, content, author_id) " +
+                        "VALUES " +
+                        "(@title, @anons, @content, @author_id)";
+
+                    command = new NpgsqlCommand(sql, connection);
+
+                    command.Parameters.AddWithValue("@title", row["title"]);
+
+                    command.Parameters.AddWithValue("@anons", row["anons"]);
+
+                    command.Parameters.AddWithValue("@content", row["content"]);
+
+                    command.Parameters.AddWithValue("@author_id", currentUserId);
+                }
+
+                else
+                {
+                    return false;
+                }
+
+                command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
             {
-                sql =
-                    "INSERT INTO vacancies " +
-                    "(title, description, budget, deadline, author_id) " +
-                    "VALUES " +
-                    "(@title, @description, @budget, @deadline, @userId)";
-
-                command = new NpgsqlCommand(sql, connection);
-
-                command.Parameters.AddWithValue("@title", row["title"]);
-
-                command.Parameters.AddWithValue("@description", row["description"]);
-
-                command.Parameters.AddWithValue("@budget", Convert.ToDecimal(row["budget"]));
-
-                command.Parameters.AddWithValue("@deadline", DateTime.Parse(row["deadline"].ToString()));
-
-                command.Parameters.AddWithValue("@userId", currentUserId);
+                MessageBox.Show($"Ошибка при добавлении записи: {ex.Message}");
             }
 
-            // FEEDBACKS
-            else if (table == "feedbacks")
-            {
-                sql =
-                    "INSERT INTO feedbacks " +
-                    "(title, message, user_id) " +
-                    "VALUES " +
-                    "(@title, @message, @userId)";
-
-                command = new NpgsqlCommand(sql, connection);
-
-                command.Parameters.AddWithValue("@title", row["title"]);
-
-                command.Parameters.AddWithValue("@message", row["message"]);
-
-                command.Parameters.AddWithValue("@userId", currentUserId);
-            }
-
-            // RESPONSES
-            else if (table == "responses")
-            {
-                sql =
-                    "INSERT INTO responses " +
-                    "(message, vacancy_id, user_id) " +
-                    "VALUES " +
-                    "(@message, @vacancyId, @userId)";
-
-                command = new NpgsqlCommand(sql, connection);
-
-                command.Parameters.AddWithValue("@message", row["message"]);
-
-                command.Parameters.AddWithValue("@vacancyId", Convert.ToInt32(row["vacancy_id"]));
-
-                command.Parameters.AddWithValue("@userId", currentUserId);
-            }
-
-            else
-            {
-                return;
-            }
-
-            command.ExecuteNonQuery();
+            return true;
         }
 
         private void UpdateRow(NpgsqlConnection connection, string table, DataRow row)
@@ -566,50 +620,37 @@ namespace FreelanceExchange
             {
                 case "users":
                     LoadData();
+                    dgvData.Columns["id"].ReadOnly = true;
+                    dgvData.Columns["registration_date"].ReadOnly = true;
                     break;
                 case "vacancies":
                     LoadData();
+                    dgvData.Columns["id"].ReadOnly = true;
+                    dgvData.Columns["publication_date"].ReadOnly = true;
+                    dgvData.Columns["author_id"].ReadOnly = true;
                     break;
                 case "feedbacks":
                     LoadData();
+                    dgvData.Columns["id"].ReadOnly = true;
+                    dgvData.Columns["send_date"].ReadOnly = true;
+                    dgvData.Columns["author_id"].ReadOnly = true;
                     break;
                 case "responses":
                     LoadData();
+                    dgvData.Columns["id"].ReadOnly = true;
+                    dgvData.Columns["user_id"].ReadOnly = true;
+                    dgvData.Columns["created_at"].ReadOnly = true;
                     break;
                 case "news":
                     LoadData();
+                    dgvData.Columns["id"].ReadOnly = true;
+                    dgvData.Columns["creation_date"].ReadOnly = true;
+                    dgvData.Columns["author_id"].ReadOnly = true;
                     break;
                 case "tags":
                     LoadData();
+                    dgvData.Columns["id"].ReadOnly = true;
                     break;
-            }
-            if (dgvData.Columns.Contains("id"))
-            {
-                dgvData.Columns["id"].ReadOnly = true;
-            }
-            if (dgvData.Columns.Contains("publication_date"))
-            {
-                dgvData.Columns["publication_date"].ReadOnly = true;
-            }
-            if (dgvData.Columns.Contains("registration_date"))
-            {
-                dgvData.Columns["registration_date"].ReadOnly = true;
-            }
-            if (dgvData.Columns.Contains("created_at"))
-            {
-                dgvData.Columns["created_at"].ReadOnly = true;
-            }
-            if (dgvData.Columns.Contains("send_date"))
-            {
-                dgvData.Columns["send_date"].ReadOnly = true;
-            }
-            if (dgvData.Columns.Contains("creation_date"))
-            {
-                dgvData.Columns["creation_date"].ReadOnly = true;
-            }
-            if (dgvData.Columns.Contains("author_id"))
-            {
-                dgvData.Columns["author_id"].ReadOnly = true;
             }
         }
 
