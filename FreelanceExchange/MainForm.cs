@@ -24,8 +24,6 @@ namespace FreelanceExchange
             lblRole.Text = $"Роль: {role} | ID: {userId}";
 
             LoadTables();
-
-            ConfigureAccess();
         }
 
         // Загрузка списка таблиц
@@ -45,31 +43,19 @@ namespace FreelanceExchange
 
             else if (currentRole == "Заказчик")
             {
+                cmbTables.Items.Add("users");
                 cmbTables.Items.Add("vacancies");
                 cmbTables.Items.Add("feedbacks");
             }
 
             else if (currentRole == "Фрилансер")
             {
+                cmbTables.Items.Add("users");
                 cmbTables.Items.Add("responses");
                 cmbTables.Items.Add("feedbacks");
             }
 
             cmbTables.SelectedIndex = 0;
-        }
-
-        // Ограничение кнопок
-        private void ConfigureAccess()
-        {
-            if (currentRole == "Фрилансер")
-            {
-                btnAdd.Text = "Добавить отклик";
-            }
-
-            if (currentRole == "Заказчик")
-            {
-                btnAdd.Text = "Добавить";
-            }
         }
 
         private bool LoadData()
@@ -104,6 +90,13 @@ namespace FreelanceExchange
                             sql =
                                 "SELECT * FROM feedbacks " +
                                 "WHERE author_id=@id";
+                        }
+
+                        else if (table == "users")
+                        {
+                            sql =
+                                "SELECT * FROM users " +
+                                "WHERE id=@id";
                         }
                     }
 
