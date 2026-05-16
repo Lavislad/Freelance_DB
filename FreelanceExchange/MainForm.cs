@@ -449,5 +449,31 @@ namespace FreelanceExchange
                 MessageBox.Show(ex.Message);
             }
         }
+
+        private void cmbTables_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string table = cmbTables.Text;
+            switch (table)
+            {
+                case "users":
+                    LoadData();
+                    break;
+                case "vacancies":
+                    LoadData();
+                    break;
+                case "feedbacks":
+                    LoadData();
+                    break;
+                case "responses":
+                    LoadData();
+                    break;
+                case "news":
+                    LoadData();
+                    break;
+                case "tags":
+                    LoadData();
+                    break;
+            }
+        }
     }
 }
