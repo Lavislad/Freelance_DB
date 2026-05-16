@@ -26,20 +26,11 @@ ON ALL TABLES IN SCHEMA public
 TO admin_role;
 
 GRANT SELECT, INSERT, UPDATE, DELETE
-ON vacancies
+ON vacancies, feedbacks
 TO customer_role;
 
-GRANT SELECT
-ON responses
-TO customer_role;
-
-
 GRANT SELECT, INSERT, UPDATE, DELETE
-ON responses
-TO freelancer_role;
-
-GRANT SELECT, INSERT, UPDATE, DELETE
-ON feedbacks
+ON responses, feedbacks
 TO freelancer_role;
 
 

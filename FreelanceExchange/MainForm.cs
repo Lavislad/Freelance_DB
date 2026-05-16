@@ -72,13 +72,7 @@ namespace FreelanceExchange
             }
         }
 
-        // Загрузка данных
-        private void btnLoad_Click(object sender, EventArgs e)
-        {
-            LoadData();
-        }
-
-        private void LoadData()
+        private bool LoadData()
         {
             try
             {
@@ -109,7 +103,7 @@ namespace FreelanceExchange
                         {
                             sql =
                                 "SELECT * FROM feedbacks " +
-                                "WHERE user_id=@id";
+                                "WHERE author_id=@id";
                         }
                     }
 
@@ -127,7 +121,7 @@ namespace FreelanceExchange
                         {
                             sql =
                                 "SELECT * FROM feedbacks " +
-                                "WHERE user_id=@id";
+                                "WHERE author_id=@id";
                         }
                     }
 
@@ -153,8 +147,11 @@ namespace FreelanceExchange
 
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("Ошибка загрузки таблицы: " + ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
             }
+
+            return true;
         }
 
         // Добавление записи
@@ -679,36 +676,36 @@ namespace FreelanceExchange
             switch (table)
             {
                 case "users":
-                    LoadData();
+                    if (!LoadData()) return;
                     dgvData.Columns["id"].ReadOnly = true;
                     dgvData.Columns["registration_date"].ReadOnly = true;
                     break;
                 case "vacancies":
-                    LoadData();
+                    if (!LoadData()) return;
                     dgvData.Columns["id"].ReadOnly = true;
                     dgvData.Columns["publication_date"].ReadOnly = true;
                     dgvData.Columns["author_id"].ReadOnly = true;
                     break;
                 case "feedbacks":
-                    LoadData();
+                    if (!LoadData()) return;
                     dgvData.Columns["id"].ReadOnly = true;
                     dgvData.Columns["send_date"].ReadOnly = true;
                     dgvData.Columns["author_id"].ReadOnly = true;
                     break;
                 case "responses":
-                    LoadData();
+                    if (!LoadData()) return;
                     dgvData.Columns["id"].ReadOnly = true;
                     dgvData.Columns["user_id"].ReadOnly = true;
                     dgvData.Columns["created_at"].ReadOnly = true;
                     break;
                 case "news":
-                    LoadData();
+                    if (!LoadData()) return;
                     dgvData.Columns["id"].ReadOnly = true;
                     dgvData.Columns["creation_date"].ReadOnly = true;
                     dgvData.Columns["author_id"].ReadOnly = true;
                     break;
                 case "tags":
-                    LoadData();
+                    if (!LoadData()) return;
                     dgvData.Columns["id"].ReadOnly = true;
                     break;
             }
