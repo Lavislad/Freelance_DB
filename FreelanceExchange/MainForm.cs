@@ -317,6 +317,50 @@ namespace FreelanceExchange
 
             NpgsqlCommand command;
 
+            // USERS
+            if (table == "users")
+            {
+                sql =
+                    "INSERT INTO users " +
+                    "(name, surname, email, password, profile_description, role) " +
+                    "VALUES " +
+                    "(@name, @surname, @email, @password, @profile_description, @role, @role_id)";
+
+                command = new NpgsqlCommand(sql, connection);
+
+                command.Parameters.AddWithValue("@name", row["name"]);
+
+                command.Parameters.AddWithValue("@surname", row["surname"]);
+
+                command.Parameters.AddWithValue("@email", row["email"]);
+
+                command.Parameters.AddWithValue("@password", row["password"]);
+
+                command.Parameters.AddWithValue("@profile_description", row["profile_description"]);
+                
+                command.Parameters.AddWithValue("@role", row["role"]);
+
+                int role_id;
+                string role = row["role"].ToString();
+                switch (role)
+                {
+                    case "Администратор":
+                        role_id = 1;
+                        break;
+                    case "Заказчик":
+                        role_id = 2;
+                        break;
+                    case "Фрилансер":
+                        role_id = 3;
+                        break;
+                    default:
+                        MessageBox.Show("Неккорктно указана роль пользователя!", "Предупреждение", MessageBoxButtons.OK);
+                        return;
+                }
+
+                command.Parameters.AddWithValue("@role_id", role_id);
+            }
+
             // VACANCIES
             if (table == "vacancies")
             {
