@@ -275,8 +275,7 @@ namespace FreelanceExchange
         {
             try
             {
-                using (NpgsqlConnection connection =
-                       new NpgsqlConnection(connectionString))
+                using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
                 {
                     connection.Open();
 
@@ -313,118 +312,107 @@ namespace FreelanceExchange
 
         private void SaveNewRow(NpgsqlConnection connection, string table, DataRow row)
         {
-            string sql = "";
-
-            NpgsqlCommand command;
-
-            // USERS
-            if (table == "users")
+            try
             {
-                sql =
-                    "INSERT INTO users " +
-                    "(name, surname, email, password, profile_description, role) " +
-                    "VALUES " +
-                    "(@name, @surname, @email, @password, @profile_description, @role, @role_id)";
+                string sql = "";
 
-                command = new NpgsqlCommand(sql, connection);
+                NpgsqlCommand command;
 
-                command.Parameters.AddWithValue("@name", row["name"]);
-
-                command.Parameters.AddWithValue("@surname", row["surname"]);
-
-                command.Parameters.AddWithValue("@email", row["email"]);
-
-                command.Parameters.AddWithValue("@password", row["password"]);
-
-                command.Parameters.AddWithValue("@profile_description", row["profile_description"]);
-                
-                command.Parameters.AddWithValue("@role", row["role"]);
-
-                int role_id;
-                string role = row["role"].ToString();
-                switch (role)
+                // USERS
+                if (table == "users")
                 {
-                    case "Администратор":
-                        role_id = 1;
-                        break;
-                    case "Заказчик":
-                        role_id = 2;
-                        break;
-                    case "Фрилансер":
-                        role_id = 3;
-                        break;
-                    default:
-                        MessageBox.Show("Неккорктно указана роль пользователя!", "Предупреждение", MessageBoxButtons.OK);
-                        return;
+                    sql =
+                        "INSERT INTO users " +
+                        "(name, surname, email, password, profile_description, role, role_id) " +
+                        "VALUES " +
+                        "(@name, @surname, @email, @password, @profile_description, @role, @role_id)";
+
+                    command = new NpgsqlCommand(sql, connection);
+
+                    command.Parameters.AddWithValue("@name", row["name"]);
+
+                    command.Parameters.AddWithValue("@surname", row["surname"]);
+
+                    command.Parameters.AddWithValue("@email", row["email"]);
+
+                    command.Parameters.AddWithValue("@password", row["password"]);
+
+                    command.Parameters.AddWithValue("@profile_description", row["profile_description"]);
+
+                    command.Parameters.AddWithValue("@role", row["role"]);
+
+                    command.Parameters.AddWithValue("@role_id", int.Parse(row["role_id"].ToString()));
                 }
 
-                command.Parameters.AddWithValue("@role_id", role_id);
-            }
+                // VACANCIES
+                else if (table == "vacancies")
+                {
+                    sql =
+                        "INSERT INTO vacancies " +
+                        "(title, description, budget, deadline, author_id) " +
+                        "VALUES " +
+                        "(@title, @description, @budget, @deadline, @userId)";
 
-            // VACANCIES
-            if (table == "vacancies")
+                    command = new NpgsqlCommand(sql, connection);
+
+                    command.Parameters.AddWithValue("@title", row["title"]);
+
+                    command.Parameters.AddWithValue("@description", row["description"]);
+
+                    command.Parameters.AddWithValue("@budget", Convert.ToDecimal(row["budget"]));
+
+                    command.Parameters.AddWithValue("@deadline", DateTime.Parse(row["deadline"].ToString()));
+
+                    command.Parameters.AddWithValue("@userId", currentUserId);
+                }
+
+                // FEEDBACKS
+                else if (table == "feedbacks")
+                {
+                    sql =
+                        "INSERT INTO feedbacks " +
+                        "(title, message, user_id) " +
+                        "VALUES " +
+                        "(@title, @message, @userId)";
+
+                    command = new NpgsqlCommand(sql, connection);
+
+                    command.Parameters.AddWithValue("@title", row["title"]);
+
+                    command.Parameters.AddWithValue("@message", row["message"]);
+
+                    command.Parameters.AddWithValue("@userId", currentUserId);
+                }
+
+                // RESPONSES
+                else if (table == "responses")
+                {
+                    sql =
+                        "INSERT INTO responses " +
+                        "(message, vacancy_id, user_id) " +
+                        "VALUES " +
+                        "(@message, @vacancyId, @userId)";
+
+                    command = new NpgsqlCommand(sql, connection);
+
+                    command.Parameters.AddWithValue("@message", row["message"]);
+
+                    command.Parameters.AddWithValue("@vacancyId", Convert.ToInt32(row["vacancy_id"]));
+
+                    command.Parameters.AddWithValue("@userId", currentUserId);
+                }
+
+                else
+                {
+                    return;
+                }
+
+                command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
             {
-                sql =
-                    "INSERT INTO vacancies " +
-                    "(title, description, budget, deadline, author_id) " +
-                    "VALUES " +
-                    "(@title, @description, @budget, @deadline, @userId)";
-
-                command = new NpgsqlCommand(sql, connection);
-
-                command.Parameters.AddWithValue("@title", row["title"]);
-
-                command.Parameters.AddWithValue("@description", row["description"]);
-
-                command.Parameters.AddWithValue("@budget", Convert.ToDecimal(row["budget"]));
-
-                command.Parameters.AddWithValue("@deadline", DateTime.Parse(row["deadline"].ToString()));
-
-                command.Parameters.AddWithValue("@userId", currentUserId);
+                MessageBox.Show($"Ошибка при добавлении записи: {ex.Message}");
             }
-
-            // FEEDBACKS
-            else if (table == "feedbacks")
-            {
-                sql =
-                    "INSERT INTO feedbacks " +
-                    "(title, message, user_id) " +
-                    "VALUES " +
-                    "(@title, @message, @userId)";
-
-                command = new NpgsqlCommand(sql, connection);
-
-                command.Parameters.AddWithValue("@title", row["title"]);
-
-                command.Parameters.AddWithValue("@message", row["message"]);
-
-                command.Parameters.AddWithValue("@userId", currentUserId);
-            }
-
-            // RESPONSES
-            else if (table == "responses")
-            {
-                sql =
-                    "INSERT INTO responses " +
-                    "(message, vacancy_id, user_id) " +
-                    "VALUES " +
-                    "(@message, @vacancyId, @userId)";
-
-                command = new NpgsqlCommand(sql, connection);
-
-                command.Parameters.AddWithValue("@message", row["message"]);
-
-                command.Parameters.AddWithValue("@vacancyId", Convert.ToInt32(row["vacancy_id"]));
-
-                command.Parameters.AddWithValue("@userId", currentUserId);
-            }
-
-            else
-            {
-                return;
-            }
-
-            command.ExecuteNonQuery();
         }
 
         private void UpdateRow(NpgsqlConnection connection, string table, DataRow row)
