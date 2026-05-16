@@ -286,7 +286,8 @@ namespace FreelanceExchange
                         // ДОБАВЛЕНИЕ
                         if (row.RowState == DataRowState.Added)
                         {
-                            SaveNewRow(connection, table, row);
+                            if (!SaveNewRow(connection, table, row))
+                                return;
                         }
 
                         // ИЗМЕНЕНИЕ
@@ -298,8 +299,6 @@ namespace FreelanceExchange
 
                     currentTable.AcceptChanges();
 
-                    MessageBox.Show("Изменения сохранены");
-
                     LoadData();
                 }
             }
@@ -310,7 +309,7 @@ namespace FreelanceExchange
             }
         }
 
-        private void SaveNewRow(NpgsqlConnection connection, string table, DataRow row)
+        private bool SaveNewRow(NpgsqlConnection connection, string table, DataRow row)
         {
             try
             {
@@ -339,9 +338,23 @@ namespace FreelanceExchange
 
                     command.Parameters.AddWithValue("@profile_description", row["profile_description"]);
 
+                    string role = row["role"].ToString();
+                    if (role != "Администратор" && role != "Заказчик" && role != "Фрилансер")
+                    {
+                        MessageBox.Show("Недопустимое значение для role. Допустимые значения:\nАдминистратор,\nЗаказчик,\nФрилансер.", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        return false;
+                    }
+
                     command.Parameters.AddWithValue("@role", row["role"]);
 
-                    command.Parameters.AddWithValue("@role_id", int.Parse(row["role_id"].ToString()));
+                    int role_id = int.Parse(row["role_id"].ToString());
+                    if (role_id < 1 || role_id > 3)
+                    {
+                        MessageBox.Show("Недопустимое значение для role_id. Допустимые значения:\n1 (Администратор),\n2 (Заказчик),\n3 (Фрилансер).", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        return false;
+                    }
+
+                    command.Parameters.AddWithValue("@role_id", role_id);
                 }
 
                 // VACANCIES
@@ -404,7 +417,7 @@ namespace FreelanceExchange
 
                 else
                 {
-                    return;
+                    return false;
                 }
 
                 command.ExecuteNonQuery();
@@ -413,6 +426,8 @@ namespace FreelanceExchange
             {
                 MessageBox.Show($"Ошибка при добавлении записи: {ex.Message}");
             }
+
+            return true;
         }
 
         private void UpdateRow(NpgsqlConnection connection, string table, DataRow row)
