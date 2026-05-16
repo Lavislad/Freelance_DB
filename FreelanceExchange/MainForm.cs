@@ -284,7 +284,8 @@ namespace FreelanceExchange
                         // ИЗМЕНЕНИЕ
                         else if (row.RowState == DataRowState.Modified)
                         {
-                            UpdateRow(connection, table, row);
+                            if (!UpdateRow(connection, table, row))
+                                return;
                         }
                     }
 
@@ -482,8 +483,55 @@ namespace FreelanceExchange
 
                 int id = Convert.ToInt32(row["id"]);
 
+                // USERS
+                if (table == "users")
+                {
+                    sql =
+                        "UPDATE users " +
+                        "SET name=@name, " +
+                        "surname=@surname, " +
+                        "email=@email, " +
+                        "password=@password, " +
+                        "profile_description=@profile_description, " +
+                        "role=@role, " +
+                        "role_id=@role_id " +
+                        "WHERE id=@id";
+
+                    command = new NpgsqlCommand(sql, connection);
+
+                    command.Parameters.AddWithValue("@name", row["name"]);
+
+                    command.Parameters.AddWithValue("@surname", row["surname"]);
+
+                    command.Parameters.AddWithValue("@email", row["email"]);
+
+                    command.Parameters.AddWithValue("@password", row["password"]);
+
+                    command.Parameters.AddWithValue("@profile_description", row["profile_description"]);
+
+                    string role = row["role"].ToString();
+                    if (role != "Администратор" && role != "Заказчик" && role != "Фрилансер")
+                    {
+                        MessageBox.Show("Недопустимое значение для role. Допустимые значения:\nАдминистратор,\nЗаказчик,\nФрилансер.", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        return false;
+                    }
+
+                    command.Parameters.AddWithValue("@role", row["role"]);
+
+                    int role_id = int.Parse(row["role_id"].ToString());
+                    if (role_id < 1 || role_id > 3)
+                    {
+                        MessageBox.Show("Недопустимое значение для role_id. Допустимые значения:\n1 (Администратор),\n2 (Заказчик),\n3 (Фрилансер).", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        return false;
+                    }
+
+                    command.Parameters.AddWithValue("@role_id", role_id);
+
+                    command.Parameters.AddWithValue("@id", id);
+                }
+
                 // VACANCIES
-                if (table == "vacancies")
+                else if (table == "vacancies")
                 {
                     sql =
                         "UPDATE vacancies " +
