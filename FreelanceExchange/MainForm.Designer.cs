@@ -7,8 +7,6 @@
         private System.Windows.Forms.DataGridView dgvData;
 
         private System.Windows.Forms.ComboBox cmbTables;
-
-        private System.Windows.Forms.Button btnLoad;
         private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.Button btnSave;
@@ -29,11 +27,11 @@
         {
             dgvData = new System.Windows.Forms.DataGridView();
             cmbTables = new System.Windows.Forms.ComboBox();
-            btnLoad = new System.Windows.Forms.Button();
             btnAdd = new System.Windows.Forms.Button();
             btnDelete = new System.Windows.Forms.Button();
             btnSave = new System.Windows.Forms.Button();
             lblRole = new System.Windows.Forms.Label();
+            btnLogout = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)dgvData).BeginInit();
             SuspendLayout();
             // 
@@ -48,25 +46,15 @@
             // cmbTables
             // 
             cmbTables.FormattingEnabled = true;
-            cmbTables.Location = new System.Drawing.Point(20, 25);
+            cmbTables.Location = new System.Drawing.Point(263, 27);
             cmbTables.Name = "cmbTables";
             cmbTables.Size = new System.Drawing.Size(180, 23);
             cmbTables.TabIndex = 1;
             cmbTables.SelectedIndexChanged += cmbTables_SelectedIndexChanged;
             // 
-            // btnLoad
-            // 
-            btnLoad.Location = new System.Drawing.Point(220, 20);
-            btnLoad.Name = "btnLoad";
-            btnLoad.Size = new System.Drawing.Size(120, 35);
-            btnLoad.TabIndex = 2;
-            btnLoad.Text = "Загрузить";
-            btnLoad.UseVisualStyleBackColor = true;
-            btnLoad.Click += btnLoad_Click;
-            // 
             // btnAdd
             // 
-            btnAdd.Location = new System.Drawing.Point(360, 20);
+            btnAdd.Location = new System.Drawing.Point(449, 20);
             btnAdd.Name = "btnAdd";
             btnAdd.Size = new System.Drawing.Size(120, 35);
             btnAdd.TabIndex = 3;
@@ -76,7 +64,7 @@
             // 
             // btnDelete
             // 
-            btnDelete.Location = new System.Drawing.Point(500, 20);
+            btnDelete.Location = new System.Drawing.Point(575, 20);
             btnDelete.Name = "btnDelete";
             btnDelete.Size = new System.Drawing.Size(120, 35);
             btnDelete.TabIndex = 4;
@@ -86,7 +74,7 @@
             // 
             // btnSave
             // 
-            btnSave.Location = new System.Drawing.Point(640, 20);
+            btnSave.Location = new System.Drawing.Point(701, 20);
             btnSave.Name = "btnSave";
             btnSave.Size = new System.Drawing.Size(140, 35);
             btnSave.TabIndex = 5;
@@ -97,22 +85,31 @@
             // lblRole
             // 
             lblRole.AutoSize = true;
-            lblRole.Location = new System.Drawing.Point(810, 30);
+            lblRole.Location = new System.Drawing.Point(20, 30);
             lblRole.Name = "lblRole";
             lblRole.Size = new System.Drawing.Size(34, 15);
             lblRole.TabIndex = 6;
             lblRole.Text = "Роль";
+            // 
+            // btnLogout
+            // 
+            btnLogout.Location = new System.Drawing.Point(847, 20);
+            btnLogout.Name = "btnLogout";
+            btnLogout.Size = new System.Drawing.Size(123, 35);
+            btnLogout.TabIndex = 7;
+            btnLogout.Text = "Выход";
+            btnLogout.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(1000, 550);
+            Controls.Add(btnLogout);
             Controls.Add(lblRole);
             Controls.Add(btnSave);
             Controls.Add(btnDelete);
             Controls.Add(btnAdd);
-            Controls.Add(btnLoad);
             Controls.Add(cmbTables);
             Controls.Add(dgvData);
             Name = "MainForm";
@@ -121,5 +118,6 @@
             ResumeLayout(false);
             PerformLayout();
         }
+        private System.Windows.Forms.Button btnLogout;
     }
 }
