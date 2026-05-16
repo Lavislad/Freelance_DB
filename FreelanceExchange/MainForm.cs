@@ -145,6 +145,9 @@ namespace FreelanceExchange
                     adapter.Fill(currentTable);
 
                     dgvData.DataSource = currentTable;
+                    dgvData.AllowUserToAddRows = true;
+                    dgvData.AllowUserToDeleteRows = false;
+                    dgvData.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
                 }
             }
 
@@ -157,84 +160,7 @@ namespace FreelanceExchange
         // Добавление записи
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            string table = cmbTables.Text;
-
-            try
-            {
-                using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
-                {
-                    connection.Open();
-
-                    string sql = "";
-
-                    // Заказчик
-                    if (currentRole == "Заказчик")
-                    {
-                        if (table == "vacancies")
-                        {
-                            sql =
-                                "INSERT INTO vacancies " +
-                                "(title, description, budget, deadline, author_id) " +
-                                "VALUES " +
-                                "('Новая вакансия', 'Описание', 10000, NOW(), @userId)";
-                        }
-
-                        else if (table == "feedbacks")
-                        {
-                            sql =
-                                "INSERT INTO feedbacks " +
-                                "(title, message, user_id) " +
-                                "VALUES " +
-                                "('Новый отзыв', 'Текст', @userId)";
-                        }
-                    }
-
-                    // Фрилансер
-                    else if (currentRole == "Фрилансер")
-                    {
-                        if (table == "responses")
-                        {
-                            sql =
-                                "INSERT INTO responses " +
-                                "(message, user_id, vacancy_id) " +
-                                "VALUES " +
-                                "('Новый отклик', @userId, 1)";
-                        }
-
-                        else if (table == "feedbacks")
-                        {
-                            sql =
-                                "INSERT INTO feedbacks " +
-                                "(title, message, user_id) " +
-                                "VALUES " +
-                                "('Новый отзыв', 'Текст', @userId)";
-                        }
-                    }
-
-                    // Админ
-                    else
-                    {
-                        MessageBox.Show("Добавление для администратора лучше делать напрямую через таблицу");
-
-                        return;
-                    }
-
-                    NpgsqlCommand command = new NpgsqlCommand(sql, connection);
-
-                    command.Parameters.AddWithValue("@userId", currentUserId);
-
-                    command.ExecuteNonQuery();
-
-                    MessageBox.Show("Добавлено");
-
-                    LoadData();
-                }
-            }
-
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            currentTable.Rows.Add();
         }
 
         // Удаление записи
@@ -330,113 +256,29 @@ namespace FreelanceExchange
         {
             try
             {
-                using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
+                using (NpgsqlConnection connection =
+                       new NpgsqlConnection(connectionString))
                 {
                     connection.Open();
 
                     string table = cmbTables.Text;
 
-                    foreach (DataGridViewRow row in dgvData.Rows)
+                    foreach (DataRow row in currentTable.Rows)
                     {
-                        if (row.IsNewRow)
-                            continue;
-
-                        int id =
-                            Convert.ToInt32(row.Cells["id"].Value);
-
-                        // vacancies
-                        if (table == "vacancies")
+                        // ДОБАВЛЕНИЕ
+                        if (row.RowState == DataRowState.Added)
                         {
-                            string sql =
-                                "UPDATE vacancies " +
-                                "SET title=@title, " +
-                                "description=@description, " +
-                                "budget=@budget " +
-                                "WHERE id=@id";
-
-                            if (currentRole == "Заказчик")
-                            {
-                                sql +=
-                                    " AND author_id=@userId";
-                            }
-
-                            NpgsqlCommand command = new NpgsqlCommand(sql, connection);
-
-                            command.Parameters.AddWithValue("@title", row.Cells["title"].Value);
-
-                            command.Parameters.AddWithValue("@description", row.Cells["description"].Value);
-
-                            command.Parameters.AddWithValue("@budget", Convert.ToDecimal(row.Cells["budget"].Value));
-
-                            command.Parameters.AddWithValue("@id", id);
-
-                            if (currentRole == "Заказчик")
-                            {
-                                command.Parameters.AddWithValue("@userId", currentUserId);
-                            }
-
-                            command.ExecuteNonQuery();
+                            SaveNewRow(connection, table, row);
                         }
 
-                        // feedbacks
-                        else if (table == "feedbacks")
+                        // ИЗМЕНЕНИЕ
+                        else if (row.RowState == DataRowState.Modified)
                         {
-                            string sql =
-                                "UPDATE feedbacks " +
-                                "SET title=@title, " +
-                                "message=@message " +
-                                "WHERE id=@id";
-
-                            if (currentRole != "Администратор")
-                            {
-                                sql +=
-                                    " AND user_id=@userId";
-                            }
-
-                            NpgsqlCommand command = new NpgsqlCommand(sql, connection);
-
-                            command.Parameters.AddWithValue("@title", row.Cells["title"].Value);
-
-                            command.Parameters.AddWithValue("@message", row.Cells["message"].Value);
-
-                            command.Parameters.AddWithValue("@id", id);
-
-                            if (currentRole != "Администратор")
-                            {
-                                command.Parameters.AddWithValue("@userId", currentUserId);
-                            }
-
-                            command.ExecuteNonQuery();
-                        }
-
-                        // responses
-                        else if (table == "responses")
-                        {
-                            string sql =
-                                "UPDATE responses " +
-                                "SET message=@message " +
-                                "WHERE id=@id";
-
-                            if (currentRole == "Фрилансер")
-                            {
-                                sql +=
-                                    " AND user_id=@userId";
-                            }
-
-                            NpgsqlCommand command = new NpgsqlCommand(sql, connection);
-
-                            command.Parameters.AddWithValue("@message", row.Cells["message"].Value);
-
-                            command.Parameters.AddWithValue("@id", id);
-
-                            if (currentRole == "Фрилансер")
-                            {
-                                command.Parameters.AddWithValue("@userId", currentUserId);
-                            }
-
-                            command.ExecuteNonQuery();
+                            UpdateRow(connection, table, row);
                         }
                     }
+
+                    currentTable.AcceptChanges();
 
                     MessageBox.Show("Изменения сохранены");
 
@@ -448,6 +290,210 @@ namespace FreelanceExchange
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private void SaveNewRow(NpgsqlConnection connection, string table, DataRow row)
+        {
+            string sql = "";
+
+            NpgsqlCommand command;
+
+            // VACANCIES
+            if (table == "vacancies")
+            {
+                sql =
+                    "INSERT INTO vacancies " +
+                    "(title, description, budget, deadline, author_id) " +
+                    "VALUES " +
+                    "(@title, @description, @budget, @deadline, @userId)";
+
+                command = new NpgsqlCommand(sql, connection);
+
+                command.Parameters.AddWithValue("@title", row["title"]);
+
+                command.Parameters.AddWithValue("@description", row["description"]);
+
+                command.Parameters.AddWithValue("@budget", Convert.ToDecimal(row["budget"]));
+
+                command.Parameters.AddWithValue("@deadline", Convert.ToDateTime(row["deadline"]));
+
+                command.Parameters.AddWithValue("@userId", currentUserId);
+            }
+
+            // FEEDBACKS
+            else if (table == "feedbacks")
+            {
+                sql =
+                    "INSERT INTO feedbacks " +
+                    "(title, message, user_id) " +
+                    "VALUES " +
+                    "(@title, @message, @userId)";
+
+                command = new NpgsqlCommand(sql, connection);
+
+                command.Parameters.AddWithValue("@title", row["title"]);
+
+                command.Parameters.AddWithValue("@message", row["message"]);
+
+                command.Parameters.AddWithValue("@userId", currentUserId);
+            }
+
+            // RESPONSES
+            else if (table == "responses")
+            {
+                sql =
+                    "INSERT INTO responses " +
+                    "(message, vacancy_id, user_id) " +
+                    "VALUES " +
+                    "(@message, @vacancyId, @userId)";
+
+                command = new NpgsqlCommand(sql, connection);
+
+                command.Parameters.AddWithValue("@message", row["message"]);
+
+                command.Parameters.AddWithValue("@vacancyId", Convert.ToInt32(row["vacancy_id"]));
+
+                command.Parameters.AddWithValue("@userId", currentUserId);
+            }
+
+            else
+            {
+                return;
+            }
+
+            command.ExecuteNonQuery();
+        }
+
+        private void UpdateRow(NpgsqlConnection connection, string table, DataRow row)
+        {
+            string sql = "";
+
+            NpgsqlCommand command;
+
+            int id = Convert.ToInt32(row["id"]);
+
+            // VACANCIES
+            if (table == "vacancies")
+            {
+                sql =
+                    "UPDATE vacancies " +
+                    "SET title=@title, " +
+                    "description=@description, " +
+                    "budget=@budget, " +
+                    "deadline=@deadline " +
+                    "WHERE id=@id";
+
+                if (currentRole == "Заказчик")
+                {
+                    sql +=
+                        " AND author_id=@userId";
+                }
+
+                command = new NpgsqlCommand(sql, connection);
+
+                command.Parameters.AddWithValue(
+                    "@title",
+                    row["title"]);
+
+                command.Parameters.AddWithValue(
+                    "@description",
+                    row["description"]);
+
+                command.Parameters.AddWithValue(
+                    "@budget",
+                    Convert.ToDecimal(row["budget"]));
+
+                command.Parameters.AddWithValue(
+                    "@deadline",
+                    Convert.ToDateTime(row["deadline"]));
+
+                command.Parameters.AddWithValue(
+                    "@id",
+                    id);
+
+                if (currentRole == "Заказчик")
+                {
+                    command.Parameters.AddWithValue(
+                        "@userId",
+                        currentUserId);
+                }
+            }
+
+            // FEEDBACKS
+            else if (table == "feedbacks")
+            {
+                sql =
+                    "UPDATE feedbacks " +
+                    "SET title=@title, " +
+                    "message=@message " +
+                    "WHERE id=@id";
+
+                if (currentRole != "Администратор")
+                {
+                    sql +=
+                        " AND user_id=@userId";
+                }
+
+                command = new NpgsqlCommand(sql, connection);
+
+                command.Parameters.AddWithValue(
+                    "@title",
+                    row["title"]);
+
+                command.Parameters.AddWithValue(
+                    "@message",
+                    row["message"]);
+
+                command.Parameters.AddWithValue(
+                    "@id",
+                    id);
+
+                if (currentRole != "Администратор")
+                {
+                    command.Parameters.AddWithValue(
+                        "@userId",
+                        currentUserId);
+                }
+            }
+
+            // RESPONSES
+            else if (table == "responses")
+            {
+                sql =
+                    "UPDATE responses " +
+                    "SET message=@message " +
+                    "WHERE id=@id";
+
+                if (currentRole == "Фрилансер")
+                {
+                    sql +=
+                        " AND user_id=@userId";
+                }
+
+                command = new NpgsqlCommand(sql, connection);
+
+                command.Parameters.AddWithValue(
+                    "@message",
+                    row["message"]);
+
+                command.Parameters.AddWithValue(
+                    "@id",
+                    id);
+
+                if (currentRole == "Фрилансер")
+                {
+                    command.Parameters.AddWithValue(
+                        "@userId",
+                        currentUserId);
+                }
+            }
+
+            else
+            {
+                return;
+            }
+
+            command.ExecuteNonQuery();
         }
 
         private void cmbTables_SelectedIndexChanged(object sender, EventArgs e)
@@ -473,6 +519,30 @@ namespace FreelanceExchange
                 case "tags":
                     LoadData();
                     break;
+            }
+            if (dgvData.Columns.Contains("id"))
+            {
+                dgvData.Columns["id"].ReadOnly = true;
+            }
+            if (dgvData.Columns.Contains("publication_date"))
+            {
+                dgvData.Columns["publication_date"].ReadOnly = true;
+            }
+            if (dgvData.Columns.Contains("registration_date"))
+            {
+                dgvData.Columns["registration_date"].ReadOnly = true;
+            }
+            if (dgvData.Columns.Contains("created_at"))
+            {
+                dgvData.Columns["created_at"].ReadOnly = true;
+            }
+            if (dgvData.Columns.Contains("send_date"))
+            {
+                dgvData.Columns["send_date"].ReadOnly = true;
+            }
+            if (dgvData.Columns.Contains("creation_date"))
+            {
+                dgvData.Columns["creation_date"].ReadOnly = true;
             }
         }
 
