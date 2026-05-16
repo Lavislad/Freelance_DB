@@ -25,7 +25,6 @@ GRANT ALL PRIVILEGES
 ON ALL TABLES IN SCHEMA public
 TO admin_role;
 
-
 GRANT SELECT, INSERT, UPDATE, DELETE
 ON vacancies
 TO customer_role;
@@ -34,6 +33,7 @@ GRANT SELECT
 ON responses
 TO customer_role;
 
+
 GRANT SELECT, INSERT, UPDATE, DELETE
 ON responses
 TO freelancer_role;
@@ -41,6 +41,33 @@ TO freelancer_role;
 GRANT SELECT, INSERT, UPDATE, DELETE
 ON feedbacks
 TO freelancer_role;
+
+
+GRANT USAGE, SELECT
+ON ALL SEQUENCES IN SCHEMA public
+TO admin_role;
+
+GRANT USAGE, SELECT
+ON ALL SEQUENCES IN SCHEMA public
+TO customer_role;
+
+GRANT USAGE, SELECT
+ON ALL SEQUENCES IN SCHEMA public
+TO freelancer_role;
+
+
+ALTER DEFAULT PRIVILEGES IN SCHEMA public
+GRANT USAGE, SELECT ON SEQUENCES
+TO admin_role;
+
+ALTER DEFAULT PRIVILEGES IN SCHEMA public
+GRANT USAGE, SELECT ON SEQUENCES
+TO customer_role;
+
+ALTER DEFAULT PRIVILEGES IN SCHEMA public
+GRANT USAGE, SELECT ON SEQUENCES
+TO freelancer_role;
+
 
 INSERT INTO roles (name) VALUES
 ('Администратор'),
@@ -111,7 +138,6 @@ INSERT INTO tags (name) VALUES
 ('Дизайн'),
 ('Frontend');
 
-
 INSERT INTO vacancies (
     title,
     description,
@@ -124,33 +150,33 @@ INSERT INTO vacancies (
     'Требуется разработка интернет-магазина на Django.',
     120000.00,
     '2026-06-20',
-    2
+    13
 ),
 (
     'Создание landing page',
     'Необходимо сверстать современный landing page.',
     35000.00,
     '2026-05-30',
-    2
+    15
 ),
 (
     'Разработка REST API',
     'Создание REST API для мобильного приложения.',
     80000.00,
     '2026-06-10',
-    2
+    14
 );
 
 
 INSERT INTO vacancy_tags (vacancy_id, tag_id) VALUES
-(1, 1),
-(1, 2),
-(1, 3),
-(2, 4),
-(2, 6),
-(2, 5),
-(3, 1),
-(3, 2);
+(11, 1),
+(12, 2),
+(13, 3),
+(11, 4),
+(12, 6),
+(13, 5),
+(11, 1),
+(12, 2);
 
 
 INSERT INTO news (
@@ -163,13 +189,13 @@ INSERT INTO news (
     'Запуск новой версии платформы',
     'Обновление функционала биржи',
     'На платформе добавлена система откликов и улучшен поиск вакансий.',
-    4
+    16
 ),
 (
     'Технические работы',
     'Плановое обслуживание серверов',
     '15 мая будут проводиться технические работы с 02:00 до 04:00.',
-    4
+    21
 );
 
 
@@ -181,12 +207,12 @@ INSERT INTO feedbacks (
 (
     'Очень удобная платформа для поиска заказов.',
     'Отличный сервис',
-    1
+    13
 ),
 (
     'Хотелось бы добавить больше фильтров поиска.',
     'Предложение по улучшению',
-    3
+    15
 );
 
 
@@ -197,16 +223,16 @@ INSERT INTO responses (
 ) VALUES
 (
     1,
-    1,
+    14,
     'Готов выполнить проект. Есть опыт разработки на Django.'
 ),
 (
     2,
-    3,
+    14,
     'Могу быстро сверстать адаптивный landing page.'
 ),
 (
     3,
-    1,
+    14,
     'Имею опыт создания REST API и работы с PostgreSQL.'
 );
