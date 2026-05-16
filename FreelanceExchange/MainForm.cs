@@ -379,6 +379,23 @@ namespace FreelanceExchange
                     command.Parameters.AddWithValue("@userId", currentUserId);
                 }
 
+                else if (table == "responses")
+                {
+                    sql =
+                        "INSERT INTO responses " +
+                        "(vacancy_id, user_id, message) " +
+                        "VALUES " +
+                        "(@vacancy_id, @user_id, @message)";
+
+                    command = new NpgsqlCommand(sql, connection);
+
+                    command.Parameters.AddWithValue("@vacancy_id", Convert.ToInt32(row["vacancy_id"]));
+
+                    command.Parameters.AddWithValue("@user_id", currentUserId);
+
+                    command.Parameters.AddWithValue("@message", row["message"]);
+                }
+
                 // FEEDBACKS
                 else if (table == "feedbacks")
                 {
@@ -568,51 +585,38 @@ namespace FreelanceExchange
             switch (table)
             {
                 case "users":
+                    dgvData.Columns["id"].ReadOnly = true;
+                    dgvData.Columns["registration_date"].ReadOnly = true;
                     LoadData();
                     break;
                 case "vacancies":
+                    dgvData.Columns["id"].ReadOnly = true;
+                    dgvData.Columns["publication_date"].ReadOnly = true;
+                    dgvData.Columns["author_id"].ReadOnly = true;
                     LoadData();
                     break;
                 case "feedbacks":
+                    dgvData.Columns["id"].ReadOnly = true;
+                    dgvData.Columns["send_date"].ReadOnly = true;
+                    dgvData.Columns["author_id"].ReadOnly = true;
                     LoadData();
                     break;
                 case "responses":
+                    dgvData.Columns["id"].ReadOnly = true;
+                    dgvData.Columns["user_id"].ReadOnly = true;
+                    dgvData.Columns["created_at"].ReadOnly = true;
                     LoadData();
                     break;
                 case "news":
+                    dgvData.Columns["id"].ReadOnly = true;
+                    dgvData.Columns["creation_date"].ReadOnly = true;
+                    dgvData.Columns["author_id"].ReadOnly = true;
                     LoadData();
                     break;
                 case "tags":
+                    dgvData.Columns["id"].ReadOnly = true;
                     LoadData();
                     break;
-            }
-            if (dgvData.Columns.Contains("id"))
-            {
-                dgvData.Columns["id"].ReadOnly = true;
-            }
-            if (dgvData.Columns.Contains("publication_date"))
-            {
-                dgvData.Columns["publication_date"].ReadOnly = true;
-            }
-            if (dgvData.Columns.Contains("registration_date"))
-            {
-                dgvData.Columns["registration_date"].ReadOnly = true;
-            }
-            if (dgvData.Columns.Contains("created_at"))
-            {
-                dgvData.Columns["created_at"].ReadOnly = true;
-            }
-            if (dgvData.Columns.Contains("send_date"))
-            {
-                dgvData.Columns["send_date"].ReadOnly = true;
-            }
-            if (dgvData.Columns.Contains("creation_date"))
-            {
-                dgvData.Columns["creation_date"].ReadOnly = true;
-            }
-            if (dgvData.Columns.Contains("author_id"))
-            {
-                dgvData.Columns["author_id"].ReadOnly = true;
             }
         }
 
