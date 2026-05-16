@@ -1,8 +1,8 @@
 -- Database: postgres
 
--- DROP DATABASE IF EXISTS postgres;
+DROP DATABASE IF EXISTS postgres;
 
-CREATE DATABASE freelance_db
+CREATE DATABASE postgres
     WITH
     OWNER = postgres
     ENCODING = 'UTF8'
@@ -12,7 +12,7 @@ CREATE DATABASE freelance_db
     TABLESPACE = pg_default
     CONNECTION LIMIT = -1
     IS_TEMPLATE = False;
--- COMMENT ON DATABASE freelance_db
+-- COMMENT ON DATABASE postgres
 --     IS 'default administrative connection database';
 
 CREATE TABLE roles (
@@ -30,6 +30,9 @@ CREATE TABLE users (
     profile_description TEXT,
     role VARCHAR(50) NOT NULL
 );
+
+ALTER TABLE users
+ALTER COLUMN password TYPE VARCHAR(255);
 
 ALTER TABLE users
 ADD COLUMN role_id INTEGER REFERENCES roles(id);

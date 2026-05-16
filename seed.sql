@@ -1,20 +1,20 @@
--- Database: postgres
+-- Database: freelance_db
 
--- DROP DATABASE IF EXISTS postgres;
+DROP DATABASE IF EXISTS freelance_db;
 
--- CREATE DATABASE postgres
---     WITH
---     OWNER = postgres
---     ENCODING = 'UTF8'
---     LC_COLLATE = 'Russian_Russia.1251'
---     LC_CTYPE = 'Russian_Russia.1251'
---     LOCALE_PROVIDER = 'libc'
---     TABLESPACE = pg_default
---     CONNECTION LIMIT = -1
---     IS_TEMPLATE = False;
+CREATE DATABASE freelance_db
+    WITH
+    OWNER = postgres
+    ENCODING = 'UTF8'
+    LC_COLLATE = 'Russian_Russia.1251'
+    LC_CTYPE = 'Russian_Russia.1251'
+    LOCALE_PROVIDER = 'libc'
+    TABLESPACE = pg_default
+    CONNECTION LIMIT = -1
+    IS_TEMPLATE = False;
 
--- COMMENT ON DATABASE postgres
---     IS 'default administrative connection database';
+COMMENT ON DATABASE freelance_db
+    IS 'default administrative connection database';
 
 CREATE ROLE admin_role LOGIN PASSWORD 'admin123';
 CREATE ROLE customer_role LOGIN PASSWORD 'customer123';
@@ -34,7 +34,6 @@ GRANT SELECT
 ON responses
 TO customer_role;
 
-
 GRANT SELECT, INSERT, UPDATE, DELETE
 ON responses
 TO freelancer_role;
@@ -47,7 +46,6 @@ INSERT INTO roles (name) VALUES
 ('Администратор'),
 ('Заказчик'),
 ('Фрилансер');
-
 
 INSERT INTO users (
     name,
@@ -63,7 +61,7 @@ INSERT INTO users (
     '',
     'postgres',
     '1',
-    '',
+    'Администратор',
     'Администратор',
     1
 ),

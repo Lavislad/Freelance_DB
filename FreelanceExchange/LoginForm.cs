@@ -19,7 +19,7 @@ namespace FreelanceExchange
             string adminConnection =
                 "Host=localhost;" +
                 "Port=5432;" +
-                "Database=freelance_db;" +
+                "Database=postgres;" +
                 "Username=postgres;" +
                 "Password=1";
 
@@ -34,6 +34,7 @@ namespace FreelanceExchange
                         "FROM users " +
                         "WHERE email=@email " +
                         "AND password=@password";
+
 
                     NpgsqlCommand command = new NpgsqlCommand(sql, connection);
 
@@ -88,7 +89,6 @@ namespace FreelanceExchange
                         form.ShowDialog();
                         this.Close();
                     }
-
                     else
                     {
                         MessageBox.Show("Неверный логин или пароль");
