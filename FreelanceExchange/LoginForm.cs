@@ -19,7 +19,7 @@ namespace FreelanceExchange
             string adminConnection =
                 "Host=localhost;" +
                 "Port=5432;" +
-                "Database=postgres;" +
+                "Database=freelance_db;" +
                 "Username=postgres;" +
                 "Password=1";
 
@@ -59,7 +59,7 @@ namespace FreelanceExchange
                             connectionString =
                                 "Host=localhost;" +
                                 "Port=5432;" +
-                                "Database=postgres;" +
+                                "Database=freelance_db;" +
                                 "Username=admin_role;" +
                                 "Password=admin123;";
                         }
@@ -69,7 +69,7 @@ namespace FreelanceExchange
                             connectionString =
                                 "Host=localhost;" +
                                 "Port=5432;" +
-                                "Database=postgres;" +
+                                "Database=freelance_db;" +
                                 "Username=customer_role;" +
                                 "Password=customer123;";
                         }
@@ -79,7 +79,7 @@ namespace FreelanceExchange
                             connectionString =
                                 "Host=localhost;" +
                                 "Port=5432;" +
-                                "Database=postgres;" +
+                                "Database=freelance_db;" +
                                 "Username=freelancer_role;" +
                                 "Password=free123;";
                         }
