@@ -30,7 +30,7 @@ namespace FreelanceExchange
                     connection.Open();
 
                     string sql =
-                        "SELECT id, role " +
+                        "SELECT user_id, role_id " +
                         "FROM users " +
                         "WHERE email=@email " +
                         "AND password=@password";
@@ -46,15 +46,15 @@ namespace FreelanceExchange
 
                     if (reader.Read())
                     {
-                        currentUserId = Convert.ToInt32(reader["id"]);
+                        currentUserId = Convert.ToInt32(reader["user_id"]);
 
-                        currentUserRole = reader["role"].ToString();
+                        currentUserRole = reader["role_id"].ToString();
 
                         string connectionString = "";
 
                         // Подключение по роли PostgreSQL
 
-                        if (currentUserRole == "Администратор")
+                        if (currentUserRole == "1")
                         {
                             connectionString =
                                 "Host=localhost;" +
@@ -63,8 +63,7 @@ namespace FreelanceExchange
                                 "Username=admin_role;" +
                                 "Password=admin123;";
                         }
-
-                        else if (currentUserRole == "Заказчик")
+                        else if (currentUserRole == "2")
                         {
                             connectionString =
                                 "Host=localhost;" +
@@ -73,15 +72,9 @@ namespace FreelanceExchange
                                 "Username=customer_role;" +
                                 "Password=customer123;";
                         }
-
                         else
                         {
-                            connectionString =
-                                "Host=localhost;" +
-                                "Port=5432;" +
-                                "Database=freelance_db;" +
-                                "Username=freelancer_role;" +
-                                "Password=free123;";
+                            throw new Exception("Роль не определена");
                         }
 
                         MainForm form = new MainForm(connectionString, currentUserRole, currentUserId);
