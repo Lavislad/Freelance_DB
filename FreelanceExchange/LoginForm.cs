@@ -30,7 +30,7 @@ namespace FreelanceExchange
                     connection.Open();
 
                     string sql =
-                        "SELECT user_id, role_id " +
+                        "SELECT id, role_id " +
                         "FROM users " +
                         "WHERE email=@email " +
                         "AND password=@password";
@@ -46,7 +46,7 @@ namespace FreelanceExchange
 
                     if (reader.Read())
                     {
-                        currentUserId = Convert.ToInt32(reader["user_id"]);
+                        currentUserId = Convert.ToInt32(reader["id"]);
 
                         currentUserRoleId = Convert.ToInt32(reader["role_id"].ToString());
 
@@ -91,7 +91,7 @@ namespace FreelanceExchange
 
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
