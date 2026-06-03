@@ -7,7 +7,7 @@ namespace FreelanceExchange
     public partial class LoginForm : Form
     {
         private int currentUserId;
-        private string currentUserRole;
+        private int currentUserRoleId;
 
         public LoginForm()
         {
@@ -48,13 +48,13 @@ namespace FreelanceExchange
                     {
                         currentUserId = Convert.ToInt32(reader["user_id"]);
 
-                        currentUserRole = reader["role_id"].ToString();
+                        currentUserRoleId = Convert.ToInt32(reader["role_id"].ToString());
 
                         string connectionString = "";
 
                         // Подключение по роли PostgreSQL
 
-                        if (currentUserRole == "1")
+                        if (currentUserRoleId == 1)
                         {
                             connectionString =
                                 "Host=localhost;" +
@@ -63,7 +63,7 @@ namespace FreelanceExchange
                                 "Username=admin_role;" +
                                 "Password=admin123;";
                         }
-                        else if (currentUserRole == "2")
+                        else if (currentUserRoleId == 2)
                         {
                             connectionString =
                                 "Host=localhost;" +
@@ -77,7 +77,7 @@ namespace FreelanceExchange
                             throw new Exception("Роль не определена");
                         }
 
-                        MainForm form = new MainForm(connectionString, currentUserRole, currentUserId);
+                        MainForm form = new MainForm(connectionString, currentUserRoleId, currentUserId);
                         this.Hide();
                         form.ShowDialog();
                         this.Close();
