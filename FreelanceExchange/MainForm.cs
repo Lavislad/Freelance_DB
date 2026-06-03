@@ -36,7 +36,7 @@ namespace FreelanceExchange
                 cmbTables.Items.Add("users");
                 cmbTables.Items.Add("vacancies");
                 cmbTables.Items.Add("responses");
-                cmbTables.Items.Add("feedbacks");
+                cmbTables.Items.Add("feedback");
                 cmbTables.Items.Add("news");
                 cmbTables.Items.Add("tags");
             }
@@ -45,7 +45,7 @@ namespace FreelanceExchange
             {
                 cmbTables.Items.Add("users");
                 cmbTables.Items.Add("vacancies");
-                cmbTables.Items.Add("feedbacks");
+                cmbTables.Items.Add("feedback");
                 cmbTables.Items.Add("news");
                 cmbTables.Items.Add("responses");
             }
