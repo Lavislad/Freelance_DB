@@ -28,11 +28,12 @@
             menuStrip1 = new System.Windows.Forms.MenuStrip();
             файлToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             сохранитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            редактироватьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             создатьОтчетToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             выходToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            редактироватьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             добавитьСтрокуToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             удалитьСтрокуToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            обновитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)dgvData).BeginInit();
             menuStrip1.SuspendLayout();
             SuspendLayout();
@@ -87,29 +88,30 @@
             // сохранитьToolStripMenuItem
             // 
             сохранитьToolStripMenuItem.Name = "сохранитьToolStripMenuItem";
-            сохранитьToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            сохранитьToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S;
+            сохранитьToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
             сохранитьToolStripMenuItem.Text = "Сохранить";
             сохранитьToolStripMenuItem.Click += btnSave_Click;
-            // 
-            // редактироватьToolStripMenuItem
-            // 
-            редактироватьToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { добавитьСтрокуToolStripMenuItem, удалитьСтрокуToolStripMenuItem });
-            редактироватьToolStripMenuItem.Name = "редактироватьToolStripMenuItem";
-            редактироватьToolStripMenuItem.Size = new System.Drawing.Size(125, 24);
-            редактироватьToolStripMenuItem.Text = "Редактировать";
             // 
             // создатьОтчетToolStripMenuItem
             // 
             создатьОтчетToolStripMenuItem.Name = "создатьОтчетToolStripMenuItem";
-            создатьОтчетToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            создатьОтчетToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
             создатьОтчетToolStripMenuItem.Text = "Создать отчет";
             // 
             // выходToolStripMenuItem
             // 
             выходToolStripMenuItem.Name = "выходToolStripMenuItem";
-            выходToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            выходToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
             выходToolStripMenuItem.Text = "Выход";
             выходToolStripMenuItem.Click += btnLogout_Click;
+            // 
+            // редактироватьToolStripMenuItem
+            // 
+            редактироватьToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { добавитьСтрокуToolStripMenuItem, удалитьСтрокуToolStripMenuItem, обновитьToolStripMenuItem });
+            редактироватьToolStripMenuItem.Name = "редактироватьToolStripMenuItem";
+            редактироватьToolStripMenuItem.Size = new System.Drawing.Size(125, 24);
+            редактироватьToolStripMenuItem.Text = "Редактировать";
             // 
             // добавитьСтрокуToolStripMenuItem
             // 
@@ -124,6 +126,12 @@
             удалитьСтрокуToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             удалитьСтрокуToolStripMenuItem.Text = "Удалить строку";
             удалитьСтрокуToolStripMenuItem.Click += btnDelete_Click;
+            // 
+            // обновитьToolStripMenuItem
+            // 
+            обновитьToolStripMenuItem.Name = "обновитьToolStripMenuItem";
+            обновитьToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            обновитьToolStripMenuItem.Text = "Обновить";
             // 
             // MainForm
             // 
@@ -152,5 +160,6 @@
         private System.Windows.Forms.ToolStripMenuItem выходToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem добавитьСтрокуToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem удалитьСтрокуToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem обновитьToolStripMenuItem;
     }
 }

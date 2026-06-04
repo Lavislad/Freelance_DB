@@ -1,5 +1,6 @@
 ﻿using Npgsql;
 using System;
+using System.Configuration;
 using System.Data;
 using System.Windows.Forms;
 
@@ -195,8 +196,7 @@ namespace FreelanceExchange
             }
         }
 
-        // Сохранение изменений прямо из DataGridView
-        private void btnSave_Click(object sender, EventArgs e)
+        private void Save()
         {
             try
             {
@@ -233,6 +233,12 @@ namespace FreelanceExchange
             {
                 MessageBox.Show(ex.Message);
             }
+
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            Save();
         }
 
         private bool SaveNewRow(NpgsqlConnection connection, string table, DataRow row)
@@ -658,6 +664,21 @@ namespace FreelanceExchange
                 form.ShowDialog();
                 this.Close();
             }
+        }
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            //switch (keyData)
+            //{
+            //    case Keys.Control | Keys.S:
+            //        Save();
+            //        return true;
+            //    case Keys.F5:
+            //        LoadData();
+            //        return true;
+            //}
+
+            return base.ProcessCmdKey(ref msg, keyData);
         }
     }
 }
