@@ -8,22 +8,24 @@ namespace FreelanceExchange
     public partial class MainForm : Form
     {
         private string connectionString;
-        private string currentRole;
+        private int currentRoleId;
         private int currentUserId;
 
         private DataTable currentTable;
 
-        public MainForm(string connStr, string role, int userId)
+        public MainForm(string connStr, int role_id, int userId)
         {
             InitializeComponent();
 
             connectionString = connStr;
-            currentRole = role;
+            currentRoleId = role_id;
             currentUserId = userId;
 
-            lblRole.Text = $"Роль: {role} | ID: {userId}";
+            lblRole.Text = $"Роль: {role_id} | ID: {userId}";
 
             LoadTables();
+
+            cmbTables.SelectedIndex = 0;
         }
 
         // Загрузка списка таблиц
@@ -31,7 +33,7 @@ namespace FreelanceExchange
         {
             cmbTables.Items.Clear();
 
-            if (currentRole == "Администратор")
+            if (currentRoleId == 1)
             {
                 cmbTables.Items.Add("users");
                 cmbTables.Items.Add("vacancies");
@@ -41,21 +43,16 @@ namespace FreelanceExchange
                 cmbTables.Items.Add("tags");
             }
 
-            else if (currentRole == "Заказчик")
+            else if (currentRoleId == 2)
             {
                 cmbTables.Items.Add("users");
                 cmbTables.Items.Add("vacancies");
                 cmbTables.Items.Add("feedbacks");
-            }
-
-            else if (currentRole == "Фрилансер")
-            {
-                cmbTables.Items.Add("users");
+                cmbTables.Items.Add("news");
                 cmbTables.Items.Add("responses");
-                cmbTables.Items.Add("feedbacks");
             }
 
-            cmbTables.SelectedIndex = 0;
+            //cmbTables.SelectedIndex = 0;
         }
 
         private bool LoadData()
@@ -70,13 +67,12 @@ namespace FreelanceExchange
 
                     string sql = "";
 
-                    if (currentRole == "Администратор")
+                    if (currentRoleId == 1)
                     {
                         sql = $"SELECT * FROM {table}";
                     }
 
-                    // Заказчик
-                    else if (currentRole == "Заказчик")
+                    else if (currentRoleId == 2)
                     {
                         if (table == "vacancies")
                         {
@@ -98,36 +94,24 @@ namespace FreelanceExchange
                                 "SELECT * FROM users " +
                                 "WHERE id=@id";
                         }
-                    }
 
-                    // Фрилансер
-                    else if (currentRole == "Фрилансер")
-                    {
-                        if (table == "responses")
+                        else if (table == "responses")
                         {
                             sql =
                                 "SELECT * FROM responses " +
                                 "WHERE user_id=@id";
                         }
 
-                        else if (table == "feedbacks")
+                        else if (table == "news")
                         {
                             sql =
-                                "SELECT * FROM feedbacks " +
-                                "WHERE author_id=@id";
-                        }
-
-                        else if (table == "users")
-                        {
-                            sql =
-                                "SELECT * FROM users " +
-                                "WHERE id=@id";
+                                "SELECT * FROM news ";
                         }
                     }
 
                     NpgsqlCommand command = new NpgsqlCommand(sql, connection);
 
-                    if (currentRole != "Администратор")
+                    if (currentRoleId != 1)
                     {
                         command.Parameters.AddWithValue("@id", currentUserId);
                     }
@@ -188,60 +172,13 @@ namespace FreelanceExchange
                 {
                     connection.Open();
 
-                    string sql = "";
-
-                    // Админ
-                    if (currentRole == "Администратор")
-                    {
-                        sql =
-                            $"DELETE FROM {table} WHERE id=@id";
-                    }
-
-                    // Заказчик
-                    else if (currentRole == "Заказчик")
-                    {
-                        if (table == "vacancies")
-                        {
-                            sql =
-                                "DELETE FROM vacancies " +
-                                "WHERE id=@id " +
-                                "AND author_id=@userId";
-                        }
-
-                        else if (table == "feedbacks")
-                        {
-                            sql =
-                                "DELETE FROM feedbacks " +
-                                "WHERE id=@id " +
-                                "AND user_id=@userId";
-                        }
-                    }
-
-                    // Фрилансер
-                    else if (currentRole == "Фрилансер")
-                    {
-                        if (table == "responses")
-                        {
-                            sql =
-                                "DELETE FROM responses " +
-                                "WHERE id=@id " +
-                                "AND user_id=@userId";
-                        }
-
-                        else if (table == "feedbacks")
-                        {
-                            sql =
-                                "DELETE FROM feedbacks " +
-                                "WHERE id=@id " +
-                                "AND user_id=@userId";
-                        }
-                    }
+                    string sql = $"DELETE FROM {table} WHERE id=@id";
 
                     NpgsqlCommand command = new NpgsqlCommand(sql, connection);
 
                     command.Parameters.AddWithValue("@id", id);
 
-                    if (currentRole != "Администратор")
+                    if (currentRoleId != 1)
                     {
                         command.Parameters.AddWithValue("@userId", currentUserId);
                     }
@@ -539,7 +476,7 @@ namespace FreelanceExchange
                         "deadline=@deadline " +
                         "WHERE id=@id";
 
-                    if (currentRole == "Заказчик")
+                    if (currentRoleId == 2)
                     {
                         sql += " AND author_id=@userId";
                     }
@@ -556,7 +493,7 @@ namespace FreelanceExchange
 
                     command.Parameters.AddWithValue("@id", id);
 
-                    if (currentRole == "Заказчик")
+                    if (currentRoleId == 2)
                     {
                         command.Parameters.AddWithValue("@userId", currentUserId);
                     }
@@ -571,7 +508,7 @@ namespace FreelanceExchange
                         "message=@message " +
                         "WHERE id=@id";
 
-                    if (currentRole != "Администратор")
+                    if (currentRoleId != 1)
                     {
                         sql += " AND user_id=@userId";
                     }
@@ -584,7 +521,7 @@ namespace FreelanceExchange
 
                     command.Parameters.AddWithValue("@id", id);
 
-                    if (currentRole != "Администратор")
+                    if (currentRoleId != 1)
                     {
                         command.Parameters.AddWithValue("@userId", currentUserId);
                     }
@@ -599,7 +536,7 @@ namespace FreelanceExchange
                         "message=@message " +
                         "WHERE id=@id";
 
-                    if (currentRole == "Фрилансер")
+                    if (currentRoleId == 2)
                     {
                         sql += " AND user_id=@userId";
                     }
@@ -612,7 +549,7 @@ namespace FreelanceExchange
 
                     command.Parameters.AddWithValue("@id", id);
 
-                    if (currentRole == "Фрилансер")
+                    if (currentRoleId == 2)
                     {
                         command.Parameters.AddWithValue("@userId", currentUserId);
                     }

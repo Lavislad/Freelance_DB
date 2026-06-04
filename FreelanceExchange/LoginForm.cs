@@ -7,7 +7,7 @@ namespace FreelanceExchange
     public partial class LoginForm : Form
     {
         private int currentUserId;
-        private string currentUserRole;
+        private int currentUserRoleId;
 
         public LoginForm()
         {
@@ -30,7 +30,7 @@ namespace FreelanceExchange
                     connection.Open();
 
                     string sql =
-                        "SELECT user_id, role_id " +
+                        "SELECT id, role_id " +
                         "FROM users " +
                         "WHERE email=@email " +
                         "AND password=@password";
@@ -46,15 +46,15 @@ namespace FreelanceExchange
 
                     if (reader.Read())
                     {
-                        currentUserId = Convert.ToInt32(reader["user_id"]);
+                        currentUserId = Convert.ToInt32(reader["id"]);
 
-                        currentUserRole = reader["role_id"].ToString();
+                        currentUserRoleId = Convert.ToInt32(reader["role_id"].ToString());
 
                         string connectionString = "";
 
                         // Подключение по роли PostgreSQL
 
-                        if (currentUserRole == "1")
+                        if (currentUserRoleId == 1)
                         {
                             connectionString =
                                 "Host=localhost;" +
@@ -63,21 +63,21 @@ namespace FreelanceExchange
                                 "Username=admin_role;" +
                                 "Password=admin123;";
                         }
-                        else if (currentUserRole == "2")
+                        else if (currentUserRoleId == 2)
                         {
                             connectionString =
                                 "Host=localhost;" +
                                 "Port=5432;" +
                                 "Database=freelance_db;" +
-                                "Username=customer_role;" +
-                                "Password=customer123;";
+                                "Username=user_role;" +
+                                "Password=user123;";
                         }
                         else
                         {
                             throw new Exception("Роль не определена");
                         }
 
-                        MainForm form = new MainForm(connectionString, currentUserRole, currentUserId);
+                        MainForm form = new MainForm(connectionString, currentUserRoleId, currentUserId);
                         this.Hide();
                         form.ShowDialog();
                         this.Close();
@@ -91,7 +91,7 @@ namespace FreelanceExchange
 
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
