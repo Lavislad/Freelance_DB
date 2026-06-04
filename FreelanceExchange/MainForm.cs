@@ -24,6 +24,8 @@ namespace FreelanceExchange
             lblRole.Text = $"Роль: {role_id} | ID: {userId}";
 
             LoadTables();
+
+            cmbTables.SelectedIndex = 0;
         }
 
         // Загрузка списка таблиц

@@ -69,8 +69,8 @@ namespace FreelanceExchange
                                 "Host=localhost;" +
                                 "Port=5432;" +
                                 "Database=freelance_db;" +
-                                "Username=customer_role;" +
-                                "Password=customer123;";
+                                "Username=user_role;" +
+                                "Password=user123;";
                         }
                         else
                         {
