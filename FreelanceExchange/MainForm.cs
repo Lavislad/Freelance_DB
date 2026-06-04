@@ -101,6 +101,12 @@ namespace FreelanceExchange
                                 "SELECT * FROM responses " +
                                 "WHERE user_id=@id";
                         }
+
+                        else if (table == "news")
+                        {
+                            sql =
+                                "SELECT * FROM news ";
+                        }
                     }
 
                     NpgsqlCommand command = new NpgsqlCommand(sql, connection);
