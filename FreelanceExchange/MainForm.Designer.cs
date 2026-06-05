@@ -52,7 +52,7 @@
             // cmbTables
             // 
             cmbTables.FormattingEnabled = true;
-            cmbTables.Location = new System.Drawing.Point(301, 36);
+            cmbTables.Location = new System.Drawing.Point(904, 32);
             cmbTables.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             cmbTables.Name = "cmbTables";
             cmbTables.Size = new System.Drawing.Size(205, 28);
@@ -102,6 +102,7 @@
             // выходToolStripMenuItem
             // 
             выходToolStripMenuItem.Name = "выходToolStripMenuItem";
+            выходToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Q;
             выходToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
             выходToolStripMenuItem.Text = "Выход";
             выходToolStripMenuItem.Click += btnLogout_Click;
@@ -116,22 +117,26 @@
             // добавитьСтрокуToolStripMenuItem
             // 
             добавитьСтрокуToolStripMenuItem.Name = "добавитьСтрокуToolStripMenuItem";
-            добавитьСтрокуToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            добавитьСтрокуToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.A;
+            добавитьСтрокуToolStripMenuItem.Size = new System.Drawing.Size(260, 26);
             добавитьСтрокуToolStripMenuItem.Text = "Добавить строку";
             добавитьСтрокуToolStripMenuItem.Click += btnAdd_Click;
             // 
             // удалитьСтрокуToolStripMenuItem
             // 
             удалитьСтрокуToolStripMenuItem.Name = "удалитьСтрокуToolStripMenuItem";
-            удалитьСтрокуToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            удалитьСтрокуToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D;
+            удалитьСтрокуToolStripMenuItem.Size = new System.Drawing.Size(260, 26);
             удалитьСтрокуToolStripMenuItem.Text = "Удалить строку";
             удалитьСтрокуToolStripMenuItem.Click += btnDelete_Click;
             // 
             // обновитьToolStripMenuItem
             // 
             обновитьToolStripMenuItem.Name = "обновитьToolStripMenuItem";
-            обновитьToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            обновитьToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F5;
+            обновитьToolStripMenuItem.Size = new System.Drawing.Size(260, 26);
             обновитьToolStripMenuItem.Text = "Обновить";
+            обновитьToolStripMenuItem.Click += обновитьToolStripMenuItem_Click;
             // 
             // MainForm
             // 

@@ -680,5 +680,10 @@ namespace FreelanceExchange
 
             return base.ProcessCmdKey(ref msg, keyData);
         }
+
+        private void обновитьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            LoadData();
+        }
     }
 }
