@@ -33,10 +33,10 @@
             lblTable = new System.Windows.Forms.Label();
             cmbTables = new System.Windows.Forms.ComboBox();
             pnlUsers = new System.Windows.Forms.Panel();
+            lblRole = new System.Windows.Forms.Label();
+            txtRole = new System.Windows.Forms.TextBox();
             txtRegDate = new System.Windows.Forms.TextBox();
             lblRegDate = new System.Windows.Forms.Label();
-            txtRole = new System.Windows.Forms.TextBox();
-            lblRole = new System.Windows.Forms.Label();
             pnlUsers.SuspendLayout();
             SuspendLayout();
             // 
@@ -78,6 +78,7 @@
             cmbTables.Name = "cmbTables";
             cmbTables.Size = new System.Drawing.Size(180, 23);
             cmbTables.TabIndex = 3;
+            cmbTables.SelectedIndexChanged += cmbTables_SelectedIndexChanged;
             // 
             // pnlUsers
             // 
@@ -90,6 +91,24 @@
             pnlUsers.Name = "pnlUsers";
             pnlUsers.Size = new System.Drawing.Size(410, 351);
             pnlUsers.TabIndex = 4;
+            pnlUsers.Visible = false;
+            // 
+            // lblRole
+            // 
+            lblRole.AutoSize = true;
+            lblRole.Location = new System.Drawing.Point(0, 35);
+            lblRole.Name = "lblRole";
+            lblRole.Size = new System.Drawing.Size(49, 15);
+            lblRole.TabIndex = 3;
+            lblRole.Text = "ID роли";
+            // 
+            // txtRole
+            // 
+            txtRole.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            txtRole.Location = new System.Drawing.Point(307, 32);
+            txtRole.Name = "txtRole";
+            txtRole.Size = new System.Drawing.Size(100, 23);
+            txtRole.TabIndex = 2;
             // 
             // txtRegDate
             // 
@@ -107,23 +126,6 @@
             lblRegDate.Size = new System.Drawing.Size(105, 15);
             lblRegDate.TabIndex = 0;
             lblRegDate.Text = "Дата регистрации";
-            // 
-            // txtRole
-            // 
-            txtRole.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            txtRole.Location = new System.Drawing.Point(307, 32);
-            txtRole.Name = "txtRole";
-            txtRole.Size = new System.Drawing.Size(100, 23);
-            txtRole.TabIndex = 2;
-            // 
-            // lblRole
-            // 
-            lblRole.AutoSize = true;
-            lblRole.Location = new System.Drawing.Point(0, 35);
-            lblRole.Name = "lblRole";
-            lblRole.Size = new System.Drawing.Size(49, 15);
-            lblRole.TabIndex = 3;
-            lblRole.Text = "ID роли";
             // 
             // FilterForm
             // 

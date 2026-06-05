@@ -31,7 +31,6 @@ namespace FreelanceExchange
             cmbTables.SelectedIndex = 0;
         }
 
-        // Загрузка списка таблиц
         private void LoadTables()
         {
             cmbTables.Items.Clear();
@@ -54,8 +53,6 @@ namespace FreelanceExchange
                 cmbTables.Items.Add("news");
                 cmbTables.Items.Add("responses");
             }
-
-            //cmbTables.SelectedIndex = 0;
         }
 
         private bool LoadData()
@@ -690,7 +687,7 @@ namespace FreelanceExchange
 
         private void btnFilter_Click(object sender, EventArgs e)
         {
-            FilterForm filterForm = new FilterForm();
+            FilterForm filterForm = new FilterForm(currentRoleId, cmbTables.SelectedIndex);
             filterForm.Show();
         }
     }
