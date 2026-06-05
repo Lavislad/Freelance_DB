@@ -31,7 +31,6 @@ namespace FreelanceExchange
             cmbTables.SelectedIndex = 0;
         }
 
-        // Загрузка списка таблиц
         private void LoadTables()
         {
             cmbTables.Items.Clear();
@@ -50,12 +49,10 @@ namespace FreelanceExchange
             {
                 cmbTables.Items.Add("users");
                 cmbTables.Items.Add("vacancies");
+                cmbTables.Items.Add("responses");
                 cmbTables.Items.Add("feedbacks");
                 cmbTables.Items.Add("news");
-                cmbTables.Items.Add("responses");
             }
-
-            //cmbTables.SelectedIndex = 0;
         }
 
         private bool LoadData()
@@ -670,15 +667,12 @@ namespace FreelanceExchange
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
-            //switch (keyData)
-            //{
-            //    case Keys.Control | Keys.S:
-            //        Save();
-            //        return true;
-            //    case Keys.F5:
-            //        LoadData();
-            //        return true;
-            //}
+            switch (keyData)
+            {
+                case Keys.Control | Keys.Shift | Keys.F:
+                    OpenFilterForm();
+                    return true;
+            }
 
             return base.ProcessCmdKey(ref msg, keyData);
         }
@@ -686,6 +680,17 @@ namespace FreelanceExchange
         private void обновитьToolStripMenuItem_Click(object sender, EventArgs e)
         {
             LoadData();
+        }
+
+        private void btnFilter_Click(object sender, EventArgs e)
+        {
+            OpenFilterForm();
+        }
+
+        private void OpenFilterForm()
+        {
+            FilterForm filterForm = new FilterForm(currentRoleId, cmbTables.Text);
+            filterForm.Show();
         }
     }
 }
