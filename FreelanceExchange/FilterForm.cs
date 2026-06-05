@@ -12,7 +12,6 @@ namespace FreelanceExchange
 {
     public partial class FilterForm : Form
     {
-        string table;
         int currentRoleId;
         Panel currentPanel;
 
@@ -22,10 +21,14 @@ namespace FreelanceExchange
 
             currentRoleId = role_id;
             LoadTables();
-            cmbTables.SelectedItem = table;
-            this.table = cmbTables.Text;
-
-            LoadPanel();
+            if (table == "users" || table == "vacancies")
+            {
+                cmbTables.SelectedItem = table;
+            }
+            else
+            {
+                cmbTables.SelectedItem = "users";
+            }
         }
 
         private void LoadTables()
@@ -51,7 +54,7 @@ namespace FreelanceExchange
             if (currentPanel != null)
                 currentPanel.Visible = false;
 
-            switch (table)
+            switch (cmbTables.Text)
             {
                 case "users":
                     pnlUsers.Visible = true;

@@ -667,15 +667,12 @@ namespace FreelanceExchange
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
-            //switch (keyData)
-            //{
-            //    case Keys.Control | Keys.S:
-            //        Save();
-            //        return true;
-            //    case Keys.F5:
-            //        LoadData();
-            //        return true;
-            //}
+            switch (keyData)
+            {
+                case Keys.Control | Keys.Shift | Keys.F:
+                    OpenFilterForm();
+                    return true;
+            }
 
             return base.ProcessCmdKey(ref msg, keyData);
         }
@@ -687,7 +684,12 @@ namespace FreelanceExchange
 
         private void btnFilter_Click(object sender, EventArgs e)
         {
-            FilterForm filterForm = new FilterForm(currentRoleId, cmbTables.SelectedItem?.ToString());
+            OpenFilterForm();
+        }
+
+        private void OpenFilterForm()
+        {
+            FilterForm filterForm = new FilterForm(currentRoleId, cmbTables.Text);
             filterForm.Show();
         }
     }
