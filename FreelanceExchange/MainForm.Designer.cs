@@ -44,40 +44,40 @@
             dgvData.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
             dgvData.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.ColumnHeader;
             dgvData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvData.Location = new System.Drawing.Point(23, 93);
-            dgvData.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            dgvData.Location = new System.Drawing.Point(20, 70);
             dgvData.Name = "dgvData";
             dgvData.RowHeadersWidth = 51;
-            dgvData.Size = new System.Drawing.Size(1086, 600);
+            dgvData.Size = new System.Drawing.Size(950, 450);
             dgvData.TabIndex = 0;
             // 
             // cmbTables
             // 
             cmbTables.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             cmbTables.FormattingEnabled = true;
-            cmbTables.Location = new System.Drawing.Point(904, 32);
-            cmbTables.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            cmbTables.Location = new System.Drawing.Point(792, 30);
             cmbTables.Name = "cmbTables";
-            cmbTables.Size = new System.Drawing.Size(205, 28);
+            cmbTables.Size = new System.Drawing.Size(180, 23);
             cmbTables.TabIndex = 1;
             cmbTables.SelectedIndexChanged += cmbTables_SelectedIndexChanged;
             // 
             // lblRole
             // 
             lblRole.AutoSize = true;
-            lblRole.Location = new System.Drawing.Point(23, 40);
+            lblRole.Location = new System.Drawing.Point(20, 30);
             lblRole.Name = "lblRole";
-            lblRole.Size = new System.Drawing.Size(42, 20);
+            lblRole.Size = new System.Drawing.Size(34, 15);
             lblRole.TabIndex = 6;
             lblRole.Text = "Роль";
             // 
             // menuStrip1
             // 
+            menuStrip1.BackColor = System.Drawing.Color.Transparent;
             menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { файлToolStripMenuItem, редактироватьToolStripMenuItem });
             menuStrip1.Location = new System.Drawing.Point(0, 0);
             menuStrip1.Name = "menuStrip1";
-            menuStrip1.Size = new System.Drawing.Size(1143, 28);
+            menuStrip1.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
+            menuStrip1.Size = new System.Drawing.Size(1000, 24);
             menuStrip1.TabIndex = 8;
             menuStrip1.Text = "menuStrip1";
             // 
@@ -85,28 +85,28 @@
             // 
             файлToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { сохранитьToolStripMenuItem, создатьОтчетToolStripMenuItem, выходToolStripMenuItem });
             файлToolStripMenuItem.Name = "файлToolStripMenuItem";
-            файлToolStripMenuItem.Size = new System.Drawing.Size(59, 24);
+            файлToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
             файлToolStripMenuItem.Text = "Файл";
             // 
             // сохранитьToolStripMenuItem
             // 
             сохранитьToolStripMenuItem.Name = "сохранитьToolStripMenuItem";
             сохранитьToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S;
-            сохранитьToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            сохранитьToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
             сохранитьToolStripMenuItem.Text = "Сохранить";
             сохранитьToolStripMenuItem.Click += btnSave_Click;
             // 
             // создатьОтчетToolStripMenuItem
             // 
             создатьОтчетToolStripMenuItem.Name = "создатьОтчетToolStripMenuItem";
-            создатьОтчетToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            создатьОтчетToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
             создатьОтчетToolStripMenuItem.Text = "Создать отчет";
             // 
             // выходToolStripMenuItem
             // 
             выходToolStripMenuItem.Name = "выходToolStripMenuItem";
             выходToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Q;
-            выходToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            выходToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
             выходToolStripMenuItem.Text = "Выход";
             выходToolStripMenuItem.Click += btnLogout_Click;
             // 
@@ -114,14 +114,14 @@
             // 
             редактироватьToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { добавитьСтрокуToolStripMenuItem, удалитьСтрокуToolStripMenuItem, обновитьToolStripMenuItem });
             редактироватьToolStripMenuItem.Name = "редактироватьToolStripMenuItem";
-            редактироватьToolStripMenuItem.Size = new System.Drawing.Size(125, 24);
+            редактироватьToolStripMenuItem.Size = new System.Drawing.Size(99, 20);
             редактироватьToolStripMenuItem.Text = "Редактировать";
             // 
             // добавитьСтрокуToolStripMenuItem
             // 
             добавитьСтрокуToolStripMenuItem.Name = "добавитьСтрокуToolStripMenuItem";
             добавитьСтрокуToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.A;
-            добавитьСтрокуToolStripMenuItem.Size = new System.Drawing.Size(260, 26);
+            добавитьСтрокуToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
             добавитьСтрокуToolStripMenuItem.Text = "Добавить строку";
             добавитьСтрокуToolStripMenuItem.Click += btnAdd_Click;
             // 
@@ -129,7 +129,7 @@
             // 
             удалитьСтрокуToolStripMenuItem.Name = "удалитьСтрокуToolStripMenuItem";
             удалитьСтрокуToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D;
-            удалитьСтрокуToolStripMenuItem.Size = new System.Drawing.Size(260, 26);
+            удалитьСтрокуToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
             удалитьСтрокуToolStripMenuItem.Text = "Удалить строку";
             удалитьСтрокуToolStripMenuItem.Click += btnDelete_Click;
             // 
@@ -137,32 +137,33 @@
             // 
             обновитьToolStripMenuItem.Name = "обновитьToolStripMenuItem";
             обновитьToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F5;
-            обновитьToolStripMenuItem.Size = new System.Drawing.Size(260, 26);
+            обновитьToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
             обновитьToolStripMenuItem.Text = "Обновить";
             обновитьToolStripMenuItem.Click += обновитьToolStripMenuItem_Click;
             // 
             // btnFilter
             // 
             btnFilter.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            btnFilter.Location = new System.Drawing.Point(804, 31);
+            btnFilter.Location = new System.Drawing.Point(704, 30);
+            btnFilter.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             btnFilter.Name = "btnFilter";
-            btnFilter.Size = new System.Drawing.Size(94, 28);
+            btnFilter.Size = new System.Drawing.Size(82, 24);
             btnFilter.TabIndex = 9;
             btnFilter.Text = "Фильтр";
             btnFilter.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
-            AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            ClientSize = new System.Drawing.Size(1143, 733);
+            ClientSize = new System.Drawing.Size(1000, 550);
             Controls.Add(btnFilter);
             Controls.Add(lblRole);
             Controls.Add(cmbTables);
             Controls.Add(dgvData);
             Controls.Add(menuStrip1);
             MainMenuStrip = menuStrip1;
-            Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            MinimumSize = new System.Drawing.Size(527, 235);
             Name = "MainForm";
             Text = "Информационная система";
             ((System.ComponentModel.ISupportInitialize)dgvData).EndInit();
