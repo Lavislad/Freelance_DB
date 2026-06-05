@@ -11,18 +11,20 @@ namespace FreelanceExchange
         private string connectionString;
         private int currentRoleId;
         private int currentUserId;
+        private string currentUserLogin;
 
         private DataTable currentTable;
 
-        public MainForm(string connStr, int role_id, int userId)
+        public MainForm(string connStr, int role_id, int userId, string login)
         {
             InitializeComponent();
 
             connectionString = connStr;
             currentRoleId = role_id;
             currentUserId = userId;
+            currentUserLogin = login;
 
-            lblRole.Text = $"Роль: {role_id} | ID: {userId}";
+            lblRole.Text = $"{currentUserLogin} | ID: {userId}";
 
             LoadTables();
 
