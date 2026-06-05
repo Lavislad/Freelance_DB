@@ -34,12 +34,14 @@
             добавитьСтрокуToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             удалитьСтрокуToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             обновитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            btnFilter = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)dgvData).BeginInit();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
             // dgvData
             // 
+            dgvData.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
             dgvData.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.ColumnHeader;
             dgvData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvData.Location = new System.Drawing.Point(23, 93);
@@ -51,6 +53,7 @@
             // 
             // cmbTables
             // 
+            cmbTables.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             cmbTables.FormattingEnabled = true;
             cmbTables.Location = new System.Drawing.Point(904, 32);
             cmbTables.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -138,11 +141,22 @@
             обновитьToolStripMenuItem.Text = "Обновить";
             обновитьToolStripMenuItem.Click += обновитьToolStripMenuItem_Click;
             // 
+            // btnFilter
+            // 
+            btnFilter.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            btnFilter.Location = new System.Drawing.Point(804, 31);
+            btnFilter.Name = "btnFilter";
+            btnFilter.Size = new System.Drawing.Size(94, 28);
+            btnFilter.TabIndex = 9;
+            btnFilter.Text = "Фильтр";
+            btnFilter.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(1143, 733);
+            Controls.Add(btnFilter);
             Controls.Add(lblRole);
             Controls.Add(cmbTables);
             Controls.Add(dgvData);
@@ -166,5 +180,6 @@
         private System.Windows.Forms.ToolStripMenuItem добавитьСтрокуToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem удалитьСтрокуToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem обновитьToolStripMenuItem;
+        private System.Windows.Forms.Button btnFilter;
     }
 }
