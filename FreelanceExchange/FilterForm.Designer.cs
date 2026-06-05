@@ -37,7 +37,24 @@
             txtRole = new System.Windows.Forms.TextBox();
             txtRegDate = new System.Windows.Forms.TextBox();
             lblRegDate = new System.Windows.Forms.Label();
+            pnlVacancies = new System.Windows.Forms.Panel();
+            lblDeadline = new System.Windows.Forms.Label();
+            txtFromBudget = new System.Windows.Forms.TextBox();
+            lblBudget = new System.Windows.Forms.Label();
+            txtToBudget = new System.Windows.Forms.TextBox();
+            lblFromBudget = new System.Windows.Forms.Label();
+            lblToBudget = new System.Windows.Forms.Label();
+            dtpToDeadline = new System.Windows.Forms.DateTimePicker();
+            lblToDeadline = new System.Windows.Forms.Label();
+            lblFromDeadline = new System.Windows.Forms.Label();
+            dtpFromDeadline = new System.Windows.Forms.DateTimePicker();
+            dtpFromDate = new System.Windows.Forms.DateTimePicker();
+            lblToDate = new System.Windows.Forms.Label();
+            lblFromDate = new System.Windows.Forms.Label();
+            dtpToDate = new System.Windows.Forms.DateTimePicker();
+            lblDate = new System.Windows.Forms.Label();
             pnlUsers.SuspendLayout();
+            pnlVacancies.SuspendLayout();
             SuspendLayout();
             // 
             // btnAccept
@@ -83,6 +100,7 @@
             // pnlUsers
             // 
             pnlUsers.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            pnlUsers.BackColor = System.Drawing.Color.Transparent;
             pnlUsers.Controls.Add(lblRole);
             pnlUsers.Controls.Add(txtRole);
             pnlUsers.Controls.Add(txtRegDate);
@@ -105,17 +123,17 @@
             // txtRole
             // 
             txtRole.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            txtRole.Location = new System.Drawing.Point(307, 32);
+            txtRole.Location = new System.Drawing.Point(111, 32);
             txtRole.Name = "txtRole";
-            txtRole.Size = new System.Drawing.Size(100, 23);
+            txtRole.Size = new System.Drawing.Size(296, 23);
             txtRole.TabIndex = 2;
             // 
             // txtRegDate
             // 
             txtRegDate.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            txtRegDate.Location = new System.Drawing.Point(307, 3);
+            txtRegDate.Location = new System.Drawing.Point(111, 3);
             txtRegDate.Name = "txtRegDate";
-            txtRegDate.Size = new System.Drawing.Size(100, 23);
+            txtRegDate.Size = new System.Drawing.Size(296, 23);
             txtRegDate.TabIndex = 1;
             // 
             // lblRegDate
@@ -127,6 +145,161 @@
             lblRegDate.TabIndex = 0;
             lblRegDate.Text = "Дата регистрации";
             // 
+            // pnlVacancies
+            // 
+            pnlVacancies.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            pnlVacancies.BackColor = System.Drawing.Color.Transparent;
+            pnlVacancies.Controls.Add(dtpFromDate);
+            pnlVacancies.Controls.Add(lblToDate);
+            pnlVacancies.Controls.Add(lblFromDate);
+            pnlVacancies.Controls.Add(dtpToDate);
+            pnlVacancies.Controls.Add(lblDate);
+            pnlVacancies.Controls.Add(dtpFromDeadline);
+            pnlVacancies.Controls.Add(lblToDeadline);
+            pnlVacancies.Controls.Add(lblFromDeadline);
+            pnlVacancies.Controls.Add(dtpToDeadline);
+            pnlVacancies.Controls.Add(lblToBudget);
+            pnlVacancies.Controls.Add(lblFromBudget);
+            pnlVacancies.Controls.Add(txtToBudget);
+            pnlVacancies.Controls.Add(lblDeadline);
+            pnlVacancies.Controls.Add(txtFromBudget);
+            pnlVacancies.Controls.Add(lblBudget);
+            pnlVacancies.Location = new System.Drawing.Point(12, 56);
+            pnlVacancies.Name = "pnlVacancies";
+            pnlVacancies.Size = new System.Drawing.Size(410, 351);
+            pnlVacancies.TabIndex = 5;
+            pnlVacancies.Visible = false;
+            // 
+            // lblDeadline
+            // 
+            lblDeadline.AutoSize = true;
+            lblDeadline.Location = new System.Drawing.Point(0, 35);
+            lblDeadline.Name = "lblDeadline";
+            lblDeadline.Size = new System.Drawing.Size(54, 15);
+            lblDeadline.TabIndex = 3;
+            lblDeadline.Text = "Дедлайн";
+            // 
+            // txtFromBudget
+            // 
+            txtFromBudget.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            txtFromBudget.Location = new System.Drawing.Point(165, 0);
+            txtFromBudget.Name = "txtFromBudget";
+            txtFromBudget.Size = new System.Drawing.Size(103, 23);
+            txtFromBudget.TabIndex = 1;
+            // 
+            // lblBudget
+            // 
+            lblBudget.AutoSize = true;
+            lblBudget.Location = new System.Drawing.Point(0, 6);
+            lblBudget.Name = "lblBudget";
+            lblBudget.Size = new System.Drawing.Size(50, 15);
+            lblBudget.TabIndex = 0;
+            lblBudget.Text = "Бюджет";
+            // 
+            // txtToBudget
+            // 
+            txtToBudget.Location = new System.Drawing.Point(307, 0);
+            txtToBudget.Name = "txtToBudget";
+            txtToBudget.Size = new System.Drawing.Size(103, 23);
+            txtToBudget.TabIndex = 4;
+            // 
+            // lblFromBudget
+            // 
+            lblFromBudget.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            lblFromBudget.AutoSize = true;
+            lblFromBudget.Location = new System.Drawing.Point(138, 6);
+            lblFromBudget.Name = "lblFromBudget";
+            lblFromBudget.Size = new System.Drawing.Size(21, 15);
+            lblFromBudget.TabIndex = 5;
+            lblFromBudget.Text = "От";
+            // 
+            // lblToBudget
+            // 
+            lblToBudget.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            lblToBudget.AutoSize = true;
+            lblToBudget.Location = new System.Drawing.Point(279, 6);
+            lblToBudget.Name = "lblToBudget";
+            lblToBudget.Size = new System.Drawing.Size(22, 15);
+            lblToBudget.TabIndex = 6;
+            lblToBudget.Text = "До";
+            // 
+            // dtpToDeadline
+            // 
+            dtpToDeadline.Location = new System.Drawing.Point(265, 61);
+            dtpToDeadline.Name = "dtpToDeadline";
+            dtpToDeadline.Size = new System.Drawing.Size(145, 23);
+            dtpToDeadline.TabIndex = 7;
+            // 
+            // lblToDeadline
+            // 
+            lblToDeadline.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            lblToDeadline.AutoSize = true;
+            lblToDeadline.Location = new System.Drawing.Point(237, 64);
+            lblToDeadline.Name = "lblToDeadline";
+            lblToDeadline.Size = new System.Drawing.Size(22, 15);
+            lblToDeadline.TabIndex = 9;
+            lblToDeadline.Text = "До";
+            // 
+            // lblFromDeadline
+            // 
+            lblFromDeadline.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            lblFromDeadline.AutoSize = true;
+            lblFromDeadline.Location = new System.Drawing.Point(239, 35);
+            lblFromDeadline.Name = "lblFromDeadline";
+            lblFromDeadline.Size = new System.Drawing.Size(21, 15);
+            lblFromDeadline.TabIndex = 8;
+            lblFromDeadline.Text = "От";
+            // 
+            // dtpFromDeadline
+            // 
+            dtpFromDeadline.Location = new System.Drawing.Point(265, 32);
+            dtpFromDeadline.Name = "dtpFromDeadline";
+            dtpFromDeadline.Size = new System.Drawing.Size(145, 23);
+            dtpFromDeadline.TabIndex = 10;
+            // 
+            // dtpFromDate
+            // 
+            dtpFromDate.Location = new System.Drawing.Point(265, 90);
+            dtpFromDate.Name = "dtpFromDate";
+            dtpFromDate.Size = new System.Drawing.Size(145, 23);
+            dtpFromDate.TabIndex = 15;
+            // 
+            // lblToDate
+            // 
+            lblToDate.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            lblToDate.AutoSize = true;
+            lblToDate.Location = new System.Drawing.Point(237, 122);
+            lblToDate.Name = "lblToDate";
+            lblToDate.Size = new System.Drawing.Size(22, 15);
+            lblToDate.TabIndex = 14;
+            lblToDate.Text = "До";
+            // 
+            // lblFromDate
+            // 
+            lblFromDate.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            lblFromDate.AutoSize = true;
+            lblFromDate.Location = new System.Drawing.Point(239, 93);
+            lblFromDate.Name = "lblFromDate";
+            lblFromDate.Size = new System.Drawing.Size(21, 15);
+            lblFromDate.TabIndex = 13;
+            lblFromDate.Text = "От";
+            // 
+            // dtpToDate
+            // 
+            dtpToDate.Location = new System.Drawing.Point(265, 119);
+            dtpToDate.Name = "dtpToDate";
+            dtpToDate.Size = new System.Drawing.Size(145, 23);
+            dtpToDate.TabIndex = 12;
+            // 
+            // lblDate
+            // 
+            lblDate.AutoSize = true;
+            lblDate.Location = new System.Drawing.Point(0, 93);
+            lblDate.Name = "lblDate";
+            lblDate.Size = new System.Drawing.Size(102, 15);
+            lblDate.TabIndex = 11;
+            lblDate.Text = "Дата публикации";
+            // 
             // FilterForm
             // 
             AcceptButton = btnAccept;
@@ -134,6 +307,7 @@
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             CancelButton = btnCancel;
             ClientSize = new System.Drawing.Size(434, 450);
+            Controls.Add(pnlVacancies);
             Controls.Add(pnlUsers);
             Controls.Add(cmbTables);
             Controls.Add(lblTable);
@@ -143,6 +317,8 @@
             Text = "Фильтры";
             pnlUsers.ResumeLayout(false);
             pnlUsers.PerformLayout();
+            pnlVacancies.ResumeLayout(false);
+            pnlVacancies.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -158,5 +334,21 @@
         private System.Windows.Forms.Label lblRegDate;
         private System.Windows.Forms.Label lblRole;
         private System.Windows.Forms.TextBox txtRole;
+        private System.Windows.Forms.Panel pnlVacancies;
+        private System.Windows.Forms.Label lblDeadline;
+        private System.Windows.Forms.TextBox txtFromBudget;
+        private System.Windows.Forms.Label lblBudget;
+        private System.Windows.Forms.Label lblToBudget;
+        private System.Windows.Forms.Label lblFromBudget;
+        private System.Windows.Forms.TextBox txtToBudget;
+        private System.Windows.Forms.DateTimePicker dtpFromDeadline;
+        private System.Windows.Forms.Label lblToDeadline;
+        private System.Windows.Forms.Label lblFromDeadline;
+        private System.Windows.Forms.DateTimePicker dtpToDeadline;
+        private System.Windows.Forms.DateTimePicker dtpFromDate;
+        private System.Windows.Forms.Label lblToDate;
+        private System.Windows.Forms.Label lblFromDate;
+        private System.Windows.Forms.DateTimePicker dtpToDate;
+        private System.Windows.Forms.Label lblDate;
     }
 }

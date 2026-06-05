@@ -21,10 +21,10 @@ namespace FreelanceExchange
             InitializeComponent();
 
             currentRoleId = role_id;
-            this.table = cmbTables.Text;
-
             LoadTables();
             cmbTables.SelectedIndex = tableIndex;
+            this.table = cmbTables.Text; ;
+
             LoadPanel();
         }
 
@@ -54,6 +54,9 @@ namespace FreelanceExchange
 
         private void LoadPanel()
         {
+            if (currentPanel != null)
+                currentPanel.Visible = false;
+
             switch (table)
             {
                 case "users":
@@ -65,7 +68,6 @@ namespace FreelanceExchange
 
         private void cmbTables_SelectedIndexChanged(object sender, EventArgs e)
         {
-            currentPanel.Visible = false;
             LoadPanel();
         }
     }
