@@ -151,6 +151,7 @@
             btnFilter.TabIndex = 9;
             btnFilter.Text = "Фильтр";
             btnFilter.UseVisualStyleBackColor = true;
+            btnFilter.Click += btnFilter_Click;
             // 
             // MainForm
             // 
