@@ -690,7 +690,8 @@ namespace FreelanceExchange
 
         private void btnFilter_Click(object sender, EventArgs e)
         {
-
+            FilterForm filterForm = new FilterForm();
+            filterForm.Show();
         }
     }
 }
