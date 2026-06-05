@@ -61,23 +61,25 @@
             // 
             btnAccept.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
             btnAccept.AutoSize = true;
-            btnAccept.Location = new System.Drawing.Point(347, 415);
+            btnAccept.Location = new System.Drawing.Point(347, 223);
             btnAccept.Name = "btnAccept";
             btnAccept.Size = new System.Drawing.Size(80, 25);
             btnAccept.TabIndex = 0;
             btnAccept.Text = "Применить";
             btnAccept.UseVisualStyleBackColor = true;
+            btnAccept.Click += btnAccept_Click;
             // 
             // btnCancel
             // 
             btnCancel.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
             btnCancel.AutoSize = true;
-            btnCancel.Location = new System.Drawing.Point(261, 413);
+            btnCancel.Location = new System.Drawing.Point(261, 221);
             btnCancel.Name = "btnCancel";
             btnCancel.Size = new System.Drawing.Size(80, 25);
             btnCancel.TabIndex = 1;
             btnCancel.Text = "Отмена";
             btnCancel.UseVisualStyleBackColor = true;
+            btnCancel.Click += btnCancel_Click;
             // 
             // lblTable
             // 
@@ -107,7 +109,7 @@
             pnlUsers.Controls.Add(lblRegDate);
             pnlUsers.Location = new System.Drawing.Point(12, 56);
             pnlUsers.Name = "pnlUsers";
-            pnlUsers.Size = new System.Drawing.Size(410, 351);
+            pnlUsers.Size = new System.Drawing.Size(410, 159);
             pnlUsers.TabIndex = 4;
             pnlUsers.Visible = false;
             // 
@@ -166,7 +168,7 @@
             pnlVacancies.Controls.Add(lblBudget);
             pnlVacancies.Location = new System.Drawing.Point(12, 56);
             pnlVacancies.Name = "pnlVacancies";
-            pnlVacancies.Size = new System.Drawing.Size(410, 351);
+            pnlVacancies.Size = new System.Drawing.Size(410, 159);
             pnlVacancies.TabIndex = 5;
             pnlVacancies.Visible = false;
             // 
@@ -306,7 +308,7 @@
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             CancelButton = btnCancel;
-            ClientSize = new System.Drawing.Size(434, 450);
+            ClientSize = new System.Drawing.Size(434, 258);
             Controls.Add(pnlVacancies);
             Controls.Add(pnlUsers);
             Controls.Add(cmbTables);

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics.Eventing.Reader;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -21,13 +22,27 @@ namespace FreelanceExchange
 
             currentRoleId = role_id;
             LoadTables();
-            if (table == "users" || table == "vacancies")
+            if (currentRoleId == 1)
             {
-                cmbTables.SelectedItem = table;
+                if (table == "users" || table == "vacancies")
+                {
+                    cmbTables.SelectedItem = table;
+                }
+                else
+                {
+                    cmbTables.SelectedItem = "users";
+                }
             }
-            else
+            else if (currentRoleId == 2)
             {
-                cmbTables.SelectedItem = "users";
+                if (table == "vacancies")
+                {
+                    cmbTables.SelectedItem = table;
+                }
+                else
+                {
+                    cmbTables.SelectedItem = "users";
+                }
             }
         }
 
@@ -44,7 +59,6 @@ namespace FreelanceExchange
 
             else if (currentRoleId == 2)
             {
-                cmbTables.Items.Add("users");
                 cmbTables.Items.Add("vacancies");
             }
         }
@@ -70,6 +84,16 @@ namespace FreelanceExchange
         private void cmbTables_SelectedIndexChanged(object sender, EventArgs e)
         {
             LoadPanel();
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void btnAccept_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
