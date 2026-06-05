@@ -402,7 +402,6 @@ namespace FreelanceExchange
                         "email=@email, " +
                         "password=@password, " +
                         "profile_description=@profile_description, " +
-                        "role=@role, " +
                         "role_id=@role_id " +
                         "WHERE id=@id";
 
@@ -418,23 +417,14 @@ namespace FreelanceExchange
 
                     command.Parameters.AddWithValue("@profile_description", row["profile_description"]);
 
-                    string role = row["role"].ToString();
-                    if (role != "Администратор" && role != "Заказчик" && role != "Фрилансер")
+                    int.TryParse(row["role_id"].ToString(), out int roleID);
+                    if (roleID != 1 && roleID != 2)
                     {
-                        MessageBox.Show("Недопустимое значение для role. Допустимые значения:\nАдминистратор,\nЗаказчик,\nФрилансер.", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show("Недопустимое значение для role.\nДопустимые значенния:\n1 (Администратор).\n2 (Пользователь).", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         return false;
                     }
 
-                    command.Parameters.AddWithValue("@role", row["role"]);
-
-                    int role_id = int.Parse(row["role_id"].ToString());
-                    if (role_id < 1 || role_id > 3)
-                    {
-                        MessageBox.Show("Недопустимое значение для role_id. Допустимые значения:\n1 (Администратор),\n2 (Заказчик),\n3 (Фрилансер).", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        return false;
-                    }
-
-                    command.Parameters.AddWithValue("@role_id", role_id);
+                    command.Parameters.AddWithValue("@role_id", row["role_id"]);
 
                     command.Parameters.AddWithValue("@id", id);
                 }
