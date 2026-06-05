@@ -38,21 +38,21 @@
             txtRegDate = new System.Windows.Forms.TextBox();
             lblRegDate = new System.Windows.Forms.Label();
             pnlVacancies = new System.Windows.Forms.Panel();
-            lblDeadline = new System.Windows.Forms.Label();
-            txtFromBudget = new System.Windows.Forms.TextBox();
-            lblBudget = new System.Windows.Forms.Label();
-            txtToBudget = new System.Windows.Forms.TextBox();
-            lblFromBudget = new System.Windows.Forms.Label();
-            lblToBudget = new System.Windows.Forms.Label();
-            dtpToDeadline = new System.Windows.Forms.DateTimePicker();
-            lblToDeadline = new System.Windows.Forms.Label();
-            lblFromDeadline = new System.Windows.Forms.Label();
-            dtpFromDeadline = new System.Windows.Forms.DateTimePicker();
             dtpFromDate = new System.Windows.Forms.DateTimePicker();
             lblToDate = new System.Windows.Forms.Label();
             lblFromDate = new System.Windows.Forms.Label();
             dtpToDate = new System.Windows.Forms.DateTimePicker();
             lblDate = new System.Windows.Forms.Label();
+            dtpFromDeadline = new System.Windows.Forms.DateTimePicker();
+            lblToDeadline = new System.Windows.Forms.Label();
+            lblFromDeadline = new System.Windows.Forms.Label();
+            dtpToDeadline = new System.Windows.Forms.DateTimePicker();
+            lblToBudget = new System.Windows.Forms.Label();
+            lblFromBudget = new System.Windows.Forms.Label();
+            txtToBudget = new System.Windows.Forms.TextBox();
+            lblDeadline = new System.Windows.Forms.Label();
+            txtFromBudget = new System.Windows.Forms.TextBox();
+            lblBudget = new System.Windows.Forms.Label();
             pnlUsers.SuspendLayout();
             pnlVacancies.SuspendLayout();
             SuspendLayout();
@@ -170,93 +170,6 @@
             pnlVacancies.TabIndex = 5;
             pnlVacancies.Visible = false;
             // 
-            // lblDeadline
-            // 
-            lblDeadline.AutoSize = true;
-            lblDeadline.Location = new System.Drawing.Point(0, 35);
-            lblDeadline.Name = "lblDeadline";
-            lblDeadline.Size = new System.Drawing.Size(54, 15);
-            lblDeadline.TabIndex = 3;
-            lblDeadline.Text = "Дедлайн";
-            // 
-            // txtFromBudget
-            // 
-            txtFromBudget.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            txtFromBudget.Location = new System.Drawing.Point(165, 0);
-            txtFromBudget.Name = "txtFromBudget";
-            txtFromBudget.Size = new System.Drawing.Size(103, 23);
-            txtFromBudget.TabIndex = 1;
-            // 
-            // lblBudget
-            // 
-            lblBudget.AutoSize = true;
-            lblBudget.Location = new System.Drawing.Point(0, 6);
-            lblBudget.Name = "lblBudget";
-            lblBudget.Size = new System.Drawing.Size(50, 15);
-            lblBudget.TabIndex = 0;
-            lblBudget.Text = "Бюджет";
-            // 
-            // txtToBudget
-            // 
-            txtToBudget.Location = new System.Drawing.Point(307, 0);
-            txtToBudget.Name = "txtToBudget";
-            txtToBudget.Size = new System.Drawing.Size(103, 23);
-            txtToBudget.TabIndex = 4;
-            // 
-            // lblFromBudget
-            // 
-            lblFromBudget.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            lblFromBudget.AutoSize = true;
-            lblFromBudget.Location = new System.Drawing.Point(138, 6);
-            lblFromBudget.Name = "lblFromBudget";
-            lblFromBudget.Size = new System.Drawing.Size(21, 15);
-            lblFromBudget.TabIndex = 5;
-            lblFromBudget.Text = "От";
-            // 
-            // lblToBudget
-            // 
-            lblToBudget.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            lblToBudget.AutoSize = true;
-            lblToBudget.Location = new System.Drawing.Point(279, 6);
-            lblToBudget.Name = "lblToBudget";
-            lblToBudget.Size = new System.Drawing.Size(22, 15);
-            lblToBudget.TabIndex = 6;
-            lblToBudget.Text = "До";
-            // 
-            // dtpToDeadline
-            // 
-            dtpToDeadline.Location = new System.Drawing.Point(265, 61);
-            dtpToDeadline.Name = "dtpToDeadline";
-            dtpToDeadline.Size = new System.Drawing.Size(145, 23);
-            dtpToDeadline.TabIndex = 7;
-            // 
-            // lblToDeadline
-            // 
-            lblToDeadline.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            lblToDeadline.AutoSize = true;
-            lblToDeadline.Location = new System.Drawing.Point(237, 64);
-            lblToDeadline.Name = "lblToDeadline";
-            lblToDeadline.Size = new System.Drawing.Size(22, 15);
-            lblToDeadline.TabIndex = 9;
-            lblToDeadline.Text = "До";
-            // 
-            // lblFromDeadline
-            // 
-            lblFromDeadline.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            lblFromDeadline.AutoSize = true;
-            lblFromDeadline.Location = new System.Drawing.Point(239, 35);
-            lblFromDeadline.Name = "lblFromDeadline";
-            lblFromDeadline.Size = new System.Drawing.Size(21, 15);
-            lblFromDeadline.TabIndex = 8;
-            lblFromDeadline.Text = "От";
-            // 
-            // dtpFromDeadline
-            // 
-            dtpFromDeadline.Location = new System.Drawing.Point(265, 32);
-            dtpFromDeadline.Name = "dtpFromDeadline";
-            dtpFromDeadline.Size = new System.Drawing.Size(145, 23);
-            dtpFromDeadline.TabIndex = 10;
-            // 
             // dtpFromDate
             // 
             dtpFromDate.Location = new System.Drawing.Point(265, 90);
@@ -299,6 +212,93 @@
             lblDate.Size = new System.Drawing.Size(102, 15);
             lblDate.TabIndex = 11;
             lblDate.Text = "Дата публикации";
+            // 
+            // dtpFromDeadline
+            // 
+            dtpFromDeadline.Location = new System.Drawing.Point(265, 32);
+            dtpFromDeadline.Name = "dtpFromDeadline";
+            dtpFromDeadline.Size = new System.Drawing.Size(145, 23);
+            dtpFromDeadline.TabIndex = 10;
+            // 
+            // lblToDeadline
+            // 
+            lblToDeadline.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            lblToDeadline.AutoSize = true;
+            lblToDeadline.Location = new System.Drawing.Point(237, 64);
+            lblToDeadline.Name = "lblToDeadline";
+            lblToDeadline.Size = new System.Drawing.Size(22, 15);
+            lblToDeadline.TabIndex = 9;
+            lblToDeadline.Text = "До";
+            // 
+            // lblFromDeadline
+            // 
+            lblFromDeadline.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            lblFromDeadline.AutoSize = true;
+            lblFromDeadline.Location = new System.Drawing.Point(239, 35);
+            lblFromDeadline.Name = "lblFromDeadline";
+            lblFromDeadline.Size = new System.Drawing.Size(21, 15);
+            lblFromDeadline.TabIndex = 8;
+            lblFromDeadline.Text = "От";
+            // 
+            // dtpToDeadline
+            // 
+            dtpToDeadline.Location = new System.Drawing.Point(265, 61);
+            dtpToDeadline.Name = "dtpToDeadline";
+            dtpToDeadline.Size = new System.Drawing.Size(145, 23);
+            dtpToDeadline.TabIndex = 7;
+            // 
+            // lblToBudget
+            // 
+            lblToBudget.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            lblToBudget.AutoSize = true;
+            lblToBudget.Location = new System.Drawing.Point(279, 6);
+            lblToBudget.Name = "lblToBudget";
+            lblToBudget.Size = new System.Drawing.Size(22, 15);
+            lblToBudget.TabIndex = 6;
+            lblToBudget.Text = "До";
+            // 
+            // lblFromBudget
+            // 
+            lblFromBudget.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            lblFromBudget.AutoSize = true;
+            lblFromBudget.Location = new System.Drawing.Point(138, 6);
+            lblFromBudget.Name = "lblFromBudget";
+            lblFromBudget.Size = new System.Drawing.Size(21, 15);
+            lblFromBudget.TabIndex = 5;
+            lblFromBudget.Text = "От";
+            // 
+            // txtToBudget
+            // 
+            txtToBudget.Location = new System.Drawing.Point(307, 0);
+            txtToBudget.Name = "txtToBudget";
+            txtToBudget.Size = new System.Drawing.Size(103, 23);
+            txtToBudget.TabIndex = 4;
+            // 
+            // lblDeadline
+            // 
+            lblDeadline.AutoSize = true;
+            lblDeadline.Location = new System.Drawing.Point(0, 35);
+            lblDeadline.Name = "lblDeadline";
+            lblDeadline.Size = new System.Drawing.Size(54, 15);
+            lblDeadline.TabIndex = 3;
+            lblDeadline.Text = "Дедлайн";
+            // 
+            // txtFromBudget
+            // 
+            txtFromBudget.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            txtFromBudget.Location = new System.Drawing.Point(165, 0);
+            txtFromBudget.Name = "txtFromBudget";
+            txtFromBudget.Size = new System.Drawing.Size(103, 23);
+            txtFromBudget.TabIndex = 1;
+            // 
+            // lblBudget
+            // 
+            lblBudget.AutoSize = true;
+            lblBudget.Location = new System.Drawing.Point(0, 6);
+            lblBudget.Name = "lblBudget";
+            lblBudget.Size = new System.Drawing.Size(50, 15);
+            lblBudget.TabIndex = 0;
+            lblBudget.Text = "Бюджет";
             // 
             // FilterForm
             // 

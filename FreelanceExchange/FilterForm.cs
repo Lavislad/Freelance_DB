@@ -16,14 +16,14 @@ namespace FreelanceExchange
         int currentRoleId;
         Panel currentPanel;
 
-        public FilterForm(int role_id, int tableIndex)
+        public FilterForm(int role_id, string table)
         {
             InitializeComponent();
 
             currentRoleId = role_id;
             LoadTables();
-            cmbTables.SelectedIndex = tableIndex;
-            this.table = cmbTables.Text; ;
+            cmbTables.SelectedItem = table;
+            this.table = cmbTables.Text;
 
             LoadPanel();
         }
@@ -36,19 +36,13 @@ namespace FreelanceExchange
             {
                 cmbTables.Items.Add("users");
                 cmbTables.Items.Add("vacancies");
-                cmbTables.Items.Add("responses");
-                cmbTables.Items.Add("feedbacks");
-                cmbTables.Items.Add("news");
-                cmbTables.Items.Add("tags");
+                // Добавить фильтры на id
             }
 
             else if (currentRoleId == 2)
             {
                 cmbTables.Items.Add("users");
                 cmbTables.Items.Add("vacancies");
-                cmbTables.Items.Add("feedbacks");
-                cmbTables.Items.Add("news");
-                cmbTables.Items.Add("responses");
             }
         }
 
@@ -62,6 +56,10 @@ namespace FreelanceExchange
                 case "users":
                     pnlUsers.Visible = true;
                     currentPanel = pnlUsers;
+                    break;
+                case "vacancies":
+                    pnlVacancies.Visible = true;
+                    currentPanel = pnlVacancies;
                     break;
             }
         }

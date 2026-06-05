@@ -49,9 +49,9 @@ namespace FreelanceExchange
             {
                 cmbTables.Items.Add("users");
                 cmbTables.Items.Add("vacancies");
+                cmbTables.Items.Add("responses");
                 cmbTables.Items.Add("feedbacks");
                 cmbTables.Items.Add("news");
-                cmbTables.Items.Add("responses");
             }
         }
 
@@ -687,7 +687,7 @@ namespace FreelanceExchange
 
         private void btnFilter_Click(object sender, EventArgs e)
         {
-            FilterForm filterForm = new FilterForm(currentRoleId, cmbTables.SelectedIndex);
+            FilterForm filterForm = new FilterForm(currentRoleId, cmbTables.SelectedItem?.ToString());
             filterForm.Show();
         }
     }
