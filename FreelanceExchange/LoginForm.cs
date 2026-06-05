@@ -8,6 +8,7 @@ namespace FreelanceExchange
     {
         private int currentUserId;
         private int currentUserRoleId;
+        private string currentUserLogin;
 
         public LoginForm()
         {
@@ -30,7 +31,7 @@ namespace FreelanceExchange
                     connection.Open();
 
                     string sql =
-                        "SELECT id, role_id " +
+                        "SELECT id, role_id, email " +
                         "FROM users " +
                         "WHERE email=@email " +
                         "AND password=@password";
@@ -49,6 +50,8 @@ namespace FreelanceExchange
                         currentUserId = Convert.ToInt32(reader["id"]);
 
                         currentUserRoleId = Convert.ToInt32(reader["role_id"].ToString());
+
+                        currentUserLogin = Convert.ToString(reader["email"].ToString());
 
                         string connectionString = "";
 
@@ -77,7 +80,7 @@ namespace FreelanceExchange
                             throw new Exception("Роль не определена");
                         }
 
-                        MainForm form = new MainForm(connectionString, currentUserRoleId, currentUserId);
+                        MainForm form = new MainForm(connectionString, currentUserRoleId, currentUserId, currentUserLogin);
                         this.Hide();
                         form.ShowDialog();
                         this.Close();

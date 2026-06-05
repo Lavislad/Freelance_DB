@@ -1,5 +1,6 @@
 ﻿using Npgsql;
 using System;
+using System.Configuration;
 using System.Data;
 using System.Windows.Forms;
 
@@ -10,18 +11,20 @@ namespace FreelanceExchange
         private string connectionString;
         private int currentRoleId;
         private int currentUserId;
+        private string currentUserLogin;
 
         private DataTable currentTable;
 
-        public MainForm(string connStr, int role_id, int userId)
+        public MainForm(string connStr, int role_id, int userId, string login)
         {
             InitializeComponent();
 
             connectionString = connStr;
             currentRoleId = role_id;
             currentUserId = userId;
+            currentUserLogin = login;
 
-            lblRole.Text = $"Роль: {role_id} | ID: {userId}";
+            lblRole.Text = $"{currentUserLogin} | ID: {userId}";
 
             LoadTables();
 
@@ -195,8 +198,7 @@ namespace FreelanceExchange
             }
         }
 
-        // Сохранение изменений прямо из DataGridView
-        private void btnSave_Click(object sender, EventArgs e)
+        private void Save()
         {
             try
             {
@@ -233,6 +235,12 @@ namespace FreelanceExchange
             {
                 MessageBox.Show(ex.Message);
             }
+
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            Save();
         }
 
         private bool SaveNewRow(NpgsqlConnection connection, string table, DataRow row)
@@ -658,6 +666,26 @@ namespace FreelanceExchange
                 form.ShowDialog();
                 this.Close();
             }
+        }
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            //switch (keyData)
+            //{
+            //    case Keys.Control | Keys.S:
+            //        Save();
+            //        return true;
+            //    case Keys.F5:
+            //        LoadData();
+            //        return true;
+            //}
+
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+        private void обновитьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            LoadData();
         }
     }
 }
