@@ -101,7 +101,7 @@ namespace FreelanceExchange
 
                     command.ExecuteNonQuery();
 
-                    dbm.LoadData(cmbTables.Text, dgvData);
+                    dbm.LoadData(cmbTables.Text, dgvData, out currentTable);
                 }
             }
 
@@ -122,36 +122,36 @@ namespace FreelanceExchange
             switch (table)
             {
                 case "users":
-                    if (!dbm.LoadData(cmbTables.Text, dgvData)) return;
+                    if (!dbm.LoadData(cmbTables.Text, dgvData, out currentTable)) return;
                     dgvData.Columns["id"].ReadOnly = true;
                     dgvData.Columns["registration_date"].ReadOnly = true;
                     break;
                 case "vacancies":
-                    if (!dbm.LoadData(cmbTables.Text, dgvData)) return;
+                    if (!dbm.LoadData(cmbTables.Text, dgvData, out currentTable)) return;
                     dgvData.Columns["id"].ReadOnly = true;
                     dgvData.Columns["publication_date"].ReadOnly = true;
                     dgvData.Columns["author_id"].ReadOnly = true;
                     break;
                 case "feedbacks":
-                    if (!dbm.LoadData(cmbTables.Text, dgvData)) return;
+                    if (!dbm.LoadData(cmbTables.Text, dgvData, out currentTable)) return;
                     dgvData.Columns["id"].ReadOnly = true;
                     dgvData.Columns["send_date"].ReadOnly = true;
                     dgvData.Columns["author_id"].ReadOnly = true;
                     break;
                 case "responses":
-                    if (!dbm.LoadData(cmbTables.Text, dgvData)) return;
+                    if (!dbm.LoadData(cmbTables.Text, dgvData, out currentTable)) return;
                     dgvData.Columns["id"].ReadOnly = true;
                     dgvData.Columns["user_id"].ReadOnly = true;
                     dgvData.Columns["created_at"].ReadOnly = true;
                     break;
                 case "news":
-                    if (!dbm.LoadData(cmbTables.Text, dgvData)) return;
+                    if (!dbm.LoadData(cmbTables.Text, dgvData, out currentTable)) return;
                     dgvData.Columns["id"].ReadOnly = true;
                     dgvData.Columns["creation_date"].ReadOnly = true;
                     dgvData.Columns["author_id"].ReadOnly = true;
                     break;
                 case "tags":
-                    if (!dbm.LoadData(cmbTables.Text, dgvData)) return;
+                    if (!dbm.LoadData(cmbTables.Text, dgvData, out currentTable)) return;
                     dgvData.Columns["id"].ReadOnly = true;
                     break;
             }
@@ -183,7 +183,7 @@ namespace FreelanceExchange
 
         private void обновитьToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            dbm.LoadData(cmbTables.Text, dgvData);
+            dbm.LoadData(cmbTables.Text, dgvData, out currentTable);;
         }
 
         private void btnFilter_Click(object sender, EventArgs e)

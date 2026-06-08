@@ -22,7 +22,7 @@ namespace FreelanceExchange
             connectionString = connection;
         }
 
-        public bool LoadData(string table, DataGridView dgvData)
+        public bool LoadData(string table, DataGridView dgvData, out DataTable currentTable)
         {
             try
             {
@@ -97,6 +97,7 @@ namespace FreelanceExchange
             catch (Exception ex)
             {
                 MessageBox.Show("Ошибка загрузки таблицы: " + ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                currentTable = null;
                 return false;
             }
 
@@ -130,7 +131,7 @@ namespace FreelanceExchange
 
                     currentTable.AcceptChanges();
 
-                    LoadData(table, dgvData);
+                    LoadData(table, dgvData, out currentTable);
                 }
             }
 
