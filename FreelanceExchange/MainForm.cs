@@ -113,7 +113,7 @@ namespace FreelanceExchange
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            dbm.Save(cmbTables.Text, dgvData);
+            dbm.Save(cmbTables.Text, dgvData, currentTable);
         }
 
         private void cmbTables_SelectedIndexChanged(object sender, EventArgs e)

@@ -14,7 +14,6 @@ namespace FreelanceExchange
         private string connectionString;
         private int currentRoleId;
         private int currentUserId;
-        private DataTable currentTable;
 
         public DBManager(int role_id, string connection)
         {
@@ -104,7 +103,7 @@ namespace FreelanceExchange
             return true;
         }
 
-        public void Save(string table, DataGridView dgvData)
+        public void Save(string table, DataGridView dgvData, DataTable currentTable)
         {
             try
             {
@@ -170,11 +169,13 @@ namespace FreelanceExchange
 
                     command.Parameters.AddWithValue("@profile_description", row["profile_description"]);
 
-                    int.TryParse(row["role_id"].ToString(), out int roleID);
-                    if (roleID != 1 && roleID != 2)
+                    if (!int.TryParse(row["role_id"].ToString(), out int roleID))
                     {
-                        MessageBox.Show("Недопустимое значение для role.\nДопустимые значенния:\n1 (Администратор).\n2 (Пользователь).", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        return false;
+                        throw new Exception("Ошибка чтения поля role_id");
+                    }
+                    if (roleID < 1 || roleID > 2)
+                    {
+                        throw new Exception("Недопустимое значение для role_id.\nДопустимые значенния:\n1 (Администратор).\n2 (Пользователь).");
                     }
 
                     command.Parameters.AddWithValue("@role_id", row["role_id"]);
@@ -324,10 +325,9 @@ namespace FreelanceExchange
                     command.Parameters.AddWithValue("@profile_description", row["profile_description"]);
 
                     int.TryParse(row["role_id"].ToString(), out int roleID);
-                    if (roleID != 1 && roleID != 2)
+                    if (roleID < 1 || roleID > 2)
                     {
-                        MessageBox.Show("Недопустимое значение для role.\nДопустимые значенния:\n1 (Администратор).\n2 (Пользователь).", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        return false;
+                        throw new Exception("Недопустимое значение для role.\nДопустимые значенния:\n1 (Администратор).\n2 (Пользователь).");
                     }
 
                     command.Parameters.AddWithValue("@role_id", row["role_id"]);
