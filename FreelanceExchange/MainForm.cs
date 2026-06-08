@@ -12,6 +12,7 @@ namespace FreelanceExchange
         private int currentRoleId;
         private int currentUserId;
         private string currentUserLogin;
+        private DBManager dbm;
 
         private DataTable currentTable;
 
@@ -23,6 +24,7 @@ namespace FreelanceExchange
             currentRoleId = role_id;
             currentUserId = userId;
             currentUserLogin = login;
+            dbm = new DBManager(currentRoleId, connectionString);
 
             lblRole.Text = $"{currentUserLogin} | ID: {userId}";
 
@@ -55,88 +57,7 @@ namespace FreelanceExchange
             }
         }
 
-        private bool LoadData()
-        {
-            try
-            {
-                using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
-                {
-                    connection.Open();
-
-                    string table = cmbTables.Text;
-
-                    string sql = "";
-
-                    if (currentRoleId == 1)
-                    {
-                        sql = $"SELECT * FROM {table}";
-                    }
-
-                    else if (currentRoleId == 2)
-                    {
-                        if (table == "vacancies")
-                        {
-                            sql =
-                                "SELECT * FROM vacancies " +
-                                "WHERE author_id=@id";
-                        }
-
-                        else if (table == "feedbacks")
-                        {
-                            sql =
-                                "SELECT * FROM feedbacks " +
-                                "WHERE author_id=@id";
-                        }
-
-                        else if (table == "users")
-                        {
-                            sql =
-                                "SELECT * FROM users " +
-                                "WHERE id=@id";
-                        }
-
-                        else if (table == "responses")
-                        {
-                            sql =
-                                "SELECT * FROM responses " +
-                                "WHERE user_id=@id";
-                        }
-
-                        else if (table == "news")
-                        {
-                            sql =
-                                "SELECT * FROM news ";
-                        }
-                    }
-
-                    NpgsqlCommand command = new NpgsqlCommand(sql, connection);
-
-                    if (currentRoleId != 1)
-                    {
-                        command.Parameters.AddWithValue("@id", currentUserId);
-                    }
-
-                    NpgsqlDataAdapter adapter = new NpgsqlDataAdapter(command);
-
-                    currentTable = new DataTable();
-
-                    adapter.Fill(currentTable);
-
-                    dgvData.DataSource = currentTable;
-                    dgvData.AllowUserToAddRows = true;
-                    dgvData.AllowUserToDeleteRows = false;
-                    dgvData.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-                }
-            }
-
-            catch (Exception ex)
-            {
-                MessageBox.Show("Ошибка загрузки таблицы: " + ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-
-            return true;
-        }
+        
 
         // Добавление записи
         private void btnAdd_Click(object sender, EventArgs e)
@@ -180,7 +101,7 @@ namespace FreelanceExchange
 
                     command.ExecuteNonQuery();
 
-                    LoadData();
+                    dbm.LoadData(cmbTables.Text, dgvData);
                 }
             }
 
@@ -219,7 +140,7 @@ namespace FreelanceExchange
 
                     currentTable.AcceptChanges();
 
-                    LoadData();
+                    dbm.LoadData(cmbTables.Text, dgvData);
                 }
             }
 
@@ -577,36 +498,36 @@ namespace FreelanceExchange
             switch (table)
             {
                 case "users":
-                    if (!LoadData()) return;
+                    if (!dbm.LoadData(cmbTables.Text, dgvData)) return;
                     dgvData.Columns["id"].ReadOnly = true;
                     dgvData.Columns["registration_date"].ReadOnly = true;
                     break;
                 case "vacancies":
-                    if (!LoadData()) return;
+                    if (!dbm.LoadData(cmbTables.Text, dgvData)) return;
                     dgvData.Columns["id"].ReadOnly = true;
                     dgvData.Columns["publication_date"].ReadOnly = true;
                     dgvData.Columns["author_id"].ReadOnly = true;
                     break;
                 case "feedbacks":
-                    if (!LoadData()) return;
+                    if (!dbm.LoadData(cmbTables.Text, dgvData)) return;
                     dgvData.Columns["id"].ReadOnly = true;
                     dgvData.Columns["send_date"].ReadOnly = true;
                     dgvData.Columns["author_id"].ReadOnly = true;
                     break;
                 case "responses":
-                    if (!LoadData()) return;
+                    if (!dbm.LoadData(cmbTables.Text, dgvData)) return;
                     dgvData.Columns["id"].ReadOnly = true;
                     dgvData.Columns["user_id"].ReadOnly = true;
                     dgvData.Columns["created_at"].ReadOnly = true;
                     break;
                 case "news":
-                    if (!LoadData()) return;
+                    if (!dbm.LoadData(cmbTables.Text, dgvData)) return;
                     dgvData.Columns["id"].ReadOnly = true;
                     dgvData.Columns["creation_date"].ReadOnly = true;
                     dgvData.Columns["author_id"].ReadOnly = true;
                     break;
                 case "tags":
-                    if (!LoadData()) return;
+                    if (!dbm.LoadData(cmbTables.Text, dgvData)) return;
                     dgvData.Columns["id"].ReadOnly = true;
                     break;
             }
@@ -638,7 +559,7 @@ namespace FreelanceExchange
 
         private void обновитьToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            LoadData();
+            dbm.LoadData(cmbTables.Text, dgvData);
         }
 
         private void btnFilter_Click(object sender, EventArgs e)
