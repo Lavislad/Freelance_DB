@@ -15,13 +15,14 @@ namespace FreelanceExchange
         private int currentRoleId;
         private int currentUserId;
 
-        public DBManager(int role_id, string connection)
+        public DBManager(int role_id, string connection, int user_id)
         {
             currentRoleId = role_id;
             connectionString = connection;
+            currentUserId = user_id;
         }
 
-        public bool LoadData(string table, DataGridView dgvData, out DataTable currentTable)
+        public bool LoadData(string table, DataGridView dgvData, ref DataTable currentTable)
         {
             try
             {
@@ -130,7 +131,7 @@ namespace FreelanceExchange
 
                     currentTable.AcceptChanges();
 
-                    LoadData(table, dgvData, out currentTable);
+                    LoadData(table, dgvData, ref currentTable);
                 }
             }
 
@@ -324,11 +325,11 @@ namespace FreelanceExchange
 
                     command.Parameters.AddWithValue("@profile_description", row["profile_description"]);
 
-                    int.TryParse(row["role_id"].ToString(), out int roleID);
+                    if (!int.TryParse(row["role_id"].ToString(), out int roleID))
+                        throw new Exception("Ошибка чтения поля role_id");
+                    MessageBox.Show(row["role_id"].ToString());
                     if (roleID < 1 || roleID > 2)
-                    {
                         throw new Exception("Недопустимое значение для role.\nДопустимые значенния:\n1 (Администратор).\n2 (Пользователь).");
-                    }
 
                     command.Parameters.AddWithValue("@role_id", row["role_id"]);
 
