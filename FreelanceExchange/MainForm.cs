@@ -113,6 +113,8 @@ namespace FreelanceExchange
         private void btnSave_Click(object sender, EventArgs e)
         {
             dbm.Save(cmbTables.Text, dgvData, currentTable);
+            dbm.LoadData(cmbTables.Text, dgvData, ref currentTable);
+            
         }
 
         private void cmbTables_SelectedIndexChanged(object sender, EventArgs e)
@@ -182,7 +184,7 @@ namespace FreelanceExchange
 
         private void обновитьToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            dbm.LoadData(cmbTables.Text, dgvData, ref currentTable);;
+            dbm.LoadData(cmbTables.Text, dgvData, ref currentTable);
         }
 
         private void btnFilter_Click(object sender, EventArgs e)

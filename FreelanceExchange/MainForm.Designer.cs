@@ -128,7 +128,7 @@
             // удалитьСтрокуToolStripMenuItem
             // 
             удалитьСтрокуToolStripMenuItem.Name = "удалитьСтрокуToolStripMenuItem";
-            удалитьСтрокуToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D;
+            удалитьСтрокуToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.Delete;
             удалитьСтрокуToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
             удалитьСтрокуToolStripMenuItem.Text = "Удалить строку";
             удалитьСтрокуToolStripMenuItem.Click += btnDelete_Click;
