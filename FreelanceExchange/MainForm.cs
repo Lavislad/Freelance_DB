@@ -76,7 +76,7 @@ namespace FreelanceExchange
                 return;
             }
 
-            if (MessageBox.Show("Вы уверены, что хотите удалить эту запись?", "Подтверждение удаления", MessageBoxButtons.YesNo) == DialogResult.No)
+            if (MessageBox.Show("Вы уверены, что хотите удалить эту запись?", "Подтверждение удаления", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.No)
             {
                 return;
             }
