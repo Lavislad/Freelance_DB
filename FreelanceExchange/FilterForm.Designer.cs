@@ -35,7 +35,6 @@
             pnlUsers = new System.Windows.Forms.Panel();
             lblRole = new System.Windows.Forms.Label();
             txtRole = new System.Windows.Forms.TextBox();
-            txtRegDate = new System.Windows.Forms.TextBox();
             lblRegDate = new System.Windows.Forms.Label();
             pnlVacancies = new System.Windows.Forms.Panel();
             dtpFromDate = new System.Windows.Forms.DateTimePicker();
@@ -53,6 +52,10 @@
             lblDeadline = new System.Windows.Forms.Label();
             txtFromBudget = new System.Windows.Forms.TextBox();
             lblBudget = new System.Windows.Forms.Label();
+            dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            label1 = new System.Windows.Forms.Label();
+            label2 = new System.Windows.Forms.Label();
+            dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
             pnlUsers.SuspendLayout();
             pnlVacancies.SuspendLayout();
             SuspendLayout();
@@ -103,9 +106,12 @@
             // 
             pnlUsers.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
             pnlUsers.BackColor = System.Drawing.Color.Transparent;
+            pnlUsers.Controls.Add(dateTimePicker1);
+            pnlUsers.Controls.Add(label1);
+            pnlUsers.Controls.Add(label2);
+            pnlUsers.Controls.Add(dateTimePicker2);
             pnlUsers.Controls.Add(lblRole);
             pnlUsers.Controls.Add(txtRole);
-            pnlUsers.Controls.Add(txtRegDate);
             pnlUsers.Controls.Add(lblRegDate);
             pnlUsers.Location = new System.Drawing.Point(12, 56);
             pnlUsers.Name = "pnlUsers";
@@ -116,7 +122,7 @@
             // lblRole
             // 
             lblRole.AutoSize = true;
-            lblRole.Location = new System.Drawing.Point(0, 35);
+            lblRole.Location = new System.Drawing.Point(0, 67);
             lblRole.Name = "lblRole";
             lblRole.Size = new System.Drawing.Size(49, 15);
             lblRole.TabIndex = 3;
@@ -125,18 +131,10 @@
             // txtRole
             // 
             txtRole.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            txtRole.Location = new System.Drawing.Point(111, 32);
+            txtRole.Location = new System.Drawing.Point(111, 64);
             txtRole.Name = "txtRole";
             txtRole.Size = new System.Drawing.Size(296, 23);
             txtRole.TabIndex = 2;
-            // 
-            // txtRegDate
-            // 
-            txtRegDate.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            txtRegDate.Location = new System.Drawing.Point(111, 3);
-            txtRegDate.Name = "txtRegDate";
-            txtRegDate.Size = new System.Drawing.Size(296, 23);
-            txtRegDate.TabIndex = 1;
             // 
             // lblRegDate
             // 
@@ -302,6 +300,40 @@
             lblBudget.TabIndex = 0;
             lblBudget.Text = "Бюджет";
             // 
+            // dateTimePicker1
+            // 
+            dateTimePicker1.Location = new System.Drawing.Point(262, 6);
+            dateTimePicker1.Name = "dateTimePicker1";
+            dateTimePicker1.Size = new System.Drawing.Size(145, 23);
+            dateTimePicker1.TabIndex = 19;
+            // 
+            // label1
+            // 
+            label1.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            label1.AutoSize = true;
+            label1.Location = new System.Drawing.Point(234, 38);
+            label1.Name = "label1";
+            label1.Size = new System.Drawing.Size(22, 15);
+            label1.TabIndex = 18;
+            label1.Text = "До";
+            // 
+            // label2
+            // 
+            label2.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            label2.AutoSize = true;
+            label2.Location = new System.Drawing.Point(236, 9);
+            label2.Name = "label2";
+            label2.Size = new System.Drawing.Size(21, 15);
+            label2.TabIndex = 17;
+            label2.Text = "От";
+            // 
+            // dateTimePicker2
+            // 
+            dateTimePicker2.Location = new System.Drawing.Point(262, 35);
+            dateTimePicker2.Name = "dateTimePicker2";
+            dateTimePicker2.Size = new System.Drawing.Size(145, 23);
+            dateTimePicker2.TabIndex = 16;
+            // 
             // FilterForm
             // 
             AcceptButton = btnAccept;
@@ -309,8 +341,8 @@
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             CancelButton = btnCancel;
             ClientSize = new System.Drawing.Size(434, 258);
-            Controls.Add(pnlVacancies);
             Controls.Add(pnlUsers);
+            Controls.Add(pnlVacancies);
             Controls.Add(cmbTables);
             Controls.Add(lblTable);
             Controls.Add(btnCancel);
@@ -332,7 +364,6 @@
         private System.Windows.Forms.Label lblTable;
         private System.Windows.Forms.ComboBox cmbTables;
         private System.Windows.Forms.Panel pnlUsers;
-        private System.Windows.Forms.TextBox txtRegDate;
         private System.Windows.Forms.Label lblRegDate;
         private System.Windows.Forms.Label lblRole;
         private System.Windows.Forms.TextBox txtRole;
@@ -352,5 +383,9 @@
         private System.Windows.Forms.Label lblFromDate;
         private System.Windows.Forms.DateTimePicker dtpToDate;
         private System.Windows.Forms.Label lblDate;
+        private System.Windows.Forms.DateTimePicker dateTimePicker1;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.DateTimePicker dateTimePicker2;
     }
 }

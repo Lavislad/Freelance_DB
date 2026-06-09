@@ -14,12 +14,24 @@ namespace FreelanceExchange
         private string connectionString;
         private int currentRoleId;
         private int currentUserId;
+        private Dictionary<string, string> filter;
+
+        public Dictionary<string, string> Filter
+        {
+            get { return filter; }
+            set { filter = value; }
+        }
 
         public DBManager(int role_id, string connection, int user_id)
         {
             currentRoleId = role_id;
             connectionString = connection;
             currentUserId = user_id;
+            filter.Add("users", "");
+            filter.Add("vacancies", "");
+            filter.Add("responses", "");
+            filter.Add("feedbacks", "");
+            filter.Add("news", "");
         }
 
         public bool LoadData(string table, DataGridView dgvData, ref DataTable currentTable)
@@ -31,46 +43,76 @@ namespace FreelanceExchange
                     connection.Open();
 
                     string sql = "";
+                    filter.TryGetValue(table, out string value);
 
                     if (currentRoleId == 1)
                     {
-                        sql = $"SELECT * FROM {table}";
+                        switch (table)
+                        {
+                            case "users":
+                                sql = $"SELECT * FROM {table}";
+                                if (!string.IsNullOrEmpty(value))
+                                    sql += $" {value}";
+                                break;
+                            case "vacancies":
+                                sql = $"SELECT * FROM {table}";
+                                if (!string.IsNullOrEmpty(value))
+                                    sql += $" {value}";
+                                break;
+                            case "feedbacks":
+                                sql = $"SELECT * FROM {table}";
+                                if (!string.IsNullOrEmpty(value))
+                                    sql += $" {value}";
+                                break;
+                            case "responses":
+                                sql = $"SELECT * FROM {table}";
+                                if (!string.IsNullOrEmpty(value))
+                                    sql += $" {value}";
+                                break;
+                            case "news":
+                                sql = $"SELECT * FROM {table}";
+                                if (!string.IsNullOrEmpty(value))
+                                    sql += $" {value}";
+                                break;
+                        }
                     }
 
                     else if (currentRoleId == 2)
                     {
-                        if (table == "vacancies")
+                        switch (table)
                         {
-                            sql =
-                                "SELECT * FROM vacancies " +
-                                "WHERE author_id=@id";
-                        }
-
-                        else if (table == "feedbacks")
-                        {
-                            sql =
-                                "SELECT * FROM feedbacks " +
-                                "WHERE author_id=@id";
-                        }
-
-                        else if (table == "users")
-                        {
-                            sql =
-                                "SELECT * FROM users " +
+                            case "users":
+                                sql =
+                                $"SELECT * FROM {table}" +
                                 "WHERE id=@id";
-                        }
-
-                        else if (table == "responses")
-                        {
-                            sql =
-                                "SELECT * FROM responses " +
-                                "WHERE user_id=@id";
-                        }
-
-                        else if (table == "news")
-                        {
-                            sql =
-                                "SELECT * FROM news ";
+                                break;
+                            case "vacancies":
+                                sql =
+                                    $"SELECT * FROM {table} " +
+                                    "WHERE author_id=@id";
+                                if (!string.IsNullOrEmpty(value))
+                                    sql += $" {value}";
+                                break;
+                            case "feedbacks":
+                                sql =
+                                    $"SELECT * FROM {table} " +
+                                    "WHERE author_id=@id";
+                                if (!string.IsNullOrEmpty(value))
+                                    sql += $" {value}";
+                                break;
+                            case "responses":
+                                sql =
+                                    $"SELECT * FROM {table} " +
+                                    "WHERE user_id=@id";
+                                if (!string.IsNullOrEmpty(value))
+                                    sql += $" {value}";
+                                break;
+                            case "news":
+                                sql =
+                                    $"SELECT * FROM {table} ";
+                                if (!string.IsNullOrEmpty(value))
+                                    sql += $" {value}";
+                                break;
                         }
                     }
 
