@@ -107,47 +107,80 @@ namespace FreelanceExchange
             try
             {
                 string sql;
-                switch (currentPanel.Name)
+
+                // USERS TABLE
+
+                sql = "";
+
+                if (cbRoleId.Checked)
                 {
-                    case "pnlUsers":
-                        sql = "";
+                    string expectedRoleId = txtRole.Text;
 
-                        if (cbRoleId.Checked)
-                        {
-                            string expectedRoleId = txtRole.Text;
+                    if (string.IsNullOrEmpty(expectedRoleId))
+                        throw new Exception("Пустое поле Role ID");
+                    if (!int.TryParse(expectedRoleId, out int roleId))
+                        throw new Exception("Ошибка обработки Role ID");
 
-                            if (string.IsNullOrEmpty(expectedRoleId))
-                                throw new Exception("Пустое поле Role ID");
-                            if (!int.TryParse(expectedRoleId, out int roleId))
-                                throw new Exception("Ошибка обработки Role ID");
-
-                            if (sql != "")
-                                sql += " AND ";
-                            sql += $"role_id={roleId}";
-                        }
-                        if (cbRegDate.Checked)
-                        {
-                            if (!DateTime.TryParse(dtpFromDate.Value.ToString(), out DateTime expectedFromRegDate))
-                                throw new Exception("Ошибка обрабтки начальной даты регистрации");
-                            if (!DateTime.TryParse(dtpToDate.Value.ToString(), out DateTime expectedToRegDate))
-                                throw new Exception("Ошибка обрабтки конечной даты регистрации");
-
-                            if (sql != "")
-                                sql += " AND ";
-                            sql += $"registration_date BETWEEN '{expectedFromRegDate}' AND '{expectedToRegDate}'";
-                        }
-
-                        dbm.Filter["users"] = sql;
-                        FiltersApplied?.Invoke("users");
-
-                        break;
-                    case "pnlVacancies":
-                        sql = "";
-
-
-
-                        break;
+                    if (sql != "")
+                        sql += "AND ";
+                    sql += $"role_id={roleId} ";
                 }
+                if (cbRegDate.Checked)
+                {
+                    if (!DateTime.TryParse(dtpFromDate.Value.ToString(), out DateTime expectedFromRegDate))
+                        throw new Exception("Ошибка обрабтки начальной даты регистрации");
+                    if (!DateTime.TryParse(dtpToDate.Value.ToString(), out DateTime expectedToRegDate))
+                        throw new Exception("Ошибка обрабтки конечной даты регистрации");
+
+                    if (sql != "")
+                        sql += "AND ";
+                    sql += $"registration_date BETWEEN '{expectedFromRegDate}' AND '{expectedToRegDate}' ";
+                }
+
+                dbm.Filter["users"] = sql;
+                FiltersApplied?.Invoke("users");
+
+
+                //VACANCIES TABLE
+
+                sql = "";
+
+                if (cbBudget.Checked)
+                {
+                    if (!decimal.TryParse(txtFromBudget.Text, out decimal fromBudget))
+                        throw new Exception("Ошибка обрабтки начального значения бюджета");
+                    if (!decimal.TryParse(txtToBudget.Text, out decimal toBudget))
+                        throw new Exception("Ошибка обрабтки конечного значения бюджета");
+
+                    if (sql != "")
+                        sql += "AND ";
+                    sql += $"budget BETWEEN {fromBudget} AND {toBudget} ";
+                }
+                if (cbDeadline.Checked)
+                {
+                    if (!DateTime.TryParse(dtpFromDate.Value.ToString(), out DateTime fromDeadline))
+                        throw new Exception("Ошибка обрабтки начальной даты крайнего срока");
+                    if (!DateTime.TryParse(dtpToDate.Value.ToString(), out DateTime toDeadline))
+                        throw new Exception("Ошибка обрабтки конечной даты крайнего срока");
+
+                    if (sql != "")
+                        sql += "AND ";
+                    sql += $"deadline BETWEEN {fromDeadline} AND {toDeadline}";
+                }
+                if (cbDate.Checked)
+                {
+                    if (!DateTime.TryParse(dtpFromDate.Value.ToString(), out DateTime fromDate))
+                        throw new Exception("Ошибка обрабтки начальной даты регистрации");
+                    if (!DateTime.TryParse(dtpToDate.Value.ToString(), out DateTime toDate))
+                        throw new Exception("Ошибка обрабтки конечной даты регистрации");
+
+                    if (sql != "")
+                        sql += "AND ";
+                    sql += $"publication_date BETWEEN {fromDate} AND {toDate} ";
+                }
+
+                dbm.Filter["vacancies"] = sql;
+                FiltersApplied?.Invoke("vacancies");
             }
             catch (Exception ex) { MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
