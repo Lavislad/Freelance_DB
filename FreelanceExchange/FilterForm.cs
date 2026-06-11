@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,8 +16,9 @@ namespace FreelanceExchange
     {
         int currentRoleId;
         Panel currentPanel;
+        DBManager dbm;
 
-        public FilterForm(int role_id, string table)
+        public FilterForm(int role_id, string table, DBManager dbManager)
         {
             InitializeComponent();
 
@@ -44,6 +46,8 @@ namespace FreelanceExchange
                     cmbTables.SelectedItem = "users";
                 }
             }
+
+            dbm = dbManager;
         }
 
         private void LoadTables()
@@ -93,7 +97,61 @@ namespace FreelanceExchange
 
         private void btnAccept_Click(object sender, EventArgs e)
         {
+            try
+            {
+                string sql = "";
 
+                if (cbRoleId.Checked)
+                {
+                    string expectedRoleId = txtRole.Text;
+
+                    if (string.IsNullOrEmpty(expectedRoleId))
+                        throw new Exception("Пустое поле Role ID");
+                    if (!int.TryParse(expectedRoleId, out int roleId))
+                        throw new Exception("Ошибка обработки Role ID");
+
+                    sql += $"role_id={roleId}";
+
+                    dbm.Filter["users"] = sql;
+                }
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+        }
+
+        private void cbRegDate_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbRegDate.Checked)
+            {
+                lblRegDate.ForeColor = Color.Black;
+                lblFromRegDate.ForeColor = Color.Black;
+                lblToRegDate.ForeColor = Color.Black;
+
+                dtpFromRegDate.Enabled = true;
+                dtpToRegDate.Enabled = true;
+            }
+            else
+            {
+                lblRegDate.ForeColor = Color.DarkGray;
+                lblFromRegDate.ForeColor = Color.DarkGray;
+                lblToRegDate.ForeColor = Color.DarkGray;
+
+                dtpFromRegDate.Enabled = false;
+                dtpToRegDate.Enabled = false;
+            }
+        }
+
+        private void cbRoleId_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbRoleId.Checked)
+            {
+                lblRole.ForeColor = Color.Black;
+                txtRole.Enabled = true;
+            }
+            else
+            {
+                lblRole.ForeColor = Color.DarkGray;
+                txtRole.Enabled = false;
+            }
         }
     }
 }

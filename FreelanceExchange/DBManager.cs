@@ -18,7 +18,7 @@ namespace FreelanceExchange
 
         public Dictionary<string, string> Filter
         {
-            get { return filter; }
+            get { return filter; }  
             set { filter = value; }
         }
 

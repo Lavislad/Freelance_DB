@@ -195,7 +195,7 @@ namespace FreelanceExchange
 
         private void OpenFilterForm()
         {
-            FilterForm filterForm = new FilterForm(currentRoleId, cmbTables.Text);
+            FilterForm filterForm = new FilterForm(currentRoleId, cmbTables.Text, dbm);
             filterForm.Show();
         }
     }
