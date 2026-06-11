@@ -24,12 +24,19 @@ namespace FreelanceExchange
         {
             InitializeComponent();
 
+            dbm = dbManager;
+
             currentRoleId = role_id;
             LoadTables();
             if (currentRoleId == 1)
             {
                 if (table == "users" || table == "vacancies")
                 {
+                    if (dbm.Filter["users"].Contains("role_id"))
+                        cbRoleId.Checked = true;
+                    if (dbm.Filter["users"].Contains("registration_date"))
+                        cbRegDate.Checked = true;
+
                     cmbTables.SelectedItem = table;
                 }
                 else
@@ -48,8 +55,6 @@ namespace FreelanceExchange
                     cmbTables.SelectedItem = "users";
                 }
             }
-
-            dbm = dbManager;
         }
 
         private void LoadTables()
