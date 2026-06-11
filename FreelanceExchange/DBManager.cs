@@ -27,12 +27,14 @@ namespace FreelanceExchange
             currentRoleId = role_id;
             connectionString = connection;
             currentUserId = user_id;
-            filter = new Dictionary<string, string>();
-            filter.Add("users", "");
-            filter.Add("vacancies", "");
-            filter.Add("responses", "");
-            filter.Add("feedbacks", "");
-            filter.Add("news", "");
+            filter = new Dictionary<string, string>
+            {
+                { "users", "" },
+                { "vacancies", "" },
+                { "responses", "" },
+                { "feedbacks", "" },
+                { "news", "" }
+            };
         }
 
         public bool LoadData(string table, DataGridView dgvData, ref DataTable currentTable)
@@ -503,6 +505,15 @@ namespace FreelanceExchange
             }
 
             return true;
+        }
+
+        public void ClearFilters()
+        {
+            filter["users"] = "";
+            filter["vacancies"] = "";
+            filter["responses"] = "";
+            filter["feedbacks"] = "";
+            filter["news"] = "";
         }
     }
 }

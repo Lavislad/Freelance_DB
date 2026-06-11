@@ -57,7 +57,7 @@ namespace FreelanceExchange
             }
         }
 
-        
+
 
         // Добавление записи
         private void btnAdd_Click(object sender, EventArgs e)
@@ -115,7 +115,7 @@ namespace FreelanceExchange
         {
             dbm.Save(cmbTables.Text, dgvData, currentTable);
             dbm.LoadData(cmbTables.Text, dgvData, ref currentTable);
-            
+
         }
 
         private void cmbTables_SelectedIndexChanged(object sender, EventArgs e)
@@ -203,6 +203,12 @@ namespace FreelanceExchange
         private void FilterForm_FiltersApplied(string table)
         {
             dbm.LoadData(table, dgvData, ref currentTable);
+        }
+
+        private void btnClearFilters_Click(object sender, EventArgs e)
+        {
+            dbm.ClearFilters();
+            dbm.LoadData(cmbTables.Text, dgvData, ref currentTable);
         }
     }
 }

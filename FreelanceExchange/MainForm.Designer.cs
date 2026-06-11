@@ -164,6 +164,7 @@
             btnClearFilters.TabIndex = 10;
             btnClearFilters.Text = "Очистить фильтры";
             btnClearFilters.UseVisualStyleBackColor = true;
+            btnClearFilters.Click += btnClearFilters_Click;
             // 
             // MainForm
             // 
