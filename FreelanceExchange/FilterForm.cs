@@ -106,10 +106,10 @@ namespace FreelanceExchange
         {
             try
             {
-                string sql = "";
-
                 if (currentPanel.Name == "pnlUsers")
                 {
+                    string sql = "";
+
                     if (cbRoleId.Checked)
                     {
                         string expectedRoleId = txtRole.Text;
@@ -119,15 +119,27 @@ namespace FreelanceExchange
                         if (!int.TryParse(expectedRoleId, out int roleId))
                             throw new Exception("Ошибка обработки Role ID");
 
+                        if (sql != "")
+                            sql += " AND ";
                         sql += $"role_id={roleId}";
-
-                        dbm.Filter["users"] = sql;
-
-                        FiltersApplied?.Invoke("users");
                     }
+                    if (cbRegDate.Checked)
+                    {
+                        if (!DateTime.TryParse(dtpFromDate.Value.ToString(), out DateTime expectedFromRegDate))
+                            throw new Exception("Ошибка обрабтки начальной даты регистрации");
+                        if (!DateTime.TryParse(dtpToDate.Value.ToString(), out DateTime expectedToRegDate))
+                            throw new Exception("Ошибка обрабтки конечной даты регистрации");
+
+                        if (sql != "")
+                            sql += " AND ";
+                        sql += $"registration_date BETWEEN '{expectedFromRegDate}' AND '{expectedToRegDate}'";
+                    }
+
+                    dbm.Filter["users"] = sql;
+                    FiltersApplied?.Invoke("users");
                 }
             }
-            catch (Exception ex) { MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+            catch (Exception ex) { MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             this.Close();
         }
