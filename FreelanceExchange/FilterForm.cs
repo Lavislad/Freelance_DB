@@ -18,6 +18,8 @@ namespace FreelanceExchange
         Panel currentPanel;
         DBManager dbm;
 
+        public event Action<string> FiltersApplied;
+
         public FilterForm(int role_id, string table, DBManager dbManager)
         {
             InitializeComponent();
@@ -101,21 +103,28 @@ namespace FreelanceExchange
             {
                 string sql = "";
 
-                if (cbRoleId.Checked)
+                if (currentPanel.Name == "pnlUsers")
                 {
-                    string expectedRoleId = txtRole.Text;
+                    if (cbRoleId.Checked)
+                    {
+                        string expectedRoleId = txtRole.Text;
 
-                    if (string.IsNullOrEmpty(expectedRoleId))
-                        throw new Exception("Пустое поле Role ID");
-                    if (!int.TryParse(expectedRoleId, out int roleId))
-                        throw new Exception("Ошибка обработки Role ID");
+                        if (string.IsNullOrEmpty(expectedRoleId))
+                            throw new Exception("Пустое поле Role ID");
+                        if (!int.TryParse(expectedRoleId, out int roleId))
+                            throw new Exception("Ошибка обработки Role ID");
 
-                    sql += $"role_id={roleId}";
+                        sql += $"role_id={roleId}";
 
-                    dbm.Filter["users"] = sql;
+                        dbm.Filter["users"] = sql;
+
+                        FiltersApplied?.Invoke("users");
+                    }
                 }
             }
             catch (Exception ex) { MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+
+            this.Close();
         }
 
         private void cbRegDate_CheckedChanged(object sender, EventArgs e)

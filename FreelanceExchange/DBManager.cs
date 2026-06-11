@@ -53,27 +53,27 @@ namespace FreelanceExchange
                             case "users":
                                 sql = $"SELECT * FROM {table}";
                                 if (!string.IsNullOrEmpty(value))
-                                    sql += $" {value}";
+                                    sql += $" WHERE {value}";
                                 break;
                             case "vacancies":
                                 sql = $"SELECT * FROM {table}";
                                 if (!string.IsNullOrEmpty(value))
-                                    sql += $" {value}";
+                                    sql += $" WHERE {value}";
                                 break;
                             case "feedbacks":
                                 sql = $"SELECT * FROM {table}";
                                 if (!string.IsNullOrEmpty(value))
-                                    sql += $" {value}";
+                                    sql += $" WHERE {value}";
                                 break;
                             case "responses":
                                 sql = $"SELECT * FROM {table}";
                                 if (!string.IsNullOrEmpty(value))
-                                    sql += $" {value}";
+                                    sql += $" WHERE {value}";
                                 break;
                             case "news":
                                 sql = $"SELECT * FROM {table}";
                                 if (!string.IsNullOrEmpty(value))
-                                    sql += $" {value}";
+                                    sql += $" WHERE {value}";
                                 break;
                         }
                     }
@@ -92,27 +92,27 @@ namespace FreelanceExchange
                                     $"SELECT * FROM {table} " +
                                     "WHERE author_id=@id";
                                 if (!string.IsNullOrEmpty(value))
-                                    sql += $" {value}";
+                                    sql += $" AND {value}";
                                 break;
                             case "feedbacks":
                                 sql =
                                     $"SELECT * FROM {table} " +
                                     "WHERE author_id=@id";
                                 if (!string.IsNullOrEmpty(value))
-                                    sql += $" {value}";
+                                    sql += $" AND {value}";
                                 break;
                             case "responses":
                                 sql =
                                     $"SELECT * FROM {table} " +
                                     "WHERE user_id=@id";
                                 if (!string.IsNullOrEmpty(value))
-                                    sql += $" {value}";
+                                    sql += $" AND {value}";
                                 break;
                             case "news":
                                 sql =
                                     $"SELECT * FROM {table} ";
                                 if (!string.IsNullOrEmpty(value))
-                                    sql += $" {value}";
+                                    sql += $" WHERE {value}";
                                 break;
                         }
                     }

@@ -196,7 +196,13 @@ namespace FreelanceExchange
         private void OpenFilterForm()
         {
             FilterForm filterForm = new FilterForm(currentRoleId, cmbTables.Text, dbm);
+            filterForm.FiltersApplied += FilterForm_FiltersApplied;
             filterForm.Show();
+        }
+
+        private void FilterForm_FiltersApplied(string table)
+        {
+            dbm.LoadData(table, dgvData, ref currentTable);
         }
     }
 }
