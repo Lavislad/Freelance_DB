@@ -27,6 +27,7 @@ namespace FreelanceExchange
             currentRoleId = role_id;
             connectionString = connection;
             currentUserId = user_id;
+            filter = new Dictionary<string, string>();
             filter.Add("users", "");
             filter.Add("vacancies", "");
             filter.Add("responses", "");
@@ -83,8 +84,8 @@ namespace FreelanceExchange
                         {
                             case "users":
                                 sql =
-                                $"SELECT * FROM {table}" +
-                                "WHERE id=@id";
+                                    $"SELECT * FROM {table} " +
+                                    "WHERE id=@id";
                                 break;
                             case "vacancies":
                                 sql =
