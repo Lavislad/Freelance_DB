@@ -14,6 +14,7 @@ namespace FreelanceExchange
         private int currentUserId;
         private string currentUserLogin;
         private DBManager dbm;
+        private SearchManager sm;
         private DataTable currentTable;
 
         public MainForm(string connStr, int role_id, int userId, string login)
@@ -25,6 +26,7 @@ namespace FreelanceExchange
             currentUserId = userId;
             currentUserLogin = login;
             dbm = new DBManager(currentRoleId, connectionString, currentUserId);
+            sm = new SearchManager(dbm);
 
             lblRole.Text = $"{currentUserLogin} | ID: {userId}";
 
@@ -212,6 +214,13 @@ namespace FreelanceExchange
         {
             dbm.ClearFilters();
             dbm.LoadData(cmbTables.Text, dgvData, ref currentTable);
+        }
+
+        private void txtSearch_TextChanged(object sender, EventArgs e)
+        {
+            sm.Search(txtSearch.Text);
+
+            dbm.LoadData("vacancies", dgvData, ref currentTable);
         }
     }
 }
