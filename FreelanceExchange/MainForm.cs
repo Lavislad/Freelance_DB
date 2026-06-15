@@ -218,8 +218,17 @@ namespace FreelanceExchange
 
         private void txtSearch_TextChanged(object sender, EventArgs e)
         {
-            sm.Search(txtSearch.Text);
-
+            if (txtSearch.Text != "")
+            {
+                sm.Search(txtSearch.Text);
+                sm.IsEditing = true;
+            }
+            else
+            {
+                sm.ClearSql();
+                sm.IsEditing = false;
+            }                
+            
             dbm.LoadData("vacancies", dgvData, ref currentTable);
         }
     }
