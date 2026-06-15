@@ -129,14 +129,12 @@ namespace FreelanceExchange
                 }
                 if (cbRegDate.Checked)
                 {
-                    if (!DateTime.TryParse(dtpFromDate.Value.ToString(), out DateTime expectedFromRegDate))
-                        throw new Exception("Ошибка обрабтки начальной даты регистрации");
-                    if (!DateTime.TryParse(dtpToDate.Value.ToString(), out DateTime expectedToRegDate))
-                        throw new Exception("Ошибка обрабтки конечной даты регистрации");
+                    DateTime fromRegDate = dtpFromRegDate.Value;
+                    DateTime toRegDate = dtpToRegDate.Value;
 
                     if (sql != "")
                         sql += "AND ";
-                    sql += $"registration_date BETWEEN '{expectedFromRegDate}' AND '{expectedToRegDate}' ";
+                    sql += $"registration_date BETWEEN '{fromRegDate.ToString("yyyy-MM-dd")}' AND '{toRegDate.ToString("yyyy-MM-dd")}' ";
                 }
 
                 if (sql != "")

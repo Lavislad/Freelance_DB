@@ -77,6 +77,9 @@ namespace FreelanceExchange
                                 if (!string.IsNullOrEmpty(value))
                                     sql += $" WHERE {value}";
                                 break;
+                            case "tags":
+                                sql = $"SELECT * FROM {table}";
+                                break;
                         }
                     }
 
