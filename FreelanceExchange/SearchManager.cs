@@ -24,7 +24,7 @@ namespace FreelanceExchange
         }
 
         public void Search(string searchString)
-        {
+            {
             string sql = "";
             string filterString = dbm.Filter["vacancies"];
 
@@ -35,7 +35,7 @@ namespace FreelanceExchange
 
             sql += $"title LIKE '%{searchString}%' OR description LIKE '%{searchString}%' ";
 
-            dbm.Filter["vacancies"] = sql;          
+            dbm.Filter["vacancies"] += sql;
         }
 
         public void ClearSql()
@@ -43,10 +43,17 @@ namespace FreelanceExchange
             string currentFilter = dbm.Filter["vacancies"];
 
             // Шаблон ищет "title LIKE '%...%'" и возможный последующий "OR " или "AND "
-            string pattern = @"title\s+LIKE\s+'%.*?%'\s*(OR|AND)?\s*";
+            string pattern = @"title\s+LIKE\s+'%.*?%'\s+OR\s+description\s+LIKE\s+'%.*?%'\s*";
 
             // Regex.Replace возвращает новую строку, записываем её обратно в фильтр
             dbm.Filter["vacancies"] = Regex.Replace(currentFilter, pattern, "", RegexOptions.IgnoreCase);
+
+            string cleaned = Regex.Replace(currentFilter, pattern, "", RegexOptions.IgnoreCase);
+
+            cleaned = Regex.Replace(cleaned, @"\s*(OR|AND)\s*$", "", RegexOptions.IgnoreCase);
+            cleaned = Regex.Replace(cleaned, @"^\s*(OR|AND)\s*", "", RegexOptions.IgnoreCase);
+
+            dbm.Filter["vacancies"] = cleaned.Trim();
         }
     }
 }
