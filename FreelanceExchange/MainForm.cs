@@ -1,5 +1,6 @@
 ﻿using Npgsql;
 using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Windows.Forms;
@@ -56,7 +57,7 @@ namespace FreelanceExchange
             }
         }
 
-        
+
 
         // Добавление записи
         private void btnAdd_Click(object sender, EventArgs e)
@@ -114,7 +115,7 @@ namespace FreelanceExchange
         {
             dbm.Save(cmbTables.Text, dgvData, currentTable);
             dbm.LoadData(cmbTables.Text, dgvData, ref currentTable);
-            
+
         }
 
         private void cmbTables_SelectedIndexChanged(object sender, EventArgs e)
@@ -194,8 +195,23 @@ namespace FreelanceExchange
 
         private void OpenFilterForm()
         {
-            FilterForm filterForm = new FilterForm(currentRoleId, cmbTables.Text);
+            FilterForm filterForm = new FilterForm(currentRoleId, cmbTables.Text, dbm);
+            filterForm.FiltersApplied += FilterForm_FiltersApplied;
             filterForm.Show();
+        }
+
+        private void FilterForm_FiltersApplied(string table)
+        {
+            if (cmbTables.SelectedItem.ToString() == table)
+                dbm.LoadData(table, dgvData, ref currentTable);
+            else
+                cmbTables.SelectedItem = table;
+        }
+
+        private void btnClearFilters_Click(object sender, EventArgs e)
+        {
+            dbm.ClearFilters();
+            dbm.LoadData(cmbTables.Text, dgvData, ref currentTable);
         }
     }
 }

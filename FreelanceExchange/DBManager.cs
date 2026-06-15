@@ -14,12 +14,27 @@ namespace FreelanceExchange
         private string connectionString;
         private int currentRoleId;
         private int currentUserId;
+        private Dictionary<string, string> filter;
+
+        public Dictionary<string, string> Filter
+        {
+            get { return filter; }  
+            set { filter = value; }
+        }
 
         public DBManager(int role_id, string connection, int user_id)
         {
             currentRoleId = role_id;
             connectionString = connection;
             currentUserId = user_id;
+            filter = new Dictionary<string, string>
+            {
+                { "users", "" },
+                { "vacancies", "" },
+                { "responses", "" },
+                { "feedbacks", "" },
+                { "news", "" }
+            };
         }
 
         public bool LoadData(string table, DataGridView dgvData, ref DataTable currentTable)
@@ -31,46 +46,77 @@ namespace FreelanceExchange
                     connection.Open();
 
                     string sql = "";
+                    filter.TryGetValue(table, out string value);
 
                     if (currentRoleId == 1)
                     {
-                        sql = $"SELECT * FROM {table}";
+                        switch (table)
+                        {
+                            case "users":
+                                sql = $"SELECT * FROM {table}";
+                                if (!string.IsNullOrEmpty(value))
+                                    sql += $" WHERE {value}";
+                                break;
+                            case "vacancies":
+                                sql = $"SELECT * FROM {table}";
+                                if (!string.IsNullOrEmpty(value))
+                                    sql += $" WHERE {value}";
+                                break;
+                            case "feedbacks":
+                                sql = $"SELECT * FROM {table}";
+                                if (!string.IsNullOrEmpty(value))
+                                    sql += $" WHERE {value}";
+                                break;
+                            case "responses":
+                                sql = $"SELECT * FROM {table}";
+                                if (!string.IsNullOrEmpty(value))
+                                    sql += $" WHERE {value}";
+                                break;
+                            case "news":
+                                sql = $"SELECT * FROM {table}";
+                                if (!string.IsNullOrEmpty(value))
+                                    sql += $" WHERE {value}";
+                                break;
+                            case "tags":
+                                sql = $"SELECT * FROM {table}";
+                                break;
+                        }
                     }
 
                     else if (currentRoleId == 2)
                     {
-                        if (table == "vacancies")
+                        switch (table)
                         {
-                            sql =
-                                "SELECT * FROM vacancies " +
-                                "WHERE author_id=@id";
-                        }
-
-                        else if (table == "feedbacks")
-                        {
-                            sql =
-                                "SELECT * FROM feedbacks " +
-                                "WHERE author_id=@id";
-                        }
-
-                        else if (table == "users")
-                        {
-                            sql =
-                                "SELECT * FROM users " +
-                                "WHERE id=@id";
-                        }
-
-                        else if (table == "responses")
-                        {
-                            sql =
-                                "SELECT * FROM responses " +
-                                "WHERE user_id=@id";
-                        }
-
-                        else if (table == "news")
-                        {
-                            sql =
-                                "SELECT * FROM news ";
+                            case "users":
+                                sql =
+                                    $"SELECT * FROM {table} " +
+                                    "WHERE id=@id";
+                                break;
+                            case "vacancies":
+                                sql =
+                                    $"SELECT * FROM {table} ";
+                                if (!string.IsNullOrEmpty(value))
+                                    sql += $"WHERE {value} ";
+                                break;
+                            case "feedbacks":
+                                sql =
+                                    $"SELECT * FROM {table} ";
+                                if (!string.IsNullOrEmpty(value))
+                                    sql += $"WHERE {value} ";
+                                break;
+                            case "responses":
+                                sql =
+                                    $"SELECT * FROM {table} " +
+                                    "WHERE user_id=@id ";
+                                if (!string.IsNullOrEmpty(value))
+                                    sql += $"AND {value} ";
+                                break;
+                            case "news":
+                                sql =
+                                    $"SELECT * FROM {table} ";
+                                if (!string.IsNullOrEmpty(value))
+                                    sql += $"WHERE {value} ";
+                                break;
                         }
                     }
 
@@ -147,131 +193,120 @@ namespace FreelanceExchange
 
                 NpgsqlCommand command;
 
-                // USERS
-                if (table == "users")
+
+                switch (table)
                 {
-                    sql =
+                    case "users":
+                        sql =
                         "INSERT INTO users " +
                         "(name, surname, email, password, profile_description, role_id) " +
                         "VALUES " +
                         "(@name, @surname, @email, @password, @profile_description, @role_id)";
 
-                    command = new NpgsqlCommand(sql, connection);
+                        command = new NpgsqlCommand(sql, connection);
 
-                    command.Parameters.AddWithValue("@name", row["name"]);
+                        command.Parameters.AddWithValue("@name", row["name"]);
 
-                    command.Parameters.AddWithValue("@surname", row["surname"]);
+                        command.Parameters.AddWithValue("@surname", row["surname"]);
 
-                    command.Parameters.AddWithValue("@email", row["email"]);
+                        command.Parameters.AddWithValue("@email", row["email"]);
 
-                    command.Parameters.AddWithValue("@password", row["password"]);
+                        command.Parameters.AddWithValue("@password", row["password"]);
 
-                    command.Parameters.AddWithValue("@profile_description", row["profile_description"]);
+                        command.Parameters.AddWithValue("@profile_description", row["profile_description"]);
 
-                    if (!int.TryParse(row["role_id"].ToString(), out int roleID))
-                        throw new Exception("Ошибка чтения поля role_id");
+                        if (!int.TryParse(row["role_id"].ToString(), out int roleID))
+                            throw new Exception("Ошибка чтения поля role_id");
 
-                    if (roleID < 1 || roleID > 2)
-                        throw new Exception("Недопустимое значение для role_id.\nДопустимые значенния:\n1 (Администратор).\n2 (Пользователь).");
+                        if (roleID < 1 || roleID > 2)
+                            throw new Exception("Недопустимое значение для role_id.\nДопустимые значенния:\n1 (Администратор).\n2 (Пользователь).");
 
-                    command.Parameters.AddWithValue("@role_id", row["role_id"]);
-                }
+                        command.Parameters.AddWithValue("@role_id", row["role_id"]);
+                        break;
 
-                // VACANCIES
-                else if (table == "vacancies")
-                {
-                    sql =
+                    case "vacancies":
+                        sql =
                         "INSERT INTO vacancies " +
                         "(title, description, budget, deadline, author_id) " +
                         "VALUES " +
                         "(@title, @description, @budget, @deadline, @userId)";
 
-                    command = new NpgsqlCommand(sql, connection);
+                        command = new NpgsqlCommand(sql, connection);
 
-                    command.Parameters.AddWithValue("@title", row["title"]);
+                        command.Parameters.AddWithValue("@title", row["title"]);
 
-                    command.Parameters.AddWithValue("@description", row["description"]);
+                        command.Parameters.AddWithValue("@description", row["description"]);
 
-                    command.Parameters.AddWithValue("@budget", Convert.ToDecimal(row["budget"]));
+                        command.Parameters.AddWithValue("@budget", Convert.ToDecimal(row["budget"]));
 
-                    command.Parameters.AddWithValue("@deadline", DateTime.Parse(row["deadline"].ToString()));
+                        command.Parameters.AddWithValue("@deadline", DateTime.Parse(row["deadline"].ToString()));
 
-                    command.Parameters.AddWithValue("@userId", currentUserId);
-                }
+                        command.Parameters.AddWithValue("@userId", currentUserId);
+                        break;
 
-                // RESPONSES
-                else if (table == "responses")
-                {
-                    sql =
+                    case "responses":
+                        sql =
                         "INSERT INTO responses " +
                         "(vacancy_id, user_id, message) " +
                         "VALUES " +
                         "(@vacancy_id, @user_id, @message)";
 
-                    command = new NpgsqlCommand(sql, connection);
+                        command = new NpgsqlCommand(sql, connection);
 
-                    command.Parameters.AddWithValue("@vacancy_id", Convert.ToInt32(row["vacancy_id"]));
+                        command.Parameters.AddWithValue("@vacancy_id", Convert.ToInt32(row["vacancy_id"]));
 
-                    command.Parameters.AddWithValue("@user_id", currentUserId);
+                        command.Parameters.AddWithValue("@user_id", currentUserId);
 
-                    command.Parameters.AddWithValue("@message", row["message"]);
-                }
+                        command.Parameters.AddWithValue("@message", row["message"]);
+                        break;
 
-                // FEEDBACKS
-                else if (table == "feedbacks")
-                {
-                    sql =
+                    case "feedbacks":
+                        sql =
                         "INSERT INTO feedbacks " +
                         "(title, message, author_id) " +
                         "VALUES " +
                         "(@title, @message, @author_id)";
 
-                    command = new NpgsqlCommand(sql, connection);
+                        command = new NpgsqlCommand(sql, connection);
 
-                    command.Parameters.AddWithValue("@title", row["title"]);
+                        command.Parameters.AddWithValue("@title", row["title"]);
 
-                    command.Parameters.AddWithValue("@message", row["message"]);
+                        command.Parameters.AddWithValue("@message", row["message"]);
 
-                    command.Parameters.AddWithValue("@author_id", currentUserId);
-                }
+                        command.Parameters.AddWithValue("@author_id", currentUserId);
+                        break;
 
-                // TAGS
-                else if (table == "tags")
-                {
-                    sql =
+                    case "tags":
+                        sql =
                         "INSERT INTO tags " +
                         "(name) " +
                         "VALUES " +
                         "(@name)";
 
-                    command = new NpgsqlCommand(sql, connection);
+                        command = new NpgsqlCommand(sql, connection);
 
-                    command.Parameters.AddWithValue("@name", row["name"]);
-                }
+                        command.Parameters.AddWithValue("@name", row["name"]);
+                        break;
 
-                // NEWS
-                else if (table == "news")
-                {
-                    sql =
-                        "INSERT INTO news " +
-                        "(title, anons, content, author_id) " +
-                        "VALUES " +
-                        "(@title, @anons, @content, @author_id)";
+                    case "news":
+                       sql =
+                       "INSERT INTO news " +
+                       "(title, anons, content, author_id) " +
+                       "VALUES " +
+                       "(@title, @anons, @content, @author_id)";
 
-                    command = new NpgsqlCommand(sql, connection);
+                        command = new NpgsqlCommand(sql, connection);
 
-                    command.Parameters.AddWithValue("@title", row["title"]);
+                        command.Parameters.AddWithValue("@title", row["title"]);
 
-                    command.Parameters.AddWithValue("@anons", row["anons"]);
+                        command.Parameters.AddWithValue("@anons", row["anons"]);
 
-                    command.Parameters.AddWithValue("@content", row["content"]);
+                        command.Parameters.AddWithValue("@content", row["content"]);
 
-                    command.Parameters.AddWithValue("@author_id", currentUserId);
-                }
+                        command.Parameters.AddWithValue("@author_id", currentUserId);
+                        break;
 
-                else
-                {
-                    return false;
+                    default: return false;
                 }
 
                 command.ExecuteNonQuery();
@@ -471,6 +506,15 @@ namespace FreelanceExchange
             }
 
             return true;
+        }
+
+        public void ClearFilters()
+        {
+            filter["users"] = "";
+            filter["vacancies"] = "";
+            filter["responses"] = "";
+            filter["feedbacks"] = "";
+            filter["news"] = "";
         }
     }
 }

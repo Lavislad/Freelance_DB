@@ -35,6 +35,7 @@
             удалитьСтрокуToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             обновитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             btnFilter = new System.Windows.Forms.Button();
+            btnClearFilters = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)dgvData).BeginInit();
             menuStrip1.SuspendLayout();
             SuspendLayout();
@@ -153,11 +154,24 @@
             btnFilter.UseVisualStyleBackColor = true;
             btnFilter.Click += btnFilter_Click;
             // 
+            // btnClearFilters
+            // 
+            btnClearFilters.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            btnClearFilters.Location = new System.Drawing.Point(576, 30);
+            btnClearFilters.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            btnClearFilters.Name = "btnClearFilters";
+            btnClearFilters.Size = new System.Drawing.Size(122, 24);
+            btnClearFilters.TabIndex = 10;
+            btnClearFilters.Text = "Очистить фильтры";
+            btnClearFilters.UseVisualStyleBackColor = true;
+            btnClearFilters.Click += btnClearFilters_Click;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(1000, 550);
+            Controls.Add(btnClearFilters);
             Controls.Add(btnFilter);
             Controls.Add(lblRole);
             Controls.Add(cmbTables);
@@ -183,5 +197,6 @@
         private System.Windows.Forms.ToolStripMenuItem удалитьСтрокуToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem обновитьToolStripMenuItem;
         private System.Windows.Forms.Button btnFilter;
+        private System.Windows.Forms.Button btnClearFilters;
     }
 }

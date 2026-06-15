@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,10 +16,15 @@ namespace FreelanceExchange
     {
         int currentRoleId;
         Panel currentPanel;
+        DBManager dbm;
 
-        public FilterForm(int role_id, string table)
+        public event Action<string> FiltersApplied;
+
+        public FilterForm(int role_id, string table, DBManager dbManager)
         {
             InitializeComponent();
+
+            dbm = dbManager;
 
             currentRoleId = role_id;
             LoadTables();
@@ -26,6 +32,11 @@ namespace FreelanceExchange
             {
                 if (table == "users" || table == "vacancies")
                 {
+                    if (dbm.Filter["users"].Contains("role_id"))
+                        cbRoleId.Checked = true;
+                    if (dbm.Filter["users"].Contains("registration_date"))
+                        cbRegDate.Checked = true;
+
                     cmbTables.SelectedItem = table;
                 }
                 else
@@ -41,7 +52,7 @@ namespace FreelanceExchange
                 }
                 else
                 {
-                    cmbTables.SelectedItem = "users";
+                    cmbTables.SelectedItem = "vacancies";
                 }
             }
         }
@@ -93,7 +104,192 @@ namespace FreelanceExchange
 
         private void btnAccept_Click(object sender, EventArgs e)
         {
+            try
+            {
+                Validate();
 
+                string sql;
+
+                // USERS TABLE
+
+                sql = "";
+
+                if (cbRoleId.Checked)
+                {
+                    string expectedRoleId = txtRole.Text;
+
+                    if (string.IsNullOrEmpty(expectedRoleId))
+                        throw new Exception("Пустое поле Role ID");
+                    if (!int.TryParse(expectedRoleId, out int roleId))
+                        throw new Exception("Ошибка обработки Role ID");
+
+                    if (sql != "")
+                        sql += "AND ";
+                    sql += $"role_id={roleId} ";
+                }
+                if (cbRegDate.Checked)
+                {
+                    DateTime fromRegDate = dtpFromRegDate.Value;
+                    DateTime toRegDate = dtpToRegDate.Value;
+
+                    if (sql != "")
+                        sql += "AND ";
+                    sql += $"registration_date BETWEEN '{fromRegDate.ToString("yyyy-MM-dd")}' AND '{toRegDate.ToString("yyyy-MM-dd")}' ";
+                }
+
+                if (sql != "")
+                {
+                    dbm.Filter["users"] = sql;
+                    FiltersApplied?.Invoke("users");
+                }
+
+                //VACANCIES TABLE
+
+                sql = "";
+
+                if (cbBudget.Checked)
+                {
+                    if (!decimal.TryParse(txtFromBudget.Text, out decimal fromBudget))
+                        throw new Exception("Ошибка обрабтки начального значения бюджета");
+                    if (!decimal.TryParse(txtToBudget.Text, out decimal toBudget))
+                        throw new Exception("Ошибка обрабтки конечного значения бюджета");
+
+                    if (sql != "")
+                        sql += "AND ";
+                    sql += $"budget BETWEEN {fromBudget} AND {toBudget} ";
+                }
+                if (cbDeadline.Checked)
+                {
+                    DateTime fromDeadline = dtpFromDeadline.Value;
+                    DateTime toDeadline = dtpToDeadline.Value;
+
+                    if (sql != "")
+                        sql += "AND ";
+                    sql += $"deadline BETWEEN '{fromDeadline.ToString("yyyy-MM-dd")}' AND '{toDeadline.ToString("yyyy-MM-dd")}' ";
+                }
+                if (cbDate.Checked)
+                {
+                    DateTime fromDate = dtpFromDate.Value;
+                    DateTime toDate = dtpToDate.Value;
+
+                    if (sql != "")
+                        sql += "AND ";
+                    sql += $"publication_date BETWEEN '{fromDate.ToString("yyyy-MM-dd")}' AND '{toDate.ToString("yyyy-MM-dd")}' ";
+                }
+
+                if (sql != "")
+                {
+                    dbm.Filter["vacancies"] = sql;
+                    FiltersApplied?.Invoke("vacancies");
+                }
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+
+            this.Close();
+        }
+
+        private void cbRegDate_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbRegDate.Checked)
+            {
+                lblRegDate.ForeColor = Color.Black;
+                lblFromRegDate.ForeColor = Color.Black;
+                lblToRegDate.ForeColor = Color.Black;
+
+                dtpFromRegDate.Enabled = true;
+                dtpToRegDate.Enabled = true;
+            }
+            else
+            {
+                lblRegDate.ForeColor = Color.DarkGray;
+                lblFromRegDate.ForeColor = Color.DarkGray;
+                lblToRegDate.ForeColor = Color.DarkGray;
+
+                dtpFromRegDate.Enabled = false;
+                dtpToRegDate.Enabled = false;
+            }
+        }
+
+        private void cbRoleId_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbRoleId.Checked)
+            {
+                lblRole.ForeColor = Color.Black;
+                txtRole.Enabled = true;
+            }
+            else
+            {
+                lblRole.ForeColor = Color.DarkGray;
+                txtRole.Enabled = false;
+            }
+        }
+
+        private void pnlVacancies_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox cb = sender as CheckBox;
+            switch (cb.Name)
+            {
+                case "cbBudget":
+                    if (cb.Checked)
+                    {
+                        lblBudget.ForeColor = Color.Black;
+                        lblFromBudget.ForeColor = Color.Black;
+                        lblToBudget.ForeColor = Color.Black;
+
+                        txtFromBudget.Enabled = true;
+                        txtToBudget.Enabled = true;
+                    }
+                    else
+                    {
+                        lblBudget.ForeColor = Color.DarkGray;
+                        lblFromBudget.ForeColor = Color.DarkGray;
+                        lblToBudget.ForeColor = Color.DarkGray;
+
+                        txtFromBudget.Enabled = false;
+                        txtToBudget.Enabled = false;
+                    }
+                    break;
+                case "cbDeadline":
+                    if (cb.Checked)
+                    {
+                        lblDeadline.ForeColor = Color.Black;
+                        lblFromDeadline.ForeColor = Color.Black;
+                        lblToDeadline.ForeColor = Color.Black;
+
+                        dtpFromDeadline.Enabled = true;
+                        dtpToDeadline.Enabled = true;
+                    }
+                    else
+                    {
+                        lblDeadline.ForeColor = Color.DarkGray;
+                        lblFromDeadline.ForeColor = Color.DarkGray;
+                        lblToDeadline.ForeColor = Color.DarkGray;
+
+                        dtpFromDeadline.Enabled = false;
+                        dtpToDeadline.Enabled = false;
+                    }
+                    break;
+                case "cbDate":
+                    if (cb.Checked)
+                    {
+                        lblDate.ForeColor = Color.Black;
+                        lblFromDate.ForeColor = Color.Black;
+                        lblToDate.ForeColor = Color.Black;
+
+                        dtpFromDate.Enabled = true;
+                        dtpToDate.Enabled = true;
+                    }
+                    else
+                    {
+                        lblDate.ForeColor = Color.DarkGray;
+                        lblFromDate.ForeColor = Color.DarkGray;
+                        lblToDate.ForeColor = Color.DarkGray;
+
+                        dtpFromDate.Enabled = false;
+                        dtpToDate.Enabled = false;
+                    }
+                    break;
+            }
         }
     }
 }
