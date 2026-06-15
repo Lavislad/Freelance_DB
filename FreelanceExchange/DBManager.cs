@@ -91,30 +91,28 @@ namespace FreelanceExchange
                                 break;
                             case "vacancies":
                                 sql =
-                                    $"SELECT * FROM {table} " +
-                                    "WHERE author_id=@id";
+                                    $"SELECT * FROM {table} ";
                                 if (!string.IsNullOrEmpty(value))
-                                    sql += $" AND {value}";
+                                    sql += $"WHERE {value} ";
                                 break;
                             case "feedbacks":
                                 sql =
-                                    $"SELECT * FROM {table} " +
-                                    "WHERE author_id=@id";
+                                    $"SELECT * FROM {table} ";
                                 if (!string.IsNullOrEmpty(value))
-                                    sql += $" AND {value}";
+                                    sql += $"WHERE {value} ";
                                 break;
                             case "responses":
                                 sql =
                                     $"SELECT * FROM {table} " +
-                                    "WHERE user_id=@id";
+                                    "WHERE user_id=@id ";
                                 if (!string.IsNullOrEmpty(value))
-                                    sql += $" AND {value}";
+                                    sql += $"AND {value} ";
                                 break;
                             case "news":
                                 sql =
                                     $"SELECT * FROM {table} ";
                                 if (!string.IsNullOrEmpty(value))
-                                    sql += $" WHERE {value}";
+                                    sql += $"WHERE {value} ";
                                 break;
                         }
                     }

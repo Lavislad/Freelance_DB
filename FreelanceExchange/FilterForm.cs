@@ -52,7 +52,7 @@ namespace FreelanceExchange
                 }
                 else
                 {
-                    cmbTables.SelectedItem = "users";
+                    cmbTables.SelectedItem = "vacancies";
                 }
             }
         }
@@ -137,9 +137,11 @@ namespace FreelanceExchange
                     sql += $"registration_date BETWEEN '{expectedFromRegDate}' AND '{expectedToRegDate}' ";
                 }
 
-                dbm.Filter["users"] = sql;
-                FiltersApplied?.Invoke("users");
-
+                if (sql != "")
+                {
+                    dbm.Filter["users"] = sql;
+                    FiltersApplied?.Invoke("users");
+                }
 
                 //VACANCIES TABLE
 
@@ -165,7 +167,7 @@ namespace FreelanceExchange
 
                     if (sql != "")
                         sql += "AND ";
-                    sql += $"deadline BETWEEN {fromDeadline} AND {toDeadline}";
+                    sql += $"deadline BETWEEN {fromDeadline} AND {toDeadline} ";
                 }
                 if (cbDate.Checked)
                 {
@@ -179,8 +181,11 @@ namespace FreelanceExchange
                     sql += $"publication_date BETWEEN {fromDate} AND {toDate} ";
                 }
 
-                dbm.Filter["vacancies"] = sql;
-                FiltersApplied?.Invoke("vacancies");
+                if (sql != "")
+                {
+                    dbm.Filter["vacancies"] = sql;
+                    FiltersApplied?.Invoke("vacancies");
+                }
             }
             catch (Exception ex) { MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
