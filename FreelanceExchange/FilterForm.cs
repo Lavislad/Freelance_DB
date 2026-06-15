@@ -106,6 +106,8 @@ namespace FreelanceExchange
         {
             try
             {
+                Validate();
+
                 string sql;
 
                 // USERS TABLE
@@ -160,25 +162,21 @@ namespace FreelanceExchange
                 }
                 if (cbDeadline.Checked)
                 {
-                    if (!DateTime.TryParse(dtpFromDate.Value.ToString(), out DateTime fromDeadline))
-                        throw new Exception("Ошибка обрабтки начальной даты крайнего срока");
-                    if (!DateTime.TryParse(dtpToDate.Value.ToString(), out DateTime toDeadline))
-                        throw new Exception("Ошибка обрабтки конечной даты крайнего срока");
+                    DateTime fromDeadline = dtpFromDeadline.Value;
+                    DateTime toDeadline = dtpToDeadline.Value;
 
                     if (sql != "")
                         sql += "AND ";
-                    sql += $"deadline BETWEEN {fromDeadline} AND {toDeadline} ";
+                    sql += $"deadline BETWEEN '{fromDeadline.ToString("yyyy-MM-dd")}' AND '{toDeadline.ToString("yyyy-MM-dd")}' ";
                 }
                 if (cbDate.Checked)
                 {
-                    if (!DateTime.TryParse(dtpFromDate.Value.ToString(), out DateTime fromDate))
-                        throw new Exception("Ошибка обрабтки начальной даты регистрации");
-                    if (!DateTime.TryParse(dtpToDate.Value.ToString(), out DateTime toDate))
-                        throw new Exception("Ошибка обрабтки конечной даты регистрации");
+                    DateTime fromDate = dtpFromDate.Value;
+                    DateTime toDate = dtpToDate.Value;
 
                     if (sql != "")
                         sql += "AND ";
-                    sql += $"publication_date BETWEEN {fromDate} AND {toDate} ";
+                    sql += $"publication_date BETWEEN {fromDate.ToString("yyyy-MM-dd")} AND {toDate.ToString("yyyy-MM-dd")} ";
                 }
 
                 if (sql != "")
