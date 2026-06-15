@@ -24,36 +24,57 @@ namespace FreelanceExchange
         }
 
         public void Search(string searchString)
-            {
-            string sql = "";
-            string filterString = dbm.Filter["vacancies"];
+        {
+            string filterString = dbm.Filter["vacancies"] ?? "";
 
-            if (filterString != "" && !isEditing)
+            // 1. Формируем новое условие поиска (пробел на конце обязателен)
+            string newSql = $"title LIKE '%{searchString}%' OR description LIKE '%{searchString}%' ";
+
+            // Шаблон для поиска СТАРОГО условия (с любым текстом внутри процентов)
+            string pattern = @"title\s+LIKE\s+'%.*?%'\s+OR\s+description\s+LIKE\s+'%.*?%'\s*";
+
+            // 2. Проверяем, есть ли уже старый поиск в строке
+            if (Regex.IsMatch(filterString, pattern, RegexOptions.IgnoreCase))
             {
-                sql += "AND ";
+                // Если старый поиск найден, просто заменяем его на новый на том же месте
+                dbm.Filter["vacancies"] = Regex.Replace(filterString, pattern, newSql, RegexOptions.IgnoreCase);
             }
+            else
+            {
+                // 3. Если старого поиска не было, добавляем его в конец по вашей логике
+                string prefix = "";
 
-            sql += $"title LIKE '%{searchString}%' OR description LIKE '%{searchString}%' ";
+                // Проверяем на пустую строку (с учетом пробелов)
+                if (!string.IsNullOrWhiteSpace(filterString) && !isEditing)
+                {
+                    prefix = "AND ";
+                }
 
-            dbm.Filter["vacancies"] += sql;
+                // Если строка состояла только из пробелов, очищаем её перед добавлением
+                if (string.IsNullOrWhiteSpace(filterString)) filterString = "";
+
+                dbm.Filter["vacancies"] = filterString + prefix + newSql;
+            }
         }
 
         public void ClearSql()
         {
             string currentFilter = dbm.Filter["vacancies"];
 
-            // Шаблон ищет "title LIKE '%...%'" и возможный последующий "OR " или "AND "
-            string pattern = @"title\s+LIKE\s+'%.*?%'\s+OR\s+description\s+LIKE\s+'%.*?%'\s*";
-
-            // Regex.Replace возвращает новую строку, записываем её обратно в фильтр
-            dbm.Filter["vacancies"] = Regex.Replace(currentFilter, pattern, "", RegexOptions.IgnoreCase);
-
+            // 1. Удаляем саму связку title LIKE ... OR description LIKE ...
+            string pattern = @"title\s+LIKE\s+'%.*?%'\s+OR\s+description\s+LIKE\s+'%.*?%'";
             string cleaned = Regex.Replace(currentFilter, pattern, "", RegexOptions.IgnoreCase);
 
-            cleaned = Regex.Replace(cleaned, @"\s*(OR|AND)\s*$", "", RegexOptions.IgnoreCase);
+            // 2. Очищаем лишние операторы AND/OR, которые могли остаться по бокам
+            // Захватываем оператор в начале строки
             cleaned = Regex.Replace(cleaned, @"^\s*(OR|AND)\s*", "", RegexOptions.IgnoreCase);
+            // Захватываем оператор в конце строки, игнорируя концевые пробелы
+            cleaned = Regex.Replace(cleaned, @"\s*(OR|AND)\s*$", "", RegexOptions.IgnoreCase);
 
-            dbm.Filter["vacancies"] = cleaned.Trim();
+            // 3. Нормализуем пробелы: убираем лишние, но принудительно оставляем ровно один пробел в конце
+            cleaned = Regex.Replace(cleaned.Trim(), @"\s+", " ");
+
+            dbm.Filter["vacancies"] = string.IsNullOrEmpty(cleaned) ? " " : cleaned + " ";
         }
     }
 }
