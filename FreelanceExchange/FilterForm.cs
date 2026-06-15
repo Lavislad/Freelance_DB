@@ -176,7 +176,7 @@ namespace FreelanceExchange
 
                     if (sql != "")
                         sql += "AND ";
-                    sql += $"publication_date BETWEEN {fromDate.ToString("yyyy-MM-dd")} AND {toDate.ToString("yyyy-MM-dd")} ";
+                    sql += $"publication_date BETWEEN '{fromDate.ToString("yyyy-MM-dd")}' AND '{toDate.ToString("yyyy-MM-dd")}' ";
                 }
 
                 if (sql != "")

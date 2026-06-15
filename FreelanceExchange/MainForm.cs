@@ -202,7 +202,7 @@ namespace FreelanceExchange
 
         private void FilterForm_FiltersApplied(string table)
         {
-            dbm.LoadData(table, dgvData, ref currentTable);
+            cmbTables.SelectedItem = table;
         }
 
         private void btnClearFilters_Click(object sender, EventArgs e)
