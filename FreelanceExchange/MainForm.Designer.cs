@@ -36,6 +36,8 @@
             обновитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             btnFilter = new System.Windows.Forms.Button();
             btnClearFilters = new System.Windows.Forms.Button();
+            txtSearch = new System.Windows.Forms.TextBox();
+            lblSearch = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)dgvData).BeginInit();
             menuStrip1.SuspendLayout();
             SuspendLayout();
@@ -166,11 +168,30 @@
             btnClearFilters.UseVisualStyleBackColor = true;
             btnClearFilters.Click += btnClearFilters_Click;
             // 
+            // txtSearch
+            // 
+            txtSearch.Location = new System.Drawing.Point(295, 30);
+            txtSearch.Name = "txtSearch";
+            txtSearch.Size = new System.Drawing.Size(275, 23);
+            txtSearch.TabIndex = 11;
+            txtSearch.TextChanged += txtSearch_TextChanged;
+            // 
+            // lblSearch
+            // 
+            lblSearch.AutoSize = true;
+            lblSearch.Location = new System.Drawing.Point(184, 33);
+            lblSearch.Name = "lblSearch";
+            lblSearch.Size = new System.Drawing.Size(105, 15);
+            lblSearch.TabIndex = 12;
+            lblSearch.Text = "Поиск в vacancies";
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(1000, 550);
+            Controls.Add(lblSearch);
+            Controls.Add(txtSearch);
             Controls.Add(btnClearFilters);
             Controls.Add(btnFilter);
             Controls.Add(lblRole);
@@ -198,5 +219,7 @@
         private System.Windows.Forms.ToolStripMenuItem обновитьToolStripMenuItem;
         private System.Windows.Forms.Button btnFilter;
         private System.Windows.Forms.Button btnClearFilters;
+        private System.Windows.Forms.TextBox txtSearch;
+        private System.Windows.Forms.Label lblSearch;
     }
 }
