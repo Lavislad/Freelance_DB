@@ -73,6 +73,7 @@
             txtId.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             txtId.Location = new System.Drawing.Point(268, 30);
             txtId.Name = "txtId";
+            txtId.ReadOnly = true;
             txtId.Size = new System.Drawing.Size(250, 23);
             txtId.TabIndex = 2;
             // 

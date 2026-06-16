@@ -245,8 +245,8 @@ namespace FreelanceExchange
                 if (dgvData.CurrentRow == null)
                     throw new Exception("Не выбрано ни одной записи");
 
-                string id = dgvData.CurrentRow.Cells[0].ToString();
-                UserForm userForm = new UserForm(id);
+                string id = dgvData.CurrentRow.Cells[0].Value.ToString();
+                UserForm userForm = new UserForm(id, connectionString);
                 userForm.Show();
             }
             catch (Exception ex) { MessageBox.Show(ex.Message, "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Information); }
