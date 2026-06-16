@@ -12,14 +12,24 @@ namespace FreelanceExchange
 {
     public partial class UserForm : Form
     {
-        public UserForm()
+        string _id;
+
+        public UserForm(string id)
         {
             InitializeComponent();
+            _id = id;
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
+        private void btnPassword_Click(object sender, EventArgs e)
         {
-
+            if (txtPassword.PasswordChar == '*')
+            {
+                txtPassword.PasswordChar = '\0';
+            }
+            else
+            {
+                txtPassword.PasswordChar = '*';
+            }
         }
     }
 }

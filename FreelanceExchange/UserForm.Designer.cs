@@ -39,7 +39,7 @@
             lblEmail = new System.Windows.Forms.Label();
             txtPassword = new System.Windows.Forms.TextBox();
             lblPassword = new System.Windows.Forms.Label();
-            button1 = new System.Windows.Forms.Button();
+            btnPassword = new System.Windows.Forms.Button();
             lblDescription = new System.Windows.Forms.Label();
             rtxtDescription = new System.Windows.Forms.RichTextBox();
             txtRoleId = new System.Windows.Forms.TextBox();
@@ -83,7 +83,6 @@
             txtName.Name = "txtName";
             txtName.Size = new System.Drawing.Size(250, 23);
             txtName.TabIndex = 4;
-            txtName.TextChanged += textBox1_TextChanged;
             // 
             // lblName
             // 
@@ -94,7 +93,6 @@
             lblName.Size = new System.Drawing.Size(39, 15);
             lblName.TabIndex = 3;
             lblName.Text = "Name";
-            lblName.Click += this.label1_Click;
             // 
             // txtSurname
             // 
@@ -151,14 +149,15 @@
             lblPassword.TabIndex = 9;
             lblPassword.Text = "Password";
             // 
-            // button1
+            // btnPassword
             // 
-            button1.Location = new System.Drawing.Point(485, 206);
-            button1.Name = "button1";
-            button1.Size = new System.Drawing.Size(33, 23);
-            button1.TabIndex = 11;
-            button1.Text = "👁️";
-            button1.UseVisualStyleBackColor = true;
+            btnPassword.Location = new System.Drawing.Point(485, 206);
+            btnPassword.Name = "btnPassword";
+            btnPassword.Size = new System.Drawing.Size(33, 23);
+            btnPassword.TabIndex = 11;
+            btnPassword.Text = "👁️";
+            btnPassword.UseVisualStyleBackColor = true;
+            btnPassword.Click += btnPassword_Click;
             // 
             // lblDescription
             // 
@@ -227,7 +226,7 @@
             Controls.Add(lblRoleId);
             Controls.Add(rtxtDescription);
             Controls.Add(lblDescription);
-            Controls.Add(button1);
+            Controls.Add(btnPassword);
             Controls.Add(txtPassword);
             Controls.Add(lblPassword);
             Controls.Add(txtEmail);
@@ -259,7 +258,7 @@
         private System.Windows.Forms.Label lblEmail;
         private System.Windows.Forms.TextBox txtPassword;
         private System.Windows.Forms.Label lblPassword;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnPassword;
         private System.Windows.Forms.Label lblDescription;
         private System.Windows.Forms.RichTextBox rtxtDescription;
         private System.Windows.Forms.TextBox txtRoleId;

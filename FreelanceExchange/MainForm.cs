@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.Diagnostics;
 using System.Windows.Forms;
 
 namespace FreelanceExchange
@@ -228,9 +229,27 @@ namespace FreelanceExchange
             {
                 sm.ClearSql();
                 sm.IsEditing = false;
-            }                
-            
+            }
+
             dbm.LoadData("vacancies", dgvData, ref currentTable);
+        }
+
+        private void пользовательToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (cmbTables.Text != "users")
+                    throw new Exception("Не выбрана таблица users");
+                if (dgvData.SelectedRows.Count > 1)
+                    throw new Exception("Выбрано более одной записи");
+                if (dgvData.CurrentRow == null)
+                    throw new Exception("Не выбрано ни одной записи");
+
+                string id = dgvData.CurrentRow.Cells[0].ToString();
+                UserForm userForm = new UserForm(id);
+                userForm.Show();
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message, "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Information); }
         }
     }
 }

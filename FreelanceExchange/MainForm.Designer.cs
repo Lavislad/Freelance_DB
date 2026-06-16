@@ -34,6 +34,7 @@
             добавитьСтрокуToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             удалитьСтрокуToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             обновитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            пользовательToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             btnFilter = new System.Windows.Forms.Button();
             btnClearFilters = new System.Windows.Forms.Button();
             txtSearch = new System.Windows.Forms.TextBox();
@@ -115,7 +116,7 @@
             // 
             // редактироватьToolStripMenuItem
             // 
-            редактироватьToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { добавитьСтрокуToolStripMenuItem, удалитьСтрокуToolStripMenuItem, обновитьToolStripMenuItem });
+            редактироватьToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { добавитьСтрокуToolStripMenuItem, удалитьСтрокуToolStripMenuItem, обновитьToolStripMenuItem, пользовательToolStripMenuItem });
             редактироватьToolStripMenuItem.Name = "редактироватьToolStripMenuItem";
             редактироватьToolStripMenuItem.Size = new System.Drawing.Size(99, 20);
             редактироватьToolStripMenuItem.Text = "Редактировать";
@@ -143,6 +144,13 @@
             обновитьToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
             обновитьToolStripMenuItem.Text = "Обновить";
             обновитьToolStripMenuItem.Click += обновитьToolStripMenuItem_Click;
+            // 
+            // пользовательToolStripMenuItem
+            // 
+            пользовательToolStripMenuItem.Name = "пользовательToolStripMenuItem";
+            пользовательToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
+            пользовательToolStripMenuItem.Text = "Пользователь...";
+            пользовательToolStripMenuItem.Click += пользовательToolStripMenuItem_Click;
             // 
             // btnFilter
             // 
@@ -221,5 +229,6 @@
         private System.Windows.Forms.Button btnClearFilters;
         private System.Windows.Forms.TextBox txtSearch;
         private System.Windows.Forms.Label lblSearch;
+        private System.Windows.Forms.ToolStripMenuItem пользовательToolStripMenuItem;
     }
 }
