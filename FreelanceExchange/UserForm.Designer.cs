@@ -48,6 +48,9 @@
             txtRegistrationDate = new System.Windows.Forms.TextBox();
             btnChange = new System.Windows.Forms.Button();
             btnDelete = new System.Windows.Forms.Button();
+            openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            btnAccept = new System.Windows.Forms.Button();
+            btnCancel = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)pbImage).BeginInit();
             SuspendLayout();
             // 
@@ -237,11 +240,37 @@
             btnDelete.Text = "Удалить";
             btnDelete.UseVisualStyleBackColor = true;
             // 
+            // openFileDialog1
+            // 
+            openFileDialog1.FileName = "openFileDialog1";
+            // 
+            // btnAccept
+            // 
+            btnAccept.Location = new System.Drawing.Point(439, 452);
+            btnAccept.Name = "btnAccept";
+            btnAccept.Size = new System.Drawing.Size(75, 23);
+            btnAccept.TabIndex = 21;
+            btnAccept.Text = "Принять";
+            btnAccept.UseVisualStyleBackColor = true;
+            // 
+            // btnCancel
+            // 
+            btnCancel.Location = new System.Drawing.Point(12, 452);
+            btnCancel.Name = "btnCancel";
+            btnCancel.Size = new System.Drawing.Size(75, 23);
+            btnCancel.TabIndex = 22;
+            btnCancel.Text = "Отмена";
+            btnCancel.UseVisualStyleBackColor = true;
+            // 
             // UserForm
             // 
+            AcceptButton = btnAccept;
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            ClientSize = new System.Drawing.Size(526, 451);
+            CancelButton = btnCancel;
+            ClientSize = new System.Drawing.Size(526, 487);
+            Controls.Add(btnCancel);
+            Controls.Add(btnAccept);
             Controls.Add(btnDelete);
             Controls.Add(btnChange);
             Controls.Add(txtRegistrationDate);
@@ -291,5 +320,8 @@
         private System.Windows.Forms.TextBox txtRegistrationDate;
         private System.Windows.Forms.Button btnChange;
         private System.Windows.Forms.Button btnDelete;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.Button btnAccept;
+        private System.Windows.Forms.Button btnCancel;
     }
 }
