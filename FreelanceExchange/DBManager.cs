@@ -185,6 +185,23 @@ namespace FreelanceExchange
             }
         }
 
+        public void Save(string table, DataTable currentTable)
+        {
+            try
+            {
+                using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
+                {
+                    connection.Open();
+
+                    if (!UpdateRow(connection, table, currentTable.Rows[0]))
+                        return;
+
+                    currentTable.AcceptChanges();
+                }
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
+        }
+
         private bool SaveNewRow(NpgsqlConnection connection, string table, DataRow row)
         {
             try
@@ -340,7 +357,8 @@ namespace FreelanceExchange
                         "email=@email, " +
                         "password=@password, " +
                         "profile_description=@profile_description, " +
-                        "role_id=@role_id " +
+                        "role_id=@role_id, " +
+                        "avatar_path=@avatar_path " +
                         "WHERE id=@id";
 
                     command = new NpgsqlCommand(sql, connection);
@@ -362,6 +380,8 @@ namespace FreelanceExchange
                         throw new Exception("Недопустимое значение для role.\nДопустимые значенния:\n1 (Администратор).\n2 (Пользователь).");
 
                     command.Parameters.AddWithValue("@role_id", row["role_id"]);
+
+                    command.Parameters.AddWithValue("@avatar_path", row["avatar_path"]);
 
                     command.Parameters.AddWithValue("@id", id);
                 }

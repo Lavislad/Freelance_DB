@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.Diagnostics;
 using System.Windows.Forms;
 
 namespace FreelanceExchange
@@ -115,6 +116,7 @@ namespace FreelanceExchange
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+            Validate();
             dbm.Save(cmbTables.Text, dgvData, currentTable);
             dbm.LoadData(cmbTables.Text, dgvData, ref currentTable);
 
@@ -227,9 +229,31 @@ namespace FreelanceExchange
             {
                 sm.ClearSql();
                 sm.IsEditing = false;
-            }                
-            
+            }
+
             dbm.LoadData("vacancies", dgvData, ref currentTable);
+        }
+
+        void UpdateTable() => dbm.LoadData(cmbTables.Text, dgvData, ref currentTable);
+
+        private void пользовательToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (cmbTables.Text != "users")
+                    throw new Exception("Не выбрана таблица users");
+                if (dgvData.SelectedRows.Count > 1)
+                    throw new Exception("Выбрано более одной записи");
+                if (dgvData.CurrentRow == null)
+                    throw new Exception("Не выбрано ни одной записи");
+
+                string id = dgvData.CurrentRow.Cells[0].Value.ToString();
+
+                UserForm userForm = new UserForm(id, connectionString, dbm);
+                userForm.OnApplied += UpdateTable;
+                userForm.Show();
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message, "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Information); }
         }
     }
 }

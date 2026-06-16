@@ -47,6 +47,9 @@ RENAME COLUMN first_name TO name;
 ALTER TABLE users
 RENAME COLUMN last_name TO surname;
 
+ALTER TABLE users 
+ADD COLUMN avatar_path VARCHAR(255);
+
 
 CONSTRAINT fk_users_role
     FOREIGN KEY (role_id)
