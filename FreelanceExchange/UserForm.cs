@@ -56,6 +56,18 @@ namespace FreelanceExchange
                 txtRoleId.Text = _currentTable.Rows[0]["role_id"].ToString();
                 rtxtDescription.Text = _currentTable.Rows[0]["profile_description"].ToString();
                 txtRegistrationDate.Text = _currentTable.Rows[0]["registration_date"].ToString();
+
+                string avatarPath = _currentTable.Rows[0]["avatar_path"].ToString();
+                if (avatarPath != "")
+                {
+                    pbImage.Image = Image.FromFile(avatarPath);
+                    pbImage.ImageLocation = avatarPath;
+                }
+                else
+                {
+                    pbImage.Image = null;
+                    pbImage.ImageLocation = null;
+                }
             }
             catch (Exception ex) { MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
         }
@@ -103,7 +115,7 @@ namespace FreelanceExchange
                 string filePath = openFileDialog1.FileName;
                 string savePath = SaveImageToAppDirectory(filePath);
 
-                _currentTable.Rows[0]["avatar_path"] = filePath;
+                _currentTable.Rows[0]["avatar_path"] = savePath;
                 pbImage.Image = Image.FromFile(savePath);
                 pbImage.ImageLocation = savePath;
             }

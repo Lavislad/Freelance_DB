@@ -60,6 +60,7 @@
             pbImage.Location = new System.Drawing.Point(12, 12);
             pbImage.Name = "pbImage";
             pbImage.Size = new System.Drawing.Size(250, 250);
+            pbImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             pbImage.TabIndex = 0;
             pbImage.TabStop = false;
             // 
