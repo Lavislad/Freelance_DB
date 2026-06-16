@@ -115,6 +115,7 @@ namespace FreelanceExchange
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+            Validate();
             dbm.Save(cmbTables.Text, dgvData, currentTable);
             dbm.LoadData(cmbTables.Text, dgvData, ref currentTable);
 
