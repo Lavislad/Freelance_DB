@@ -234,6 +234,8 @@ namespace FreelanceExchange
             dbm.LoadData("vacancies", dgvData, ref currentTable);
         }
 
+        void UpdateTable() => dbm.LoadData(cmbTables.Text, dgvData, ref currentTable);
+
         private void пользовательToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
@@ -246,7 +248,9 @@ namespace FreelanceExchange
                     throw new Exception("Не выбрано ни одной записи");
 
                 string id = dgvData.CurrentRow.Cells[0].Value.ToString();
+
                 UserForm userForm = new UserForm(id, connectionString, dbm);
+                userForm.OnApplied += UpdateTable;
                 userForm.Show();
             }
             catch (Exception ex) { MessageBox.Show(ex.Message, "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Information); }

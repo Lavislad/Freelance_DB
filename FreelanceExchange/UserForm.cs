@@ -18,6 +18,8 @@ namespace FreelanceExchange
         DBManager dbm;
         DataTable _currentTable;
 
+        public event Action OnApplied;
+
         public UserForm(string id, string connectionString, DBManager dbManager)
         {
             InitializeComponent();
@@ -84,6 +86,7 @@ namespace FreelanceExchange
 
             dbm.Save("users", _currentTable);
 
+            OnApplied?.Invoke();
             Close();
         }
 
