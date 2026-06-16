@@ -157,7 +157,7 @@
             // 
             // btnPassword
             // 
-            btnPassword.Location = new System.Drawing.Point(485, 264);
+            btnPassword.Location = new System.Drawing.Point(485, 256);
             btnPassword.Name = "btnPassword";
             btnPassword.Size = new System.Drawing.Size(33, 23);
             btnPassword.TabIndex = 11;
@@ -252,6 +252,7 @@
             btnAccept.TabIndex = 21;
             btnAccept.Text = "Принять";
             btnAccept.UseVisualStyleBackColor = true;
+            btnAccept.Click += btnAccept_Click;
             // 
             // btnCancel
             // 
@@ -261,6 +262,7 @@
             btnCancel.TabIndex = 22;
             btnCancel.Text = "Отмена";
             btnCancel.UseVisualStyleBackColor = true;
+            btnCancel.Click += btnCancel_Click;
             // 
             // UserForm
             // 

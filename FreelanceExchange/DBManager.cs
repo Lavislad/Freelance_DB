@@ -185,6 +185,23 @@ namespace FreelanceExchange
             }
         }
 
+        public void Save(string table, DataTable currentTable)
+        {
+            try
+            {
+                using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
+                {
+                    connection.Open();
+
+                    if (!UpdateRow(connection, table, currentTable.Rows[0]))
+                        return;
+
+                    currentTable.AcceptChanges();
+                }
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
+        }
+
         private bool SaveNewRow(NpgsqlConnection connection, string table, DataRow row)
         {
             try
