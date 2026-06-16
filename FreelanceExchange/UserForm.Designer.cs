@@ -46,6 +46,8 @@
             lblRoleId = new System.Windows.Forms.Label();
             lblRegistrationDate = new System.Windows.Forms.Label();
             txtRegistrationDate = new System.Windows.Forms.TextBox();
+            btnChange = new System.Windows.Forms.Button();
+            btnDelete = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)pbImage).BeginInit();
             SuspendLayout();
             // 
@@ -80,7 +82,7 @@
             // txtName
             // 
             txtName.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            txtName.Location = new System.Drawing.Point(268, 74);
+            txtName.Location = new System.Drawing.Point(268, 124);
             txtName.Name = "txtName";
             txtName.Size = new System.Drawing.Size(250, 23);
             txtName.TabIndex = 4;
@@ -89,7 +91,7 @@
             // 
             lblName.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             lblName.AutoSize = true;
-            lblName.Location = new System.Drawing.Point(268, 56);
+            lblName.Location = new System.Drawing.Point(268, 106);
             lblName.Name = "lblName";
             lblName.Size = new System.Drawing.Size(39, 15);
             lblName.TabIndex = 3;
@@ -98,7 +100,7 @@
             // txtSurname
             // 
             txtSurname.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            txtSurname.Location = new System.Drawing.Point(268, 118);
+            txtSurname.Location = new System.Drawing.Point(268, 168);
             txtSurname.Name = "txtSurname";
             txtSurname.Size = new System.Drawing.Size(250, 23);
             txtSurname.TabIndex = 6;
@@ -107,7 +109,7 @@
             // 
             lblSurname.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             lblSurname.AutoSize = true;
-            lblSurname.Location = new System.Drawing.Point(268, 100);
+            lblSurname.Location = new System.Drawing.Point(268, 150);
             lblSurname.Name = "lblSurname";
             lblSurname.Size = new System.Drawing.Size(54, 15);
             lblSurname.TabIndex = 5;
@@ -116,7 +118,7 @@
             // txtEmail
             // 
             txtEmail.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            txtEmail.Location = new System.Drawing.Point(268, 162);
+            txtEmail.Location = new System.Drawing.Point(268, 212);
             txtEmail.Name = "txtEmail";
             txtEmail.Size = new System.Drawing.Size(250, 23);
             txtEmail.TabIndex = 8;
@@ -125,7 +127,7 @@
             // 
             lblEmail.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             lblEmail.AutoSize = true;
-            lblEmail.Location = new System.Drawing.Point(268, 144);
+            lblEmail.Location = new System.Drawing.Point(268, 194);
             lblEmail.Name = "lblEmail";
             lblEmail.Size = new System.Drawing.Size(36, 15);
             lblEmail.TabIndex = 7;
@@ -134,7 +136,7 @@
             // txtPassword
             // 
             txtPassword.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            txtPassword.Location = new System.Drawing.Point(268, 206);
+            txtPassword.Location = new System.Drawing.Point(268, 256);
             txtPassword.Name = "txtPassword";
             txtPassword.PasswordChar = '*';
             txtPassword.Size = new System.Drawing.Size(211, 23);
@@ -144,7 +146,7 @@
             // 
             lblPassword.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             lblPassword.AutoSize = true;
-            lblPassword.Location = new System.Drawing.Point(268, 188);
+            lblPassword.Location = new System.Drawing.Point(268, 238);
             lblPassword.Name = "lblPassword";
             lblPassword.Size = new System.Drawing.Size(57, 15);
             lblPassword.TabIndex = 9;
@@ -152,7 +154,7 @@
             // 
             // btnPassword
             // 
-            btnPassword.Location = new System.Drawing.Point(485, 206);
+            btnPassword.Location = new System.Drawing.Point(485, 264);
             btnPassword.Name = "btnPassword";
             btnPassword.Size = new System.Drawing.Size(33, 23);
             btnPassword.TabIndex = 11;
@@ -164,7 +166,7 @@
             // 
             lblDescription.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             lblDescription.AutoSize = true;
-            lblDescription.Location = new System.Drawing.Point(268, 276);
+            lblDescription.Location = new System.Drawing.Point(268, 326);
             lblDescription.Name = "lblDescription";
             lblDescription.Size = new System.Drawing.Size(104, 15);
             lblDescription.TabIndex = 12;
@@ -173,7 +175,7 @@
             // rtxtDescription
             // 
             rtxtDescription.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            rtxtDescription.Location = new System.Drawing.Point(265, 294);
+            rtxtDescription.Location = new System.Drawing.Point(265, 344);
             rtxtDescription.Name = "rtxtDescription";
             rtxtDescription.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
             rtxtDescription.Size = new System.Drawing.Size(250, 95);
@@ -183,7 +185,7 @@
             // txtRoleId
             // 
             txtRoleId.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            txtRoleId.Location = new System.Drawing.Point(268, 250);
+            txtRoleId.Location = new System.Drawing.Point(268, 300);
             txtRoleId.Name = "txtRoleId";
             txtRoleId.Size = new System.Drawing.Size(250, 23);
             txtRoleId.TabIndex = 16;
@@ -192,7 +194,7 @@
             // 
             lblRoleId.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             lblRoleId.AutoSize = true;
-            lblRoleId.Location = new System.Drawing.Point(268, 232);
+            lblRoleId.Location = new System.Drawing.Point(268, 282);
             lblRoleId.Name = "lblRoleId";
             lblRoleId.Size = new System.Drawing.Size(44, 15);
             lblRoleId.TabIndex = 15;
@@ -200,8 +202,9 @@
             // 
             // lblRegistrationDate
             // 
+            lblRegistrationDate.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             lblRegistrationDate.AutoSize = true;
-            lblRegistrationDate.Location = new System.Drawing.Point(12, 271);
+            lblRegistrationDate.Location = new System.Drawing.Point(268, 62);
             lblRegistrationDate.Name = "lblRegistrationDate";
             lblRegistrationDate.Size = new System.Drawing.Size(97, 15);
             lblRegistrationDate.TabIndex = 17;
@@ -209,18 +212,38 @@
             // 
             // txtRegistrationDate
             // 
-            txtRegistrationDate.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            txtRegistrationDate.Location = new System.Drawing.Point(115, 268);
+            txtRegistrationDate.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            txtRegistrationDate.Location = new System.Drawing.Point(268, 80);
             txtRegistrationDate.Name = "txtRegistrationDate";
             txtRegistrationDate.ReadOnly = true;
-            txtRegistrationDate.Size = new System.Drawing.Size(147, 23);
+            txtRegistrationDate.Size = new System.Drawing.Size(246, 23);
             txtRegistrationDate.TabIndex = 18;
+            // 
+            // btnChange
+            // 
+            btnChange.Location = new System.Drawing.Point(12, 268);
+            btnChange.Name = "btnChange";
+            btnChange.Size = new System.Drawing.Size(75, 23);
+            btnChange.TabIndex = 19;
+            btnChange.Text = "Изменить";
+            btnChange.UseVisualStyleBackColor = true;
+            // 
+            // btnDelete
+            // 
+            btnDelete.Location = new System.Drawing.Point(93, 268);
+            btnDelete.Name = "btnDelete";
+            btnDelete.Size = new System.Drawing.Size(75, 23);
+            btnDelete.TabIndex = 20;
+            btnDelete.Text = "Удалить";
+            btnDelete.UseVisualStyleBackColor = true;
             // 
             // UserForm
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            ClientSize = new System.Drawing.Size(526, 398);
+            ClientSize = new System.Drawing.Size(526, 451);
+            Controls.Add(btnDelete);
+            Controls.Add(btnChange);
             Controls.Add(txtRegistrationDate);
             Controls.Add(lblRegistrationDate);
             Controls.Add(txtRoleId);
@@ -266,5 +289,7 @@
         private System.Windows.Forms.Label lblRoleId;
         private System.Windows.Forms.Label lblRegistrationDate;
         private System.Windows.Forms.TextBox txtRegistrationDate;
+        private System.Windows.Forms.Button btnChange;
+        private System.Windows.Forms.Button btnDelete;
     }
 }
