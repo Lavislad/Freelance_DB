@@ -124,7 +124,7 @@ namespace FreelanceExchange
         private string SaveImageToAppDirectory(string sourcePath)
         {
             string imageDirectory = Path.Combine(Application.StartupPath, "images", "users");
-            
+
             if (!Directory.Exists(imageDirectory))
                 Directory.CreateDirectory(imageDirectory);
 
@@ -135,6 +135,11 @@ namespace FreelanceExchange
             File.Copy(sourcePath, destinationPath, true);
 
             return destinationPath;
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            pbImage.ImageLocation = null;
         }
     }
 }

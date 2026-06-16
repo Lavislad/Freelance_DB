@@ -241,6 +241,7 @@
             btnDelete.TabIndex = 20;
             btnDelete.Text = "Удалить";
             btnDelete.UseVisualStyleBackColor = true;
+            btnDelete.Click += btnDelete_Click;
             // 
             // openFileDialog1
             // 
