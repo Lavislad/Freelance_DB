@@ -357,7 +357,8 @@ namespace FreelanceExchange
                         "email=@email, " +
                         "password=@password, " +
                         "profile_description=@profile_description, " +
-                        "role_id=@role_id " +
+                        "role_id=@role_id, " +
+                        "avatar_path=@avatar_path " +
                         "WHERE id=@id";
 
                     command = new NpgsqlCommand(sql, connection);
@@ -379,6 +380,8 @@ namespace FreelanceExchange
                         throw new Exception("Недопустимое значение для role.\nДопустимые значенния:\n1 (Администратор).\n2 (Пользователь).");
 
                     command.Parameters.AddWithValue("@role_id", row["role_id"]);
+
+                    command.Parameters.AddWithValue("@avatar_path", row["avatar_path"]);
 
                     command.Parameters.AddWithValue("@id", id);
                 }
