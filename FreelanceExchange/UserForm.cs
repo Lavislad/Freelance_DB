@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -93,6 +94,35 @@ namespace FreelanceExchange
         private void btnCancel_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void btnChange_Click(object sender, EventArgs e)
+        {
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                string filePath = openFileDialog1.FileName;
+                string savePath = SaveImageToAppDirectory(filePath);
+
+                _currentTable.Rows[0]["avatar_path"] = filePath;
+                pbImage.Image = Image.FromFile(savePath);
+                pbImage.ImageLocation = savePath;
+            }
+        }
+
+        private string SaveImageToAppDirectory(string sourcePath)
+        {
+            string imageDirectory = Path.Combine(Application.StartupPath, "images", "users");
+            
+            if (!Directory.Exists(imageDirectory))
+                Directory.CreateDirectory(imageDirectory);
+
+            string fileName = $"avatar_{_id}_{DateTime.Now.Ticks}.jpg";
+
+            string destinationPath = Path.Combine(imageDirectory, fileName);
+
+            File.Copy(sourcePath, destinationPath, true);
+
+            return destinationPath;
         }
     }
 }

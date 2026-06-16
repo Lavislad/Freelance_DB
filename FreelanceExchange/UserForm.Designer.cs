@@ -230,6 +230,7 @@
             btnChange.TabIndex = 19;
             btnChange.Text = "Изменить";
             btnChange.UseVisualStyleBackColor = true;
+            btnChange.Click += btnChange_Click;
             // 
             // btnDelete
             // 
