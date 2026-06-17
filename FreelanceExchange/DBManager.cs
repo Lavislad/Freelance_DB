@@ -560,5 +560,136 @@ namespace FreelanceExchange
             filter["feedbacks"] = "";
             filter["news"] = "";
         }
+
+        public DataTable GetVacanciesReport(
+    DateTime dateFrom,
+    DateTime dateTo)
+        {
+            DataTable table = new();
+
+            const string sql = @"
+        SELECT
+            v.id,
+            v.title,
+            u.name || ' ' || u.surname AS author,
+            v.budget,
+            v.deadline,
+            v.publication_date
+        FROM vacancies v
+        JOIN users u
+            ON u.id = v.author_id
+        WHERE v.publication_date
+            BETWEEN @dateFrom AND @dateTo
+        ORDER BY v.publication_date DESC";
+
+            using var connection =
+                new NpgsqlConnection(connectionString);
+
+            using var command =
+                new NpgsqlCommand(sql, connection);
+
+            command.Parameters.AddWithValue(
+                "@dateFrom",
+                dateFrom.Date);
+
+            command.Parameters.AddWithValue(
+                "@dateTo",
+                dateTo.Date);
+
+            connection.Open();
+
+            using var adapter =
+                new NpgsqlDataAdapter(command);
+
+            adapter.Fill(table);
+
+            return table;
+        }
+
+        public DataTable GetTagsReport(
+    DateTime dateFrom,
+    DateTime dateTo)
+        {
+            DataTable table = new();
+
+            const string sql = @"
+        SELECT
+            t.name AS tag,
+            COUNT(*) AS vacancies_count
+        FROM vacancy_tags vt
+        JOIN tags t
+            ON t.id = vt.tag_id
+        JOIN vacancies v
+            ON v.id = vt.vacancy_id
+        WHERE v.publication_date
+            BETWEEN @dateFrom AND @dateTo
+        GROUP BY t.name
+        ORDER BY vacancies_count DESC";
+
+            using var connection =
+                new NpgsqlConnection(connectionString);
+
+            using var command =
+                new NpgsqlCommand(sql, connection);
+
+            command.Parameters.AddWithValue(
+                "@dateFrom",
+                dateFrom.Date);
+
+            command.Parameters.AddWithValue(
+                "@dateTo",
+                dateTo.Date);
+
+            connection.Open();
+
+            using var adapter =
+                new NpgsqlDataAdapter(command);
+
+            adapter.Fill(table);
+
+            return table;
+        }
+
+        public DataTable GetResponsesReport(
+    DateTime dateFrom,
+    DateTime dateTo)
+        {
+            DataTable table = new();
+
+            const string sql = @"
+        SELECT
+            v.title,
+            COUNT(r.id) AS responses_count
+        FROM vacancies v
+        LEFT JOIN responses r
+            ON r.vacancy_id = v.id
+        WHERE r.created_at
+            BETWEEN @dateFrom AND @dateTo
+        GROUP BY v.title
+        ORDER BY responses_count DESC";
+
+            using var connection =
+                new NpgsqlConnection(connectionString);
+
+            using var command =
+                new NpgsqlCommand(sql, connection);
+
+            command.Parameters.AddWithValue(
+                "@dateFrom",
+                dateFrom);
+
+            command.Parameters.AddWithValue(
+                "@dateTo",
+                dateTo);
+
+            connection.Open();
+
+            using var adapter =
+                new NpgsqlDataAdapter(command);
+
+            adapter.Fill(table);
+
+            return table;
+        }
     }
 }

@@ -2,7 +2,7 @@
 using FreelanceExchange.Reports.Models;
 using FreelanceExchange.Reports.Templates;
 
-namespace FreelanceExchange.Reports.Exporters
+namespace FreelanceExchange
 {
     public class ExcelExporter : IReportExporter
     {
