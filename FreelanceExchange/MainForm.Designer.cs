@@ -39,6 +39,9 @@
             btnClearFilters = new System.Windows.Forms.Button();
             txtSearch = new System.Windows.Forms.TextBox();
             lblSearch = new System.Windows.Forms.Label();
+            pDFToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            dOCXToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            xLSXToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)dgvData).BeginInit();
             menuStrip1.SuspendLayout();
             SuspendLayout();
@@ -96,21 +99,22 @@
             // 
             сохранитьToolStripMenuItem.Name = "сохранитьToolStripMenuItem";
             сохранитьToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S;
-            сохранитьToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
+            сохранитьToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             сохранитьToolStripMenuItem.Text = "Сохранить";
             сохранитьToolStripMenuItem.Click += btnSave_Click;
             // 
             // создатьОтчетToolStripMenuItem
             // 
+            создатьОтчетToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { pDFToolStripMenuItem, dOCXToolStripMenuItem, xLSXToolStripMenuItem });
             создатьОтчетToolStripMenuItem.Name = "создатьОтчетToolStripMenuItem";
-            создатьОтчетToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
-            создатьОтчетToolStripMenuItem.Text = "Создать отчет";
+            создатьОтчетToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            создатьОтчетToolStripMenuItem.Text = "Экспортировать в";
             // 
             // выходToolStripMenuItem
             // 
             выходToolStripMenuItem.Name = "выходToolStripMenuItem";
             выходToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Q;
-            выходToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
+            выходToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             выходToolStripMenuItem.Text = "Выход";
             выходToolStripMenuItem.Click += btnLogout_Click;
             // 
@@ -193,6 +197,24 @@
             lblSearch.TabIndex = 12;
             lblSearch.Text = "Поиск в vacancies";
             // 
+            // pDFToolStripMenuItem
+            // 
+            pDFToolStripMenuItem.Name = "pDFToolStripMenuItem";
+            pDFToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            pDFToolStripMenuItem.Text = "PDF";
+            // 
+            // dOCXToolStripMenuItem
+            // 
+            dOCXToolStripMenuItem.Name = "dOCXToolStripMenuItem";
+            dOCXToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            dOCXToolStripMenuItem.Text = "DOCX";
+            // 
+            // xLSXToolStripMenuItem
+            // 
+            xLSXToolStripMenuItem.Name = "xLSXToolStripMenuItem";
+            xLSXToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            xLSXToolStripMenuItem.Text = "XLSX";
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -230,5 +252,8 @@
         private System.Windows.Forms.TextBox txtSearch;
         private System.Windows.Forms.Label lblSearch;
         private System.Windows.Forms.ToolStripMenuItem пользовательToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem pDFToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem dOCXToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem xLSXToolStripMenuItem;
     }
 }
