@@ -5,7 +5,7 @@ using iText.Layout;
 using iText.Layout.Element;
 using System.Data;
 
-namespace FreelanceExchange.Reports.Exporters
+namespace FreelanceExchange
 {
     public class PdfExporter : IReportExporter
     {

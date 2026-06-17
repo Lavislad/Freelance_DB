@@ -1,5 +1,5 @@
 ﻿using FreelanceExchange.Reports;
-using FreelanceExchange.Reports.Exporters;
+using FreelanceExchange;
 using FreelanceExchange.Reports.Models;
 using FreelanceExchange.Reports.Templates;
 using System;

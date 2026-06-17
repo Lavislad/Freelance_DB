@@ -561,9 +561,7 @@ namespace FreelanceExchange
             filter["news"] = "";
         }
 
-        public DataTable GetVacanciesReport(
-    DateTime dateFrom,
-    DateTime dateTo)
+        public DataTable GetVacanciesReport(DateTime dateFrom, DateTime dateTo)
         {
             DataTable table = new();
 
@@ -582,15 +580,11 @@ namespace FreelanceExchange
             BETWEEN @dateFrom AND @dateTo
         ORDER BY v.publication_date DESC";
 
-            using var connection =
-                new NpgsqlConnection(connectionString);
+            using var connection = new NpgsqlConnection(connectionString);
 
-            using var command =
-                new NpgsqlCommand(sql, connection);
+            using var command = new NpgsqlCommand(sql, connection);
 
-            command.Parameters.AddWithValue(
-                "@dateFrom",
-                dateFrom.Date);
+            command.Parameters.AddWithValue("@dateFrom", dateFrom.Date);
 
             command.Parameters.AddWithValue(
                 "@dateTo",

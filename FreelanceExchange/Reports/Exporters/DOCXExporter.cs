@@ -4,7 +4,7 @@ using FreelanceExchange.Reports.Models;
 using FreelanceExchange.Reports.Templates;
 using System.Data;
 
-namespace FreelanceExchange.Reports.Exporters
+namespace FreelanceExchange
 {
     public class DocxExporter : IReportExporter
     {
