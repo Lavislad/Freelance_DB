@@ -156,6 +156,7 @@
             btnGenerate.TabIndex = 4;
             btnGenerate.Text = "Сформировать";
             btnGenerate.UseVisualStyleBackColor = true;
+            btnGenerate.Click += btnGenerate_Click;
             // 
             // pnlTags
             // 
@@ -276,6 +277,7 @@
             btnCancel.TabIndex = 12;
             btnCancel.Text = "Отмена";
             btnCancel.UseVisualStyleBackColor = true;
+            btnCancel.Click += btnCancel_Click;
             // 
             // ExportForm
             // 
