@@ -99,7 +99,7 @@
             // 
             сохранитьToolStripMenuItem.Name = "сохранитьToolStripMenuItem";
             сохранитьToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S;
-            сохранитьToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            сохранитьToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
             сохранитьToolStripMenuItem.Text = "Сохранить";
             сохранитьToolStripMenuItem.Click += btnSave_Click;
             // 
@@ -107,27 +107,27 @@
             // 
             создатьОтчетToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { pDFToolStripMenuItem, dOCXToolStripMenuItem, xLSXToolStripMenuItem });
             создатьОтчетToolStripMenuItem.Name = "создатьОтчетToolStripMenuItem";
-            создатьОтчетToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            создатьОтчетToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
             создатьОтчетToolStripMenuItem.Text = "Экспортировать в";
             // 
             // pDFToolStripMenuItem
             // 
             pDFToolStripMenuItem.Name = "pDFToolStripMenuItem";
-            pDFToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            pDFToolStripMenuItem.Size = new System.Drawing.Size(106, 22);
             pDFToolStripMenuItem.Text = "PDF";
             pDFToolStripMenuItem.Click += pDFToolStripMenuItem_Click;
             // 
             // dOCXToolStripMenuItem
             // 
             dOCXToolStripMenuItem.Name = "dOCXToolStripMenuItem";
-            dOCXToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            dOCXToolStripMenuItem.Size = new System.Drawing.Size(106, 22);
             dOCXToolStripMenuItem.Text = "DOCX";
             dOCXToolStripMenuItem.Click += pDFToolStripMenuItem_Click;
             // 
             // xLSXToolStripMenuItem
             // 
             xLSXToolStripMenuItem.Name = "xLSXToolStripMenuItem";
-            xLSXToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            xLSXToolStripMenuItem.Size = new System.Drawing.Size(106, 22);
             xLSXToolStripMenuItem.Text = "XLSX";
             xLSXToolStripMenuItem.Click += pDFToolStripMenuItem_Click;
             // 
@@ -135,7 +135,7 @@
             // 
             выходToolStripMenuItem.Name = "выходToolStripMenuItem";
             выходToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Q;
-            выходToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            выходToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
             выходToolStripMenuItem.Text = "Выход";
             выходToolStripMenuItem.Click += btnLogout_Click;
             // 
@@ -234,7 +234,7 @@
             MainMenuStrip = menuStrip1;
             MinimumSize = new System.Drawing.Size(527, 235);
             Name = "MainForm";
-            Text = "Информационная система";
+            Text = "7";
             ((System.ComponentModel.ISupportInitialize)dgvData).EndInit();
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();

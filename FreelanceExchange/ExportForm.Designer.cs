@@ -52,7 +52,7 @@
             lblPeriodResponses = new System.Windows.Forms.Label();
             dtpDateFromResponses = new System.Windows.Forms.DateTimePicker();
             btnCancel = new System.Windows.Forms.Button();
-            btnDesigner = new System.Windows.Forms.Button();
+            cmbTemplates = new System.Windows.Forms.ComboBox();
             pnlVacancies.SuspendLayout();
             pnlTags.SuspendLayout();
             pnlResponses.SuspendLayout();
@@ -280,14 +280,14 @@
             btnCancel.UseVisualStyleBackColor = true;
             btnCancel.Click += btnCancel_Click;
             // 
-            // btnDesigner
+            // cmbTemplates
             // 
-            btnDesigner.Location = new System.Drawing.Point(12, 307);
-            btnDesigner.Name = "btnDesigner";
-            btnDesigner.Size = new System.Drawing.Size(121, 23);
-            btnDesigner.TabIndex = 13;
-            btnDesigner.Text = "Шаблон...";
-            btnDesigner.UseVisualStyleBackColor = true;
+            cmbTemplates.FormattingEnabled = true;
+            cmbTemplates.Items.AddRange(new object[] { "PDF", "DOCX", "XLSX" });
+            cmbTemplates.Location = new System.Drawing.Point(12, 300);
+            cmbTemplates.Name = "cmbTemplates";
+            cmbTemplates.Size = new System.Drawing.Size(121, 23);
+            cmbTemplates.TabIndex = 14;
             // 
             // ExportForm
             // 
@@ -296,7 +296,7 @@
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             CancelButton = btnCancel;
             ClientSize = new System.Drawing.Size(336, 371);
-            Controls.Add(btnDesigner);
+            Controls.Add(cmbTemplates);
             Controls.Add(btnCancel);
             Controls.Add(pnlTags);
             Controls.Add(pnlResponses);
@@ -344,6 +344,6 @@
         private System.Windows.Forms.DateTimePicker dtpDateFromResponses;
         private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.Button btnCancel;
-        private System.Windows.Forms.Button btnDesigner;
+        private System.Windows.Forms.ComboBox cmbTemplates;
     }
 }

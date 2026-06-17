@@ -1,13 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using FastReport;
+using FastReport.Export.PdfSimple;
+using System.Data;
 
-namespace FreelanceExchange
+
+public interface IReportExporter
 {
-    public class ReportManager
-    {
+    void Export(DataTable data, string filePath);
+}
 
+public class PdfExporter
+{
+    public void Export(DataTable table, string templatePath, string outputPath)
+    {
+        using Report report = new();
+
+        report.Load(templatePath);
+
+        report.RegisterData(table, "Report");
+
+        report.GetDataSource("Report").Enabled = true;
+
+        report.Prepare();
+
+        PDFSimpleExport pdf = new();
+
+        report.Export(pdf, outputPath);
     }
 }

@@ -262,16 +262,16 @@ namespace FreelanceExchange
             switch ((sender as ToolStripMenuItem).Name)
             {
                 case "pDFToolStripMenuItem":
-                    exportForm = new ExportForm("PDF", dbm);
+                    exportForm = new ExportForm("PDF", dbm, connectionString);
                     break;
                 case "dOCXToolStripMenuItem":
-                    exportForm = new ExportForm("DOCX", dbm);
+                    exportForm = new ExportForm("DOCX", dbm, connectionString);
                     break;
                 case "xLSXToolStripMenuItem":
-                    exportForm = new ExportForm("XLSX", dbm);
+                    exportForm = new ExportForm("XLSX", dbm, connectionString);
                     break;
                 default:
-                    exportForm = new ExportForm("PDF", dbm);
+                    exportForm = new ExportForm("PDF", dbm, connectionString);
                     break;
             }
 

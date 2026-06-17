@@ -234,3 +234,35 @@ INSERT INTO responses (
     14,
     'Имею опыт создания REST API и работы с PostgreSQL.'
 );
+
+
+INSERT INTO report_templates
+(
+    name,
+    header,
+    footer,
+    show_logo,
+    show_date
+)
+VALUES
+(
+    'Стандартный',
+    'Отчет фриланс-биржи',
+    'Сформировано системой',
+    false,
+    true
+),
+(
+    'Для печати',
+    'Отчет для печати',
+    'Конфиденциально',
+    false,
+    true
+),
+(
+    'Минимальный',
+    'Отчет',
+    '',
+    false,
+    false
+);

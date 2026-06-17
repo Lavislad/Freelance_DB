@@ -1,11 +1,8 @@
-﻿using System;
+﻿using FastReport;
+using FastReport.Export.PdfSimple;
+using FreelanceExchange.Reports.Templates;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace FreelanceExchange
@@ -14,10 +11,13 @@ namespace FreelanceExchange
     {
         Panel currentPanel;
         DBManager dbm;
+        string _connectionString;
 
-        public ExportForm(string exportType, DBManager dBManager)
+        public ExportForm(string exportType, DBManager dBManager, string connectionString)
         {
             InitializeComponent();
+
+            _connectionString = connectionString;
 
             LoadComboBoxes(exportType);
             pnlVacancies.Visible = true;
@@ -32,6 +32,14 @@ namespace FreelanceExchange
         {
             cmbReportType.SelectedItem = "Вакансии за период";
             cmbReports.SelectedItem = exportType;
+
+            var repository = new ReportTemplateRepository(_connectionString);
+
+            var templates = repository.GetAll();
+
+            cmbTemplates.DataSource = templates;
+            cmbTemplates.DisplayMember = "Name";
+            cmbTemplates.ValueMember = "Id";
         }
 
         private void LoadTags()
@@ -73,6 +81,11 @@ namespace FreelanceExchange
         {
             string exportType = cmbReports.Text;
 
+        }
+
+        private void btnDesigner_Click(object sender, EventArgs e)
+        {
+            
         }
     }
 }

@@ -230,3 +230,14 @@ TO user_role;
 
 ALTER SYSTEM SET timezone = 'Europe/Moscow';
 SELECT pg_reload_conf();
+
+
+CREATE TABLE report_templates
+(
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(100),
+    header TEXT,
+    footer TEXT,
+    show_logo BOOLEAN,
+    show_date BOOLEAN
+);
