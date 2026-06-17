@@ -255,5 +255,27 @@ namespace FreelanceExchange
             }
             catch (Exception ex) { MessageBox.Show(ex.Message, "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Information); }
         }
+
+        private void pDFToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ExportForm exportForm;
+            switch ((sender as ToolStripMenuItem).Name)
+            {
+                case "pDFToolStripMenuItem":
+                    exportForm = new ExportForm("PDF", dbm, connectionString);
+                    break;
+                case "dOCXToolStripMenuItem":
+                    exportForm = new ExportForm("DOCX", dbm, connectionString);
+                    break;
+                case "xLSXToolStripMenuItem":
+                    exportForm = new ExportForm("XLSX", dbm, connectionString);
+                    break;
+                default:
+                    exportForm = new ExportForm("PDF", dbm, connectionString);
+                    break;
+            }
+
+            exportForm.Show();
+        }
     }
 }

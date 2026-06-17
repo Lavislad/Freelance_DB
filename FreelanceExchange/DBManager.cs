@@ -150,6 +150,30 @@ namespace FreelanceExchange
             return true;
         }
 
+        public List<string> LoadTags()
+        {
+            List<string> tags = new List<string>();
+            try
+            {
+                using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
+                {
+                    connection.Open();
+
+                    string sql = "SELECT name FROM tags";
+
+                    NpgsqlCommand command = new NpgsqlCommand(sql, connection);
+
+                    NpgsqlDataReader reader = command.ExecuteReader();
+
+                    while (reader.Read())
+                        tags.Add(reader.GetString(0));
+                }
+            }
+            catch (Exception ex) { MessageBox.Show($"Ошибка при зашрузке тегов: {ex.Message}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+
+            return tags;
+        }
+
         public void Save(string table, DataGridView dgvData, DataTable currentTable)
         {
             try
@@ -535,6 +559,79 @@ namespace FreelanceExchange
             filter["responses"] = "";
             filter["feedbacks"] = "";
             filter["news"] = "";
+        }
+
+        public DataTable GetVacanciesReport(DateTime dateFrom, DateTime dateTo)
+        {
+            DataTable table = new();
+
+            string sql = "SELECT v.id, v.title, u.name || ' ' || u.surname AS author, v.budget, v.deadline, v.publication_date " +
+             "FROM vacancies AS v " +
+             "INNER JOIN users AS u ON u.id = v.author_id " +
+             $"WHERE v.publication_date >= '{dateFrom.ToString("yyyy-MM-dd")}' AND v.publication_date <= '{dateTo.ToString("yyyy-MM-dd")}' " +
+             "ORDER BY v.publication_date DESC;";
+
+            using var connection = new NpgsqlConnection(connectionString);
+
+            using var command = new NpgsqlCommand(sql, connection);
+
+            connection.Open();
+
+            using var adapter = new NpgsqlDataAdapter(command);
+
+            adapter.Fill(table);
+
+            return table;
+        }
+
+        public DataTable GetTagsReport(DateTime dateFrom, DateTime dateTo)
+        {
+            DataTable table = new();
+
+            string sql = "SELECT t.name AS tag, COUNT(*) AS vacancies_count " +
+                   "FROM vacancy_tags AS vt " +
+                   "INNER JOIN tags AS t ON t.id = vt.tag_id " +
+                   "INNER JOIN vacancies AS v ON v.id = vt.vacancy_id " +
+                   $"WHERE v.publication_date >= '{dateFrom.ToString("yyyy-MM-dd")}' AND v.publication_date <= '{dateTo.ToString("yyyy-MM-dd")}' " +
+                   "GROUP BY t.name " +
+                   "ORDER BY vacancies_count DESC;";
+
+            using var connection = new NpgsqlConnection(connectionString);
+
+            using var command = new NpgsqlCommand(sql, connection);
+
+            connection.Open();
+
+            using var adapter = new NpgsqlDataAdapter(command);
+
+            adapter.Fill(table);
+
+            return table;
+        }
+
+        public DataTable GetResponsesReport(DateTime dateFrom, DateTime dateTo)
+        {
+            DataTable table = new();
+
+            string sql = "SELECT v.title, COUNT(r.id) AS responses_count " +
+                   "FROM vacancies AS v " +
+                   "LEFT JOIN responses AS r ON r.vacancy_id = v.id " +
+                   $"AND r.created_at >= '{dateFrom.ToString("yyyy-MM-dd")}' AND r.created_at <= '{dateTo.ToString("yyyy-MM-dd")}' " +
+                   "GROUP BY v.title " +
+                   "ORDER BY responses_count DESC;";
+
+
+            using var connection = new NpgsqlConnection(connectionString);
+
+            using var command = new NpgsqlCommand(sql, connection);
+
+            connection.Open();
+
+            using var adapter = new NpgsqlDataAdapter(command);
+
+            adapter.Fill(table);
+
+            return table;
         }
     }
 }

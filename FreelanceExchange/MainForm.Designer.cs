@@ -29,6 +29,9 @@
             файлToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             сохранитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             создатьОтчетToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            pDFToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            dOCXToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            xLSXToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             выходToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             редактироватьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             добавитьСтрокуToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -102,9 +105,31 @@
             // 
             // создатьОтчетToolStripMenuItem
             // 
+            создатьОтчетToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { pDFToolStripMenuItem, dOCXToolStripMenuItem, xLSXToolStripMenuItem });
             создатьОтчетToolStripMenuItem.Name = "создатьОтчетToolStripMenuItem";
             создатьОтчетToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
-            создатьОтчетToolStripMenuItem.Text = "Создать отчет";
+            создатьОтчетToolStripMenuItem.Text = "Экспортировать в";
+            // 
+            // pDFToolStripMenuItem
+            // 
+            pDFToolStripMenuItem.Name = "pDFToolStripMenuItem";
+            pDFToolStripMenuItem.Size = new System.Drawing.Size(106, 22);
+            pDFToolStripMenuItem.Text = "PDF";
+            pDFToolStripMenuItem.Click += pDFToolStripMenuItem_Click;
+            // 
+            // dOCXToolStripMenuItem
+            // 
+            dOCXToolStripMenuItem.Name = "dOCXToolStripMenuItem";
+            dOCXToolStripMenuItem.Size = new System.Drawing.Size(106, 22);
+            dOCXToolStripMenuItem.Text = "DOCX";
+            dOCXToolStripMenuItem.Click += pDFToolStripMenuItem_Click;
+            // 
+            // xLSXToolStripMenuItem
+            // 
+            xLSXToolStripMenuItem.Name = "xLSXToolStripMenuItem";
+            xLSXToolStripMenuItem.Size = new System.Drawing.Size(106, 22);
+            xLSXToolStripMenuItem.Text = "XLSX";
+            xLSXToolStripMenuItem.Click += pDFToolStripMenuItem_Click;
             // 
             // выходToolStripMenuItem
             // 
@@ -209,7 +234,7 @@
             MainMenuStrip = menuStrip1;
             MinimumSize = new System.Drawing.Size(527, 235);
             Name = "MainForm";
-            Text = "Информационная система";
+            Text = "Главная форма";
             ((System.ComponentModel.ISupportInitialize)dgvData).EndInit();
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
@@ -230,5 +255,8 @@
         private System.Windows.Forms.TextBox txtSearch;
         private System.Windows.Forms.Label lblSearch;
         private System.Windows.Forms.ToolStripMenuItem пользовательToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem pDFToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem dOCXToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem xLSXToolStripMenuItem;
     }
 }
