@@ -45,8 +45,15 @@
             lblPeriod = new System.Windows.Forms.Label();
             dtpDateFromTags = new System.Windows.Forms.DateTimePicker();
             listTags = new System.Windows.Forms.ListBox();
+            pnlResponses = new System.Windows.Forms.Panel();
+            lblAuthor = new System.Windows.Forms.Label();
+            dtpDateToResponses = new System.Windows.Forms.DateTimePicker();
+            lblPeriodResponses = new System.Windows.Forms.Label();
+            dtpDateFromResponses = new System.Windows.Forms.DateTimePicker();
+            textBox3 = new System.Windows.Forms.TextBox();
             pnlVacancies.SuspendLayout();
             pnlTags.SuspendLayout();
+            pnlResponses.SuspendLayout();
             SuspendLayout();
             // 
             // cmbReportType
@@ -203,11 +210,65 @@
             listTags.Size = new System.Drawing.Size(301, 139);
             listTags.TabIndex = 10;
             // 
+            // pnlResponses
+            // 
+            pnlResponses.Controls.Add(textBox3);
+            pnlResponses.Controls.Add(lblAuthor);
+            pnlResponses.Controls.Add(dtpDateToResponses);
+            pnlResponses.Controls.Add(lblPeriodResponses);
+            pnlResponses.Controls.Add(dtpDateFromResponses);
+            pnlResponses.Location = new System.Drawing.Point(12, 56);
+            pnlResponses.Name = "pnlResponses";
+            pnlResponses.Size = new System.Drawing.Size(307, 209);
+            pnlResponses.TabIndex = 11;
+            // 
+            // lblAuthor
+            // 
+            lblAuthor.AutoSize = true;
+            lblAuthor.Location = new System.Drawing.Point(3, 55);
+            lblAuthor.Name = "lblAuthor";
+            lblAuthor.Size = new System.Drawing.Size(112, 15);
+            lblAuthor.TabIndex = 7;
+            lblAuthor.Text = "ID автора вакансии";
+            // 
+            // dtpDateToResponses
+            // 
+            dtpDateToResponses.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            dtpDateToResponses.Location = new System.Drawing.Point(114, 18);
+            dtpDateToResponses.Name = "dtpDateToResponses";
+            dtpDateToResponses.Size = new System.Drawing.Size(92, 23);
+            dtpDateToResponses.TabIndex = 5;
+            // 
+            // lblPeriodResponses
+            // 
+            lblPeriodResponses.AutoSize = true;
+            lblPeriodResponses.Location = new System.Drawing.Point(3, 0);
+            lblPeriodResponses.Name = "lblPeriodResponses";
+            lblPeriodResponses.Size = new System.Drawing.Size(49, 15);
+            lblPeriodResponses.TabIndex = 4;
+            lblPeriodResponses.Text = "Период";
+            // 
+            // dtpDateFromResponses
+            // 
+            dtpDateFromResponses.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            dtpDateFromResponses.Location = new System.Drawing.Point(3, 18);
+            dtpDateFromResponses.Name = "dtpDateFromResponses";
+            dtpDateFromResponses.Size = new System.Drawing.Size(92, 23);
+            dtpDateFromResponses.TabIndex = 0;
+            // 
+            // textBox3
+            // 
+            textBox3.Location = new System.Drawing.Point(3, 73);
+            textBox3.Name = "textBox3";
+            textBox3.Size = new System.Drawing.Size(100, 23);
+            textBox3.TabIndex = 8;
+            // 
             // ExportForm
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(800, 450);
+            Controls.Add(pnlResponses);
             Controls.Add(pnlTags);
             Controls.Add(btnGenerate);
             Controls.Add(cmbReports);
@@ -220,6 +281,8 @@
             pnlVacancies.PerformLayout();
             pnlTags.ResumeLayout(false);
             pnlTags.PerformLayout();
+            pnlResponses.ResumeLayout(false);
+            pnlResponses.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -243,5 +306,12 @@
         private System.Windows.Forms.Label lblPeriod;
         private System.Windows.Forms.DateTimePicker dtpDateFromTags;
         private System.Windows.Forms.ListBox listTags;
+        private System.Windows.Forms.Panel pnlResponses;
+        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.Label lblAuthor;
+        private System.Windows.Forms.DateTimePicker dtpDateToResponses;
+        private System.Windows.Forms.Label lblPeriodResponses;
+        private System.Windows.Forms.DateTimePicker dtpDateFromResponses;
+        private System.Windows.Forms.TextBox textBox3;
     }
 }
