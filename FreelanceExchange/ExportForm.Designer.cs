@@ -35,11 +35,18 @@
             dtpDateToVacancies = new System.Windows.Forms.DateTimePicker();
             lblDatePeriod = new System.Windows.Forms.Label();
             dtpDateFromVacancies = new System.Windows.Forms.DateTimePicker();
-            comboBox1 = new System.Windows.Forms.ComboBox();
+            cmbReports = new System.Windows.Forms.ComboBox();
             lblBudgetVacancies = new System.Windows.Forms.Label();
             textBox2 = new System.Windows.Forms.TextBox();
             btnGenerate = new System.Windows.Forms.Button();
+            pnlTags = new System.Windows.Forms.Panel();
+            lblTags = new System.Windows.Forms.Label();
+            dtpDateToTags = new System.Windows.Forms.DateTimePicker();
+            lblPeriod = new System.Windows.Forms.Label();
+            dtpDateFromTags = new System.Windows.Forms.DateTimePicker();
+            listTags = new System.Windows.Forms.ListBox();
             pnlVacancies.SuspendLayout();
+            pnlTags.SuspendLayout();
             SuspendLayout();
             // 
             // cmbReportType
@@ -105,14 +112,14 @@
             dtpDateFromVacancies.Size = new System.Drawing.Size(92, 23);
             dtpDateFromVacancies.TabIndex = 0;
             // 
-            // comboBox1
+            // cmbReports
             // 
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Items.AddRange(new object[] { "PDF", "DOCX", "XLSX" });
-            comboBox1.Location = new System.Drawing.Point(12, 271);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new System.Drawing.Size(121, 23);
-            comboBox1.TabIndex = 3;
+            cmbReports.FormattingEnabled = true;
+            cmbReports.Items.AddRange(new object[] { "PDF", "DOCX", "XLSX" });
+            cmbReports.Location = new System.Drawing.Point(12, 271);
+            cmbReports.Name = "cmbReports";
+            cmbReports.Size = new System.Drawing.Size(121, 23);
+            cmbReports.TabIndex = 3;
             // 
             // lblBudgetVacancies
             // 
@@ -140,13 +147,70 @@
             btnGenerate.Text = "Сформировать";
             btnGenerate.UseVisualStyleBackColor = true;
             // 
+            // pnlTags
+            // 
+            pnlTags.Controls.Add(listTags);
+            pnlTags.Controls.Add(lblTags);
+            pnlTags.Controls.Add(dtpDateToTags);
+            pnlTags.Controls.Add(lblPeriod);
+            pnlTags.Controls.Add(dtpDateFromTags);
+            pnlTags.Location = new System.Drawing.Point(12, 56);
+            pnlTags.Name = "pnlTags";
+            pnlTags.Size = new System.Drawing.Size(307, 209);
+            pnlTags.TabIndex = 9;
+            // 
+            // lblTags
+            // 
+            lblTags.AutoSize = true;
+            lblTags.Location = new System.Drawing.Point(3, 55);
+            lblTags.Name = "lblTags";
+            lblTags.Size = new System.Drawing.Size(25, 15);
+            lblTags.TabIndex = 7;
+            lblTags.Text = "Тег";
+            // 
+            // dtpDateToTags
+            // 
+            dtpDateToTags.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            dtpDateToTags.Location = new System.Drawing.Point(114, 18);
+            dtpDateToTags.Name = "dtpDateToTags";
+            dtpDateToTags.Size = new System.Drawing.Size(92, 23);
+            dtpDateToTags.TabIndex = 5;
+            // 
+            // lblPeriod
+            // 
+            lblPeriod.AutoSize = true;
+            lblPeriod.Location = new System.Drawing.Point(3, 0);
+            lblPeriod.Name = "lblPeriod";
+            lblPeriod.Size = new System.Drawing.Size(49, 15);
+            lblPeriod.TabIndex = 4;
+            lblPeriod.Text = "Период";
+            // 
+            // dtpDateFromTags
+            // 
+            dtpDateFromTags.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            dtpDateFromTags.Location = new System.Drawing.Point(3, 18);
+            dtpDateFromTags.Name = "dtpDateFromTags";
+            dtpDateFromTags.Size = new System.Drawing.Size(92, 23);
+            dtpDateFromTags.TabIndex = 0;
+            // 
+            // listTags
+            // 
+            listTags.FormattingEnabled = true;
+            listTags.ItemHeight = 15;
+            listTags.Location = new System.Drawing.Point(3, 73);
+            listTags.Name = "listTags";
+            listTags.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
+            listTags.Size = new System.Drawing.Size(301, 139);
+            listTags.TabIndex = 10;
+            // 
             // ExportForm
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(800, 450);
+            Controls.Add(pnlTags);
             Controls.Add(btnGenerate);
-            Controls.Add(comboBox1);
+            Controls.Add(cmbReports);
             Controls.Add(pnlVacancies);
             Controls.Add(lblReportType);
             Controls.Add(cmbReportType);
@@ -154,6 +218,8 @@
             Text = "ExportForm";
             pnlVacancies.ResumeLayout(false);
             pnlVacancies.PerformLayout();
+            pnlTags.ResumeLayout(false);
+            pnlTags.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -165,11 +231,17 @@
         private System.Windows.Forms.Panel pnlVacancies;
         private System.Windows.Forms.Label lblDatePeriod;
         private System.Windows.Forms.DateTimePicker dtpDateFromVacancies;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox cmbReports;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.DateTimePicker dtpDateToVacancies;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.Label lblBudgetVacancies;
         private System.Windows.Forms.Button btnGenerate;
+        private System.Windows.Forms.Panel pnlTags;
+        private System.Windows.Forms.Label lblTags;
+        private System.Windows.Forms.DateTimePicker dtpDateToTags;
+        private System.Windows.Forms.Label lblPeriod;
+        private System.Windows.Forms.DateTimePicker dtpDateFromTags;
+        private System.Windows.Forms.ListBox listTags;
     }
 }
