@@ -1,5 +1,7 @@
 ﻿using FreelanceExchange.Reports.Models;
 using FreelanceExchange.Reports.Templates;
+using iText.IO.Font;
+using iText.Kernel.Font;
 using iText.Kernel.Pdf;
 using iText.Layout;
 using iText.Layout.Element;
@@ -9,24 +11,21 @@ namespace FreelanceExchange
 {
     public class PdfExporter : IReportExporter
     {
-        public void Export(
-            ReportInfo report,
-            ReportTemplate template,
-            string fileName)
+        public void Export(ReportInfo report, ReportTemplate template, string fileName)
         {
             using PdfWriter writer = new(fileName);
             using PdfDocument pdf = new(writer);
             using Document document = new(pdf);
 
-            document.Add(
-                new Paragraph(template.Header)
-                .SetFontSize(18));
+            string fontPath = @"C:\Windows\Fonts\arial.ttf";
+            PdfFont font = PdfFontFactory.CreateFont(fontPath, PdfEncodings.IDENTITY_H);
+            document.SetFont(font);
+
+            document.Add(new Paragraph(template.Header).SetFontSize(18));
 
             if (template.ShowDate)
             {
-                document.Add(
-                    new Paragraph(
-                        $"Дата формирования: {report.CreatedAt:dd.MM.yyyy HH:mm}"));
+                document.Add(new Paragraph($"Дата формирования: {report.CreatedAt:dd.MM.yyyy HH:mm}"));
             }
 
             Table table = new(report.Data.Columns.Count);
@@ -48,8 +47,7 @@ namespace FreelanceExchange
 
             if (!string.IsNullOrWhiteSpace(template.Footer))
             {
-                document.Add(
-                    new Paragraph(template.Footer));
+                document.Add(new Paragraph(template.Footer));
             }
         }
     }

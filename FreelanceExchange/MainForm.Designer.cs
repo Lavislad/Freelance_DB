@@ -234,7 +234,7 @@
             MainMenuStrip = menuStrip1;
             MinimumSize = new System.Drawing.Size(527, 235);
             Name = "MainForm";
-            Text = "7";
+            Text = "Главная форма";
             ((System.ComponentModel.ISupportInitialize)dgvData).EndInit();
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
