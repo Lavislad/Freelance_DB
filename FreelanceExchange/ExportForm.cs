@@ -1,5 +1,6 @@
-﻿using FastReport;
-using FastReport.Export.PdfSimple;
+﻿using FreelanceExchange.Reports;
+using FreelanceExchange.Reports.Exporters;
+using FreelanceExchange.Reports.Models;
 using FreelanceExchange.Reports.Templates;
 using System;
 using System.Collections.Generic;
@@ -79,13 +80,126 @@ namespace FreelanceExchange
 
         private void btnGenerate_Click(object sender, EventArgs e)
         {
-            string exportType = cmbReports.Text;
+            try
+            {
+                IReportGenerator generator = GetGenerator();
 
+                if (generator == null)
+                {
+                    MessageBox.Show(
+                        "Не выбран тип отчета.",
+                        "Ошибка",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning);
+
+                    return;
+                }
+
+                ReportInfo report = generator.Generate();
+
+                ReportTemplate template =
+                    cmbTemplates.SelectedItem as ReportTemplate;
+
+                if (template == null)
+                {
+                    MessageBox.Show(
+                        "Не выбран шаблон отчета.",
+                        "Ошибка",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning);
+
+                    return;
+                }
+
+                IReportExporter exporter = GetExporter();
+
+                if (exporter == null)
+                {
+                    MessageBox.Show(
+                        "Не выбран формат экспорта.",
+                        "Ошибка",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning);
+
+                    return;
+                }
+
+                using SaveFileDialog dialog = new()
+                {
+                    Filter = GetFilter(),
+                    FileName = $"{report.Title}_{DateTime.Now:yyyyMMdd_HHmmss}"
+                };
+
+                if (dialog.ShowDialog() != DialogResult.OK)
+                    return;
+
+                exporter.Export(
+                    report,
+                    template,
+                    dialog.FileName);
+
+                MessageBox.Show(
+                    "Отчет успешно сформирован.",
+                    "Успех",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    ex.Message,
+                    "Ошибка",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
         }
 
-        private void btnDesigner_Click(object sender, EventArgs e)
+        private IReportGenerator GetGenerator()
         {
-            
+            return cmbReportType.Text switch
+            {
+                "Вакансии за период" =>
+                    new VacancyReportGenerator(
+                        dbm,
+                        dtpDateFromVacancies.Value,
+                        dtpDateToVacancies.Value),
+
+                "Статистика по тегам" =>
+                    new TagReportGenerator(
+                        dbm,
+                        dtpDateFromTags.Value,
+                        dtpDateToTags.Value),
+
+                "Отклики на вакансии" =>
+                    new ResponseReportGenerator(
+                        dbm,
+                        dtpDateFromResponses.Value,
+                        dtpDateToResponses.Value),
+
+                _ => null
+            };
+        }
+
+        private IReportExporter GetExporter()
+        {
+            return cmbReports.Text switch
+            {
+                "PDF" => new PdfExporter(),
+                "DOCX" => new DocxExporter(),
+                "XLSX" => new ExcelExporter(),
+                _ => null
+            };
+        }
+
+        private string GetFilter()
+        {
+            return cmbReports.Text switch
+            {
+                "PDF" => "PDF (*.pdf)|*.pdf",
+                "DOCX" => "Word (*.docx)|*.docx",
+                "XLSX" => "Excel (*.xlsx)|*.xlsx",
+                _ => "Все файлы (*.*)|*.*"
+            };
         }
     }
 }
