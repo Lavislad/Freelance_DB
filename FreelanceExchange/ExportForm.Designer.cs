@@ -52,6 +52,7 @@
             lblPeriodResponses = new System.Windows.Forms.Label();
             dtpDateFromResponses = new System.Windows.Forms.DateTimePicker();
             btnCancel = new System.Windows.Forms.Button();
+            btnDesigner = new System.Windows.Forms.Button();
             pnlVacancies.SuspendLayout();
             pnlTags.SuspendLayout();
             pnlResponses.SuspendLayout();
@@ -143,9 +144,9 @@
             // 
             cmbReports.FormattingEnabled = true;
             cmbReports.Items.AddRange(new object[] { "PDF", "DOCX", "XLSX" });
-            cmbReports.Location = new System.Drawing.Point(12, 274);
+            cmbReports.Location = new System.Drawing.Point(12, 271);
             cmbReports.Name = "cmbReports";
-            cmbReports.Size = new System.Drawing.Size(95, 23);
+            cmbReports.Size = new System.Drawing.Size(121, 23);
             cmbReports.TabIndex = 3;
             // 
             // btnGenerate
@@ -279,6 +280,15 @@
             btnCancel.UseVisualStyleBackColor = true;
             btnCancel.Click += btnCancel_Click;
             // 
+            // btnDesigner
+            // 
+            btnDesigner.Location = new System.Drawing.Point(12, 307);
+            btnDesigner.Name = "btnDesigner";
+            btnDesigner.Size = new System.Drawing.Size(121, 23);
+            btnDesigner.TabIndex = 13;
+            btnDesigner.Text = "Шаблон...";
+            btnDesigner.UseVisualStyleBackColor = true;
+            // 
             // ExportForm
             // 
             AcceptButton = btnGenerate;
@@ -286,6 +296,7 @@
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             CancelButton = btnCancel;
             ClientSize = new System.Drawing.Size(336, 371);
+            Controls.Add(btnDesigner);
             Controls.Add(btnCancel);
             Controls.Add(pnlTags);
             Controls.Add(pnlResponses);
@@ -333,5 +344,6 @@
         private System.Windows.Forms.DateTimePicker dtpDateFromResponses;
         private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.Button btnDesigner;
     }
 }
