@@ -46,12 +46,20 @@ namespace FreelanceExchange
 
         private void cmbReportType_SelectedIndexChanged(object sender, EventArgs e)
         {
+            currentPanel.Visible = false;
             switch (cmbReportType.SelectedItem)
             {
                 case "Вакансии за период":
-                    currentPanel.Visible = false;
                     pnlVacancies.Visible = true;
                     currentPanel = pnlVacancies;
+                    break;
+                case "Статистика по тегам":
+                    pnlTags.Visible = true;
+                    currentPanel = pnlTags;
+                    break;
+                case "Отклики на вакансии":
+                    pnlResponses.Visible = true;
+                    currentPanel = pnlResponses;
                     break;
             }
         }

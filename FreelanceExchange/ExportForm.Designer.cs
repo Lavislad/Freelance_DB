@@ -176,8 +176,8 @@
             listTags.ItemHeight = 15;
             listTags.Location = new System.Drawing.Point(3, 73);
             listTags.Name = "listTags";
-            listTags.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
-            listTags.Size = new System.Drawing.Size(301, 139);
+            listTags.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
+            listTags.Size = new System.Drawing.Size(301, 124);
             listTags.TabIndex = 10;
             // 
             // lblTags
