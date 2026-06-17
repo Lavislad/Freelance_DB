@@ -26,7 +26,6 @@ namespace FreelanceExchange
             cmbReportType.SelectedIndexChanged += cmbReportType_SelectedIndexChanged;
 
             dbm = dBManager;
-            LoadTags();
         }
 
         private void LoadComboBoxes(string exportType)
@@ -41,16 +40,6 @@ namespace FreelanceExchange
             cmbTemplates.DataSource = templates;
             cmbTemplates.DisplayMember = "Name";
             cmbTemplates.ValueMember = "Id";
-        }
-
-        private void LoadTags()
-        {
-            List<string> tags = dbm.LoadTags();
-
-            foreach (string tag in tags)
-            {
-                listTags.Items.Add(tag);
-            }
         }
 
         private void cmbReportType_SelectedIndexChanged(object sender, EventArgs e)

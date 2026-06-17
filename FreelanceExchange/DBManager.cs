@@ -564,13 +564,12 @@ namespace FreelanceExchange
         public DataTable GetVacanciesReport(DateTime dateFrom, DateTime dateTo)
         {
             DataTable table = new();
-            // запрос нормальный, но неверно подставляется дата
+
             string sql = "SELECT v.id, v.title, u.name || ' ' || u.surname AS author, v.budget, v.deadline, v.publication_date " +
              "FROM vacancies AS v " +
              "INNER JOIN users AS u ON u.id = v.author_id " +
              $"WHERE v.publication_date >= '{dateFrom.ToString("yyyy-MM-dd")}' AND v.publication_date <= '{dateTo.ToString("yyyy-MM-dd")}' " +
              "ORDER BY v.publication_date DESC;";
-
 
             using var connection = new NpgsqlConnection(connectionString);
 

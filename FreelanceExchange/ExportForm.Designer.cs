@@ -40,8 +40,6 @@
             cmbReports = new System.Windows.Forms.ComboBox();
             btnGenerate = new System.Windows.Forms.Button();
             pnlTags = new System.Windows.Forms.Panel();
-            listTags = new System.Windows.Forms.ListBox();
-            lblTags = new System.Windows.Forms.Label();
             dtpDateToTags = new System.Windows.Forms.DateTimePicker();
             lblPeriod = new System.Windows.Forms.Label();
             dtpDateFromTags = new System.Windows.Forms.DateTimePicker();
@@ -161,8 +159,6 @@
             // 
             // pnlTags
             // 
-            pnlTags.Controls.Add(listTags);
-            pnlTags.Controls.Add(lblTags);
             pnlTags.Controls.Add(dtpDateToTags);
             pnlTags.Controls.Add(lblPeriod);
             pnlTags.Controls.Add(dtpDateFromTags);
@@ -171,25 +167,6 @@
             pnlTags.Size = new System.Drawing.Size(307, 209);
             pnlTags.TabIndex = 9;
             pnlTags.Visible = false;
-            // 
-            // listTags
-            // 
-            listTags.FormattingEnabled = true;
-            listTags.ItemHeight = 15;
-            listTags.Location = new System.Drawing.Point(3, 73);
-            listTags.Name = "listTags";
-            listTags.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            listTags.Size = new System.Drawing.Size(301, 124);
-            listTags.TabIndex = 10;
-            // 
-            // lblTags
-            // 
-            lblTags.AutoSize = true;
-            lblTags.Location = new System.Drawing.Point(3, 55);
-            lblTags.Name = "lblTags";
-            lblTags.Size = new System.Drawing.Size(25, 15);
-            lblTags.TabIndex = 7;
-            lblTags.Text = "Тег";
             // 
             // dtpDateToTags
             // 
@@ -331,11 +308,9 @@
         private System.Windows.Forms.Label lblBudgetVacancies;
         private System.Windows.Forms.Button btnGenerate;
         private System.Windows.Forms.Panel pnlTags;
-        private System.Windows.Forms.Label lblTags;
         private System.Windows.Forms.DateTimePicker dtpDateToTags;
         private System.Windows.Forms.Label lblPeriod;
         private System.Windows.Forms.DateTimePicker dtpDateFromTags;
-        private System.Windows.Forms.ListBox listTags;
         private System.Windows.Forms.Panel pnlResponses;
         private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.Label lblAuthor;
