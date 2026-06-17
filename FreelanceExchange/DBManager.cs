@@ -578,94 +578,57 @@ namespace FreelanceExchange
 
             connection.Open();
 
-            using var adapter =
-                new NpgsqlDataAdapter(command);
+            using var adapter = new NpgsqlDataAdapter(command);
 
             adapter.Fill(table);
 
             return table;
         }
 
-        public DataTable GetTagsReport(
-    DateTime dateFrom,
-    DateTime dateTo)
+        public DataTable GetTagsReport(DateTime dateFrom, DateTime dateTo)
         {
             DataTable table = new();
 
-            const string sql = @"
-        SELECT
-            t.name AS tag,
-            COUNT(*) AS vacancies_count
-        FROM vacancy_tags vt
-        JOIN tags t
-            ON t.id = vt.tag_id
-        JOIN vacancies v
-            ON v.id = vt.vacancy_id
-        WHERE v.publication_date
-            BETWEEN @dateFrom AND @dateTo
-        GROUP BY t.name
-        ORDER BY vacancies_count DESC";
+            string sql = "SELECT t.name AS tag, COUNT(*) AS vacancies_count " +
+                   "FROM vacancy_tags AS vt " +
+                   "INNER JOIN tags AS t ON t.id = vt.tag_id " +
+                   "INNER JOIN vacancies AS v ON v.id = vt.vacancy_id " +
+                   $"WHERE v.publication_date >= '{dateFrom.ToString("yyyy-MM-dd")}' AND v.publication_date <= '{dateTo.ToString("yyyy-MM-dd")}' " +
+                   "GROUP BY t.name " +
+                   "ORDER BY vacancies_count DESC;";
 
-            using var connection =
-                new NpgsqlConnection(connectionString);
+            using var connection = new NpgsqlConnection(connectionString);
 
-            using var command =
-                new NpgsqlCommand(sql, connection);
-
-            command.Parameters.AddWithValue(
-                "@dateFrom",
-                dateFrom.Date);
-
-            command.Parameters.AddWithValue(
-                "@dateTo",
-                dateTo.Date);
+            using var command = new NpgsqlCommand(sql, connection);
 
             connection.Open();
 
-            using var adapter =
-                new NpgsqlDataAdapter(command);
+            using var adapter = new NpgsqlDataAdapter(command);
 
             adapter.Fill(table);
 
             return table;
         }
 
-        public DataTable GetResponsesReport(
-    DateTime dateFrom,
-    DateTime dateTo)
+        public DataTable GetResponsesReport(DateTime dateFrom, DateTime dateTo)
         {
             DataTable table = new();
 
-            const string sql = @"
-        SELECT
-            v.title,
-            COUNT(r.id) AS responses_count
-        FROM vacancies v
-        LEFT JOIN responses r
-            ON r.vacancy_id = v.id
-        WHERE r.created_at
-            BETWEEN @dateFrom AND @dateTo
-        GROUP BY v.title
-        ORDER BY responses_count DESC";
+            string sql = "SELECT v.title, COUNT(r.id) AS responses_count " +
+                   "FROM vacancies AS v " +
+                   "LEFT JOIN responses AS r ON r.vacancy_id = v.id " +
+                   $"AND r.created_at >= '{dateFrom.ToString("yyyy-MM-dd")}' AND r.created_at <= '{dateTo.ToString("yyyy-MM-dd")}' " +
+                   "GROUP BY v.title " +
+                   "ORDER BY responses_count DESC;";
 
-            using var connection =
-                new NpgsqlConnection(connectionString);
 
-            using var command =
-                new NpgsqlCommand(sql, connection);
+            using var connection = new NpgsqlConnection(connectionString);
 
-            command.Parameters.AddWithValue(
-                "@dateFrom",
-                dateFrom);
-
-            command.Parameters.AddWithValue(
-                "@dateTo",
-                dateTo);
+            using var command = new NpgsqlCommand(sql, connection);
 
             connection.Open();
 
-            using var adapter =
-                new NpgsqlDataAdapter(command);
+            using var adapter = new NpgsqlDataAdapter(command);
 
             adapter.Fill(table);
 
