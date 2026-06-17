@@ -31,26 +31,27 @@
             cmbReportType = new System.Windows.Forms.ComboBox();
             lblReportType = new System.Windows.Forms.Label();
             pnlVacancies = new System.Windows.Forms.Panel();
+            textBox2 = new System.Windows.Forms.TextBox();
+            lblBudgetVacancies = new System.Windows.Forms.Label();
             textBox1 = new System.Windows.Forms.TextBox();
             dtpDateToVacancies = new System.Windows.Forms.DateTimePicker();
             lblDatePeriod = new System.Windows.Forms.Label();
             dtpDateFromVacancies = new System.Windows.Forms.DateTimePicker();
             cmbReports = new System.Windows.Forms.ComboBox();
-            lblBudgetVacancies = new System.Windows.Forms.Label();
-            textBox2 = new System.Windows.Forms.TextBox();
             btnGenerate = new System.Windows.Forms.Button();
             pnlTags = new System.Windows.Forms.Panel();
+            listTags = new System.Windows.Forms.ListBox();
             lblTags = new System.Windows.Forms.Label();
             dtpDateToTags = new System.Windows.Forms.DateTimePicker();
             lblPeriod = new System.Windows.Forms.Label();
             dtpDateFromTags = new System.Windows.Forms.DateTimePicker();
-            listTags = new System.Windows.Forms.ListBox();
             pnlResponses = new System.Windows.Forms.Panel();
+            textBox3 = new System.Windows.Forms.TextBox();
             lblAuthor = new System.Windows.Forms.Label();
             dtpDateToResponses = new System.Windows.Forms.DateTimePicker();
             lblPeriodResponses = new System.Windows.Forms.Label();
             dtpDateFromResponses = new System.Windows.Forms.DateTimePicker();
-            textBox3 = new System.Windows.Forms.TextBox();
+            btnCancel = new System.Windows.Forms.Button();
             pnlVacancies.SuspendLayout();
             pnlTags.SuspendLayout();
             pnlResponses.SuspendLayout();
@@ -59,9 +60,10 @@
             // cmbReportType
             // 
             cmbReportType.FormattingEnabled = true;
+            cmbReportType.Items.AddRange(new object[] { "Вакансии за период", "Статистика по тегам", "Отклики на вакансии" });
             cmbReportType.Location = new System.Drawing.Point(12, 27);
             cmbReportType.Name = "cmbReportType";
-            cmbReportType.Size = new System.Drawing.Size(121, 23);
+            cmbReportType.Size = new System.Drawing.Size(312, 23);
             cmbReportType.TabIndex = 0;
             // 
             // lblReportType
@@ -85,6 +87,24 @@
             pnlVacancies.Name = "pnlVacancies";
             pnlVacancies.Size = new System.Drawing.Size(307, 209);
             pnlVacancies.TabIndex = 2;
+            pnlVacancies.Visible = false;
+            // 
+            // textBox2
+            // 
+            textBox2.Location = new System.Drawing.Point(114, 77);
+            textBox2.Name = "textBox2";
+            textBox2.PlaceholderText = "До";
+            textBox2.Size = new System.Drawing.Size(92, 23);
+            textBox2.TabIndex = 8;
+            // 
+            // lblBudgetVacancies
+            // 
+            lblBudgetVacancies.AutoSize = true;
+            lblBudgetVacancies.Location = new System.Drawing.Point(3, 55);
+            lblBudgetVacancies.Name = "lblBudgetVacancies";
+            lblBudgetVacancies.Size = new System.Drawing.Size(50, 15);
+            lblBudgetVacancies.TabIndex = 7;
+            lblBudgetVacancies.Text = "Бюджет";
             // 
             // textBox1
             // 
@@ -123,31 +143,14 @@
             // 
             cmbReports.FormattingEnabled = true;
             cmbReports.Items.AddRange(new object[] { "PDF", "DOCX", "XLSX" });
-            cmbReports.Location = new System.Drawing.Point(12, 271);
+            cmbReports.Location = new System.Drawing.Point(12, 274);
             cmbReports.Name = "cmbReports";
-            cmbReports.Size = new System.Drawing.Size(121, 23);
+            cmbReports.Size = new System.Drawing.Size(95, 23);
             cmbReports.TabIndex = 3;
-            // 
-            // lblBudgetVacancies
-            // 
-            lblBudgetVacancies.AutoSize = true;
-            lblBudgetVacancies.Location = new System.Drawing.Point(3, 55);
-            lblBudgetVacancies.Name = "lblBudgetVacancies";
-            lblBudgetVacancies.Size = new System.Drawing.Size(50, 15);
-            lblBudgetVacancies.TabIndex = 7;
-            lblBudgetVacancies.Text = "Бюджет";
-            // 
-            // textBox2
-            // 
-            textBox2.Location = new System.Drawing.Point(114, 77);
-            textBox2.Name = "textBox2";
-            textBox2.PlaceholderText = "До";
-            textBox2.Size = new System.Drawing.Size(92, 23);
-            textBox2.TabIndex = 8;
             // 
             // btnGenerate
             // 
-            btnGenerate.Location = new System.Drawing.Point(12, 300);
+            btnGenerate.Location = new System.Drawing.Point(203, 336);
             btnGenerate.Name = "btnGenerate";
             btnGenerate.Size = new System.Drawing.Size(121, 23);
             btnGenerate.TabIndex = 4;
@@ -165,6 +168,17 @@
             pnlTags.Name = "pnlTags";
             pnlTags.Size = new System.Drawing.Size(307, 209);
             pnlTags.TabIndex = 9;
+            pnlTags.Visible = false;
+            // 
+            // listTags
+            // 
+            listTags.FormattingEnabled = true;
+            listTags.ItemHeight = 15;
+            listTags.Location = new System.Drawing.Point(3, 73);
+            listTags.Name = "listTags";
+            listTags.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
+            listTags.Size = new System.Drawing.Size(301, 139);
+            listTags.TabIndex = 10;
             // 
             // lblTags
             // 
@@ -200,16 +214,6 @@
             dtpDateFromTags.Size = new System.Drawing.Size(92, 23);
             dtpDateFromTags.TabIndex = 0;
             // 
-            // listTags
-            // 
-            listTags.FormattingEnabled = true;
-            listTags.ItemHeight = 15;
-            listTags.Location = new System.Drawing.Point(3, 73);
-            listTags.Name = "listTags";
-            listTags.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
-            listTags.Size = new System.Drawing.Size(301, 139);
-            listTags.TabIndex = 10;
-            // 
             // pnlResponses
             // 
             pnlResponses.Controls.Add(textBox3);
@@ -221,6 +225,14 @@
             pnlResponses.Name = "pnlResponses";
             pnlResponses.Size = new System.Drawing.Size(307, 209);
             pnlResponses.TabIndex = 11;
+            pnlResponses.Visible = false;
+            // 
+            // textBox3
+            // 
+            textBox3.Location = new System.Drawing.Point(3, 73);
+            textBox3.Name = "textBox3";
+            textBox3.Size = new System.Drawing.Size(100, 23);
+            textBox3.TabIndex = 8;
             // 
             // lblAuthor
             // 
@@ -256,23 +268,28 @@
             dtpDateFromResponses.Size = new System.Drawing.Size(92, 23);
             dtpDateFromResponses.TabIndex = 0;
             // 
-            // textBox3
+            // btnCancel
             // 
-            textBox3.Location = new System.Drawing.Point(3, 73);
-            textBox3.Name = "textBox3";
-            textBox3.Size = new System.Drawing.Size(100, 23);
-            textBox3.TabIndex = 8;
+            btnCancel.Location = new System.Drawing.Point(12, 336);
+            btnCancel.Name = "btnCancel";
+            btnCancel.Size = new System.Drawing.Size(121, 23);
+            btnCancel.TabIndex = 12;
+            btnCancel.Text = "Отмена";
+            btnCancel.UseVisualStyleBackColor = true;
             // 
             // ExportForm
             // 
+            AcceptButton = btnGenerate;
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            ClientSize = new System.Drawing.Size(800, 450);
-            Controls.Add(pnlResponses);
+            CancelButton = btnCancel;
+            ClientSize = new System.Drawing.Size(336, 371);
+            Controls.Add(btnCancel);
             Controls.Add(pnlTags);
+            Controls.Add(pnlResponses);
+            Controls.Add(pnlVacancies);
             Controls.Add(btnGenerate);
             Controls.Add(cmbReports);
-            Controls.Add(pnlVacancies);
             Controls.Add(lblReportType);
             Controls.Add(cmbReportType);
             Name = "ExportForm";
@@ -313,5 +330,6 @@
         private System.Windows.Forms.Label lblPeriodResponses;
         private System.Windows.Forms.DateTimePicker dtpDateFromResponses;
         private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.Button btnCancel;
     }
 }

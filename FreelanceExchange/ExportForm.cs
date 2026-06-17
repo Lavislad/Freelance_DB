@@ -12,9 +12,48 @@ namespace FreelanceExchange
 {
     public partial class ExportForm : Form
     {
-        public ExportForm()
+        Panel currentPanel;
+        DBManager dbm;
+
+        public ExportForm(string exportType, DBManager dBManager)
         {
             InitializeComponent();
+
+            LoadComboBoxes(exportType);
+            pnlVacancies.Visible = true;
+            currentPanel = pnlVacancies;
+            cmbReportType.SelectedIndexChanged += cmbReportType_SelectedIndexChanged;
+
+            dbm = dBManager;
+            LoadTags();
+        }
+
+        private void LoadComboBoxes(string exportType)
+        {
+            cmbReportType.SelectedItem = "Вакансии за период";
+            cmbReports.SelectedItem = exportType;
+        }
+
+        private void LoadTags()
+        {
+            List<string> tags = dbm.LoadTags();
+
+            foreach (string tag in tags)
+            {
+                listTags.Items.Add(tag);
+            }
+        }
+
+        private void cmbReportType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            switch (cmbReportType.SelectedItem)
+            {
+                case "Вакансии за период":
+                    currentPanel.Visible = false;
+                    pnlVacancies.Visible = true;
+                    currentPanel = pnlVacancies;
+                    break;
+            }
         }
     }
 }

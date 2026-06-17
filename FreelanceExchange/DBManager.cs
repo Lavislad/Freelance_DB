@@ -150,6 +150,30 @@ namespace FreelanceExchange
             return true;
         }
 
+        public List<string> LoadTags()
+        {
+            List<string> tags = new List<string>();
+            try
+            {
+                using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
+                {
+                    connection.Open();
+
+                    string sql = "SELECT name FROM tags";
+
+                    NpgsqlCommand command = new NpgsqlCommand(sql, connection);
+
+                    NpgsqlDataReader reader = command.ExecuteReader();
+
+                    while (reader.Read())
+                        tags.Add(reader.GetString(0));
+                }
+            }
+            catch (Exception ex) { MessageBox.Show($"Ошибка при зашрузке тегов: {ex.Message}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+
+            return tags;
+        }
+
         public void Save(string table, DataGridView dgvData, DataTable currentTable)
         {
             try

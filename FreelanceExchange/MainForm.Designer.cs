@@ -29,6 +29,9 @@
             файлToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             сохранитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             создатьОтчетToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            pDFToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            dOCXToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            xLSXToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             выходToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             редактироватьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             добавитьСтрокуToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -39,9 +42,6 @@
             btnClearFilters = new System.Windows.Forms.Button();
             txtSearch = new System.Windows.Forms.TextBox();
             lblSearch = new System.Windows.Forms.Label();
-            pDFToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            dOCXToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            xLSXToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)dgvData).BeginInit();
             menuStrip1.SuspendLayout();
             SuspendLayout();
@@ -109,6 +109,27 @@
             создатьОтчетToolStripMenuItem.Name = "создатьОтчетToolStripMenuItem";
             создатьОтчетToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             создатьОтчетToolStripMenuItem.Text = "Экспортировать в";
+            // 
+            // pDFToolStripMenuItem
+            // 
+            pDFToolStripMenuItem.Name = "pDFToolStripMenuItem";
+            pDFToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            pDFToolStripMenuItem.Text = "PDF";
+            pDFToolStripMenuItem.Click += pDFToolStripMenuItem_Click;
+            // 
+            // dOCXToolStripMenuItem
+            // 
+            dOCXToolStripMenuItem.Name = "dOCXToolStripMenuItem";
+            dOCXToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            dOCXToolStripMenuItem.Text = "DOCX";
+            dOCXToolStripMenuItem.Click += pDFToolStripMenuItem_Click;
+            // 
+            // xLSXToolStripMenuItem
+            // 
+            xLSXToolStripMenuItem.Name = "xLSXToolStripMenuItem";
+            xLSXToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            xLSXToolStripMenuItem.Text = "XLSX";
+            xLSXToolStripMenuItem.Click += pDFToolStripMenuItem_Click;
             // 
             // выходToolStripMenuItem
             // 
@@ -196,24 +217,6 @@
             lblSearch.Size = new System.Drawing.Size(105, 15);
             lblSearch.TabIndex = 12;
             lblSearch.Text = "Поиск в vacancies";
-            // 
-            // pDFToolStripMenuItem
-            // 
-            pDFToolStripMenuItem.Name = "pDFToolStripMenuItem";
-            pDFToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            pDFToolStripMenuItem.Text = "PDF";
-            // 
-            // dOCXToolStripMenuItem
-            // 
-            dOCXToolStripMenuItem.Name = "dOCXToolStripMenuItem";
-            dOCXToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            dOCXToolStripMenuItem.Text = "DOCX";
-            // 
-            // xLSXToolStripMenuItem
-            // 
-            xLSXToolStripMenuItem.Name = "xLSXToolStripMenuItem";
-            xLSXToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            xLSXToolStripMenuItem.Text = "XLSX";
             // 
             // MainForm
             // 
